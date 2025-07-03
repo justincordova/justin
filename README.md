@@ -1,6 +1,6 @@
 # Justin Cordova
 
-[🌐 Visit the Portfolio Website](https://justin-rose.vercel.app/)
+<a href="https://justin-rose.vercel.app/" target="_blank" rel="noopener noreferrer">🌐 Visit the Portfolio Website</a>
 
 ![Site Preview](public/preview.png)
 
