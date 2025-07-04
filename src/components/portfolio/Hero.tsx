@@ -23,7 +23,7 @@ const Hero = () => {
               about
               <span className="text-portfolio-glow font-semibold">
                 {" "}
-                Full-Stack development
+                full-stack development
               </span>{" "}
               and
               <span className="text-portfolio-glow font-semibold"> AI/ML</span>
