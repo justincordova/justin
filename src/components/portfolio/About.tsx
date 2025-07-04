@@ -23,7 +23,7 @@ const About = () => {
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-6 text-portfolio-glow">Profile</h3>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Computer Science student at NJIT with hands-on experience in web development, 
+                Computer Science student at NJIT with hands-on experience in full-stack development, 
                 software engineering, and a strong passion for AI/ML. I specialize in building 
                 full-stack applications and writing clean, efficient code that makes a difference.
               </p>
