@@ -1,8 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, Github, Linkedin, Download } from "lucide-react";
+import { Mail, Phone, Github, Linkedin, Download, Eye } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
 
 const Contact = () => {
+  const [resumeOpen, setResumeOpen] = useState(false);
   const contactMethods = [
     {
       icon: Mail,
@@ -104,7 +107,7 @@ const Contact = () => {
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button
                     size="lg"
-                    className="bg-gradient-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+                    className="bg-gradient-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105 min-w-[200px]"
                     asChild
                   >
                     <a href="mailto:justinavodroc@gmail.com">
@@ -112,15 +115,35 @@ const Contact = () => {
                       Send Me an Email
                     </a>
                   </Button>
-
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 transition-all duration-300"
-                  >
-                    <Download className="mr-2 h-5 w-5" />
-                    Download Resume
-                  </Button>
+                  <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 transition-all duration-300 min-w-[200px]"
+                        onClick={() => setResumeOpen(true)}
+                      >
+                        <Eye className="mr-2 h-5 w-5" />
+                        Preview Resume
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent
+                      className="max-w-3xl w-full p-0 overflow-hidden flex flex-col"
+                      style={{ height: "85vh" }}
+                    >
+                      <div
+                        className="relative w-full flex-1 flex flex-col"
+                        style={{ paddingTop: "2.5rem" }}
+                      >
+                        <iframe
+                          src="/resume.pdf"
+                          title="Resume Preview"
+                          className="w-full h-full border-0"
+                          loading="lazy"
+                        />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </CardContent>
             </Card>

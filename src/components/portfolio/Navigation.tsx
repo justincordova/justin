@@ -18,21 +18,28 @@ const Navigation = () => {
     const handleScroll = () => {
       const sections = navItems.map((item) => item.href.substring(1));
       const scrollPosition = window.scrollY + 100;
-
+      let found = false;
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-
           if (
             scrollPosition >= offsetTop &&
             scrollPosition < offsetTop + offsetHeight
           ) {
             setActiveSection(section);
+            found = true;
             break;
           }
         }
+      }
+      // If at the very top, clear highlight
+      const firstSection = document.getElementById(sections[0]);
+      if (firstSection && window.scrollY < firstSection.offsetTop - 50) {
+        setActiveSection("");
+      } else if (!found) {
+        // If not at top and no section found, keep previous
       }
     };
 
@@ -51,16 +58,14 @@ const Navigation = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="container max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex flex-col md:flex-row items-center justify-center h-16 w-full gap-2 md:gap-6">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+            className="text-xl font-bold bg-gradient-text bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 mb-1 md:mb-0"
           >
             justin cordova
           </button>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="flex items-center space-x-1">
             {navItems.map((item) => (
               <Button
                 key={item.href}
@@ -76,13 +81,12 @@ const Navigation = () => {
               </Button>
             ))}
           </div>
-
           {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden"
+            className="md:hidden absolute right-6 top-4"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
