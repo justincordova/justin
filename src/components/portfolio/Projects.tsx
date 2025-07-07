@@ -35,7 +35,7 @@ const Projects = () => {
       color: "portfolio-accent",
       icon: "🧸",
       codeLink: "https://github.com/JustinCordova/PlushPals",
-      demoLink: "",
+      demoLink: "https://plushpals.onrender.com/",
     },
     {
       title: "Student Depression Prediction",
