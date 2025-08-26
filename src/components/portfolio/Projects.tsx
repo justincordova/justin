@@ -6,6 +6,33 @@ import { Calendar, ExternalLink, Github } from "lucide-react";
 const Projects = () => {
   const projects = [
     {
+      title: "FindU",
+      subtitle: "College-Exclusive Dating App",
+      period: "August 2025 - Present",
+      technologies: [
+        "React Native Expo",
+        "Node.js",
+        "Express",
+        "PostgreSQL",
+        "Socket.IO",
+        "Zustand",
+        "Stripe",
+      ],
+      description:
+        "A dating app exclusively for college students with .edu emails. Users can only connect with students from their own college. Includes profiles, likes, super likes, subscriptions, safety features, and a community-driven experience.",
+      features: [
+        "College-restricted authentication using .edu emails",
+        "User profiles with likes, super likes, and matchmaking",
+        "Subscription tiers for premium features",
+        "Real-time messaging, notifications, and presence via Socket.IO",
+        "Safety and community-driven features to foster a secure environment",
+      ],
+      color: "portfolio-glow",
+      icon: "🎓",
+      codeLink: "https://github.com/justincordova/findu",
+      demoLink: "https://findu-demo.com",
+    },
+    {
       title: "Bunso",
       subtitle: "Full-Stack Social Media Platform",
       period: "May 2025 - July 2025",
@@ -18,7 +45,7 @@ const Projects = () => {
       ],
       color: "portfolio-glow",
       icon: "🌐",
-      codeLink: "https://github.com/JustinCordova/bunso",
+      codeLink: "https://github.com/justincordova/bunso",
       demoLink: "https://bunso-demo.com",
     },
     {
@@ -34,7 +61,7 @@ const Projects = () => {
       ],
       color: "portfolio-accent",
       icon: "🧸",
-      codeLink: "https://github.com/JustinCordova/PlushPals",
+      codeLink: "https://github.com/justincordova/PlushPals",
       demoLink: "https://plushpals.onrender.com/",
     },
     {
@@ -74,7 +101,7 @@ const Projects = () => {
           <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
           <p className="text-xl text-muted-foreground mt-6 max-w-3xl mx-auto">
             A showcase of my passion for building innovative solutions across
-            web development and machine learning
+            full-stack development and machine learning
           </p>
         </div>
 

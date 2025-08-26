@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -6,13 +6,16 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
-  const navItems = [
-    { href: "#about", label: "About" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
-    { href: "#projects", label: "Projects" },
-    { href: "#contact", label: "Contact" },
-  ];
+  const navItems = useMemo(
+    () => [
+      { href: "#about", label: "About" },
+      { href: "#skills", label: "Skills" },
+      { href: "#experience", label: "Experience" },
+      { href: "#projects", label: "Projects" },
+      { href: "#contact", label: "Contact" },
+    ],
+    []
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +48,7 @@ const Navigation = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [navItems]);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);

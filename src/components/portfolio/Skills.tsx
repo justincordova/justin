@@ -6,27 +6,70 @@ const Skills = () => {
     {
       title: "Languages & Databases",
       icon: "💻",
-      skills: ["JavaScript", "TypeScript", "Python", "C++", "C", "Java", "PHP", "MongoDB", "PostgreSQL"],
-      color: "portfolio-glow"
+      skills: [
+        "C#",
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "C",
+        "C++",
+        "Java",
+        "SQL (MySQL, PostgreSQL)"
+      ],
+      color: "portfolio-glow",
     },
     {
-      title: "Frameworks & Libraries", 
+      title: "Frameworks & Libraries",
       icon: "🚀",
-      skills: ["Django", "React", "Node", "Express", "Next.js", "Bootstrap", "Tailwind CSS"],
-      color: "portfolio-accent"
+      skills: [
+        ".NET",
+        "EF Core",
+        "NUnit",
+        "WinForms",
+        "React",
+        "React Native",
+        "Expo",
+        "Node.js",
+        "Express",
+        "Next.js",
+        "Django",
+        "Tailwind CSS",
+        "Prisma",
+      ],
+      color: "portfolio-accent",
     },
     {
-      title: "ML Libraries",
-      icon: "🤖", 
-      skills: ["NumPy", "Pandas", "Seaborn", "Scikit-learn", "TensorFlow", "NLTK"],
-      color: "portfolio-glow"
+      title: "Libraries & Tools",
+      icon: "📚",
+      skills: [
+        "NHibernate",
+        "Zustand",
+        "Redux",
+        "Axios",
+        "React Hook Form",
+        "Jest",
+        "NumPy",
+        "Pandas",
+        "Seaborn",
+        "Scikit-learn",
+      ],
+      color: "portfolio-glow",
     },
     {
       title: "Developer Tools & Methodologies",
       icon: "🛠️",
-      skills: ["Git", "Postman", "MongoDB Compass", "Bash", "Agile", "Scrum", "Jupyter Notebook", "ChatGPT", "Claude", "Cursor"],
-      color: "portfolio-accent"
-    }
+      skills: [
+        "Git",
+        "Postman",
+        "Agile",
+        "Scrum",
+        "Jupyter Notebook",
+        "ChatGPT",
+        "Claude",
+        "Cursor",
+      ],
+      color: "portfolio-accent",
+    },
   ];
 
   return (
@@ -56,7 +99,9 @@ const Skills = () => {
                   <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
                     {category.icon}
                   </span>
-                  <span className={`text-${category.color} group-hover:text-portfolio-glow transition-colors duration-300`}>
+                  <span
+                    className={`text-${category.color} group-hover:text-portfolio-glow transition-colors duration-300`}
+                  >
                     {category.title}
                   </span>
                 </CardTitle>
@@ -68,7 +113,9 @@ const Skills = () => {
                       key={skill}
                       variant="secondary"
                       className={`hover:bg-${category.color}/20 hover:border-${category.color}/50 transition-all duration-300 hover:scale-105 cursor-default`}
-                      style={{ animationDelay: `${(index * 150) + (skillIndex * 50)}ms` }}
+                      style={{
+                        animationDelay: `${index * 150 + skillIndex * 50}ms`,
+                      }}
                     >
                       {skill}
                     </Badge>
@@ -77,18 +124,6 @@ const Skills = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <Card className="bg-gradient-card border-border/50 max-w-2xl mx-auto">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4 text-portfolio-glow">Always Learning</h3>
-              <p className="text-muted-foreground">
-                Technology evolves rapidly, and so do I. I'm constantly exploring new frameworks, 
-                tools, and methodologies to stay at the forefront of software development and machine learning.
-              </p>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>

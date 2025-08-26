@@ -23,9 +23,8 @@ const About = () => {
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-6 text-portfolio-glow">Profile</h3>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Computer Science student at NJIT with hands-on experience in full-stack development, 
-                software engineering, and a strong passion for AI/ML. I specialize in building 
-                full-stack applications and writing clean, efficient code that makes a difference.
+                Computer Science student at NJIT with hands-on experience in full-stack development and 
+                software engineering. I specialize in building mobile apps, web apps, and desktop apps.
               </p>
               
               <div className="space-y-4">
@@ -68,9 +67,8 @@ const About = () => {
               <div className="mt-8 p-6 bg-portfolio-section rounded-lg border border-border/30">
                 <h4 className="text-lg font-semibold mb-3 text-portfolio-glow">Current Focus</h4>
                 <p className="text-muted-foreground">
-                  Currently diving deep into machine learning and full-stack development, 
-                  while building projects that combine both worlds to create intelligent, 
-                  user-friendly applications.
+                  Currently diving deep into .NET development (C#, ASP.NET Core, Winforms) and also 
+                  building projects with React, Node.js, and Express.
                 </p>
               </div>
             </CardContent>
