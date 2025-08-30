@@ -23,7 +23,7 @@ const experiences = [
     ]
   },
   {
-    title: "Software Engineering Intern – MyRideLink",
+    title: "Software Engineering Intern",
     company: "MyRideLink",
     period: "July 2025 – September 2025",
     location: "Remote",
