@@ -90,59 +90,64 @@ const Projects = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-portfolio-section/30" id="projects">
+    <section
+      className="py-16 sm:py-20 px-4 sm:px-6 bg-portfolio-section/30"
+      id="projects"
+    >
       <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             <span className="bg-gradient-text bg-clip-text text-transparent">
               Featured Projects
             </span>
           </h2>
           <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-          <p className="text-xl text-muted-foreground mt-6 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground mt-4 sm:mt-6 max-w-3xl mx-auto px-4">
             A showcase of my passion for building innovative solutions across
             full-stack development and machine learning
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {projects.map((project, index) => (
             <Card
               key={project.title}
               className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500 hover:scale-[1.02] group"
               style={{ animationDelay: `${index * 200}ms` }}
             >
-              <CardHeader className="pb-6">
-                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+              <CardHeader className="pb-4 sm:pb-6">
+                <div className="flex flex-col gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                      <span className="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
                         {project.icon}
                       </span>
                       <CardTitle
-                        className={`text-2xl text-${project.color} group-hover:text-portfolio-glow transition-colors duration-300`}
+                        className={`text-xl sm:text-2xl text-${project.color} group-hover:text-portfolio-glow transition-colors duration-300`}
                       >
                         {project.title}
                       </CardTitle>
                     </div>
-                    <p className="text-lg text-portfolio-accent font-medium mb-3">
+                    <p className="text-base sm:text-lg text-portfolio-accent font-medium mb-2 sm:mb-3">
                       {project.subtitle}
                     </p>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-4">
+                    <div className="flex items-center gap-2 text-muted-foreground mb-3 sm:mb-4">
                       <Calendar className="h-4 w-4" />
-                      <span>{project.period}</span>
+                      <span className="text-sm sm:text-base">
+                        {project.period}
+                      </span>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
                       {project.description}
                     </p>
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                     <Button
                       asChild
                       variant="outline"
                       size="sm"
-                      className="border-portfolio-glow/30 hover:border-portfolio-glow hover:bg-portfolio-glow/10"
+                      className="border-portfolio-glow/30 hover:border-portfolio-glow hover:bg-portfolio-glow/10 w-full sm:w-auto"
                     >
                       <a
                         href={project.codeLink}
@@ -158,7 +163,7 @@ const Projects = () => {
                         asChild
                         variant="outline"
                         size="sm"
-                        className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10"
+                        className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 w-full sm:w-auto"
                       >
                         <a
                           href={project.demoLink}
@@ -174,18 +179,18 @@ const Projects = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
+              <CardContent className="space-y-4 sm:space-y-6">
+                <div className="space-y-3 sm:space-y-4">
                   {project.features.map((feature, featureIndex) => (
                     <div
                       key={featureIndex}
-                      className="p-4 bg-portfolio-section rounded-lg border border-border/30 hover:border-portfolio-glow/30 transition-all duration-300"
+                      className="p-3 sm:p-4 bg-portfolio-section rounded-lg border border-border/30 hover:border-portfolio-glow/30 transition-all duration-300"
                     >
-                      <div className="flex items-start gap-3">
+                      <div className="flex items-start gap-2 sm:gap-3">
                         <div
                           className={`w-2 h-2 bg-${project.color} rounded-full mt-2 flex-shrink-0`}
                         ></div>
-                        <p className="text-muted-foreground leading-relaxed">
+                        <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
                           {feature}
                         </p>
                       </div>
@@ -194,15 +199,15 @@ const Projects = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-3 text-foreground">
+                  <h4 className="font-semibold mb-2 sm:mb-3 text-foreground text-sm sm:text-base">
                     Technologies Used
                   </h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {project.technologies.map((tech) => (
                       <Badge
                         key={tech}
                         variant="secondary"
-                        className={`hover:bg-${project.color}/20 hover:border-${project.color}/50 transition-all duration-300 hover:scale-105`}
+                        className={`hover:bg-${project.color}/20 hover:border-${project.color}/50 transition-all duration-300 hover:scale-105 text-xs sm:text-sm`}
                       >
                         {tech}
                       </Badge>
@@ -214,20 +219,20 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-12 sm:mt-16 text-center">
           <Card className="bg-gradient-card border-border/50 max-w-2xl mx-auto">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4 text-portfolio-glow">
+            <CardContent className="p-6 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-portfolio-glow">
                 More Projects Coming Soon
               </h3>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-muted-foreground mb-4 sm:mb-6 text-sm sm:text-base px-4">
                 I'm constantly working on new projects that push the boundaries
                 of what's possible with modern web technologies and machine
                 learning. Stay tuned for more exciting developments!
               </p>
               <Button
                 variant="outline"
-                className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10"
+                className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 w-full sm:w-auto"
               >
                 <Github className="h-4 w-4 mr-2" />
                 View All on GitHub

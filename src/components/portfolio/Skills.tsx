@@ -14,7 +14,7 @@ const Skills = () => {
         "C",
         "C++",
         "Java",
-        "SQL (MySQL, PostgreSQL)"
+        "SQL (MySQL, PostgreSQL)",
       ],
       color: "portfolio-glow",
     },
@@ -73,30 +73,33 @@ const Skills = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-portfolio-section/30" id="skills">
+    <section
+      className="py-16 sm:py-20 px-4 sm:px-6 bg-portfolio-section/30"
+      id="skills"
+    >
       <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             <span className="bg-gradient-text bg-clip-text text-transparent">
               Technical Skills
             </span>
           </h2>
           <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-          <p className="text-xl text-muted-foreground mt-6 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground mt-4 sm:mt-6 max-w-3xl mx-auto px-4">
             A comprehensive toolkit for building modern, scalable applications
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
           {skillCategories.map((category, index) => (
             <Card
               key={category.title}
               className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500 hover:scale-105 group"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+              <CardHeader className="pb-3 sm:pb-4">
+                <CardTitle className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl">
+                  <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">
                     {category.icon}
                   </span>
                   <span
@@ -107,12 +110,12 @@ const Skills = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {category.skills.map((skill, skillIndex) => (
                     <Badge
                       key={skill}
                       variant="secondary"
-                      className={`hover:bg-${category.color}/20 hover:border-${category.color}/50 transition-all duration-300 hover:scale-105 cursor-default`}
+                      className={`hover:bg-${category.color}/20 hover:border-${category.color}/50 transition-all duration-300 hover:scale-105 cursor-default text-xs sm:text-sm`}
                       style={{
                         animationDelay: `${index * 150 + skillIndex * 50}ms`,
                       }}

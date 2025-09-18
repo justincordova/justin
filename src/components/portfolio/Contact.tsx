@@ -31,16 +31,16 @@ const Contact = () => {
   ];
 
   return (
-    <section className="py-20 px-6" id="contact">
+    <section className="py-16 sm:py-20 px-4 sm:px-6" id="contact">
       <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             <span className="bg-gradient-text bg-clip-text text-transparent">
               Let's Connect
             </span>
           </h2>
           <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-          <p className="text-xl text-muted-foreground mt-6 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground mt-4 sm:mt-6 max-w-3xl mx-auto px-4">
             Ready to discuss opportunities, collaborate on projects, or just
             have a great conversation about technology? I'd love to hear from
             you!
@@ -48,16 +48,16 @@ const Contact = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
             {contactMethods.map((method, index) => {
               const IconComponent = method.icon;
               return (
                 <Card
                   key={method.label}
-                  className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500 hover:scale-105 group cursor-pointer flex-1 min-w-[220px] max-w-xs"
+                  className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500 hover:scale-105 group cursor-pointer"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <CardContent className="p-6 text-center">
+                  <CardContent className="p-4 sm:p-6 text-center">
                     <a
                       href={method.href}
                       target={
@@ -71,17 +71,17 @@ const Contact = () => {
                       className="block"
                     >
                       <div
-                        className={`w-12 h-12 bg-${method.color}/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-${method.color}/30 transition-colors duration-300`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 bg-${method.color}/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-${method.color}/30 transition-colors duration-300`}
                       >
                         <IconComponent
-                          className={`h-6 w-6 text-${method.color} group-hover:scale-110 transition-transform duration-300`}
+                          className={`h-5 w-5 sm:h-6 sm:w-6 text-${method.color} group-hover:scale-110 transition-transform duration-300`}
                         />
                       </div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="font-semibold text-foreground mb-2 text-sm sm:text-base">
                         {method.label}
                       </h3>
                       <p
-                        className={`text-sm text-muted-foreground group-hover:text-${method.color} transition-colors duration-300 break-all`}
+                        className={`text-xs sm:text-sm text-muted-foreground group-hover:text-${method.color} transition-colors duration-300 break-all`}
                       >
                         {method.value}
                       </p>
@@ -92,22 +92,22 @@ const Contact = () => {
             })}
           </div>
 
-          <div className="text-center space-y-8">
+          <div className="text-center space-y-6 sm:space-y-8">
             <Card className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4 text-portfolio-glow">
+              <CardContent className="p-6 sm:p-8">
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-portfolio-glow">
                   Ready to Work Together?
                 </h3>
-                <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                <p className="text-muted-foreground mb-4 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base px-4">
                   Whether you're looking for a passionate developer for your
                   team, have an exciting project in mind, or want to discuss the
                   latest in web development and AI/ML, I'm always excited to
                   connect with fellow innovators.
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                   <Button
                     size="lg"
-                    className="bg-gradient-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105 min-w-[200px]"
+                    className="bg-gradient-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105 w-full sm:w-auto sm:min-w-[200px]"
                     asChild
                   >
                     <a href="mailto:justinavodroc@gmail.com">
@@ -120,7 +120,7 @@ const Contact = () => {
                       <Button
                         variant="outline"
                         size="lg"
-                        className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 transition-all duration-300 min-w-[200px]"
+                        className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 transition-all duration-300 w-full sm:w-auto sm:min-w-[200px]"
                         onClick={() => setResumeOpen(true)}
                       >
                         <Eye className="mr-2 h-5 w-5" />
@@ -128,7 +128,7 @@ const Contact = () => {
                       </Button>
                     </DialogTrigger>
                     <DialogContent
-                      className="max-w-3xl w-full p-0 overflow-hidden flex flex-col"
+                      className="max-w-[95vw] sm:max-w-3xl w-full p-0 overflow-hidden flex flex-col"
                       style={{ height: "85vh" }}
                     >
                       <div
@@ -148,8 +148,8 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <div className="p-6 bg-portfolio-section/50 rounded-lg border border-border/30">
-              <p className="text-sm text-muted-foreground">
+            <div className="p-4 sm:p-6 bg-portfolio-section/50 rounded-lg border border-border/30">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 <span className="text-portfolio-glow font-medium">
                   Currently:
                 </span>{" "}
