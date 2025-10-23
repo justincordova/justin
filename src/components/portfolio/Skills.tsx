@@ -12,9 +12,8 @@ const Skills = () => {
         "TypeScript",
         "Python",
         "C",
-        "C++",
-        "Java",
-        "SQL (MySQL, PostgreSQL)",
+        "MySQL",
+        "PostgreSQL"
       ],
       color: "portfolio-glow",
     },
@@ -24,6 +23,7 @@ const Skills = () => {
       skills: [
         ".NET",
         "EF Core",
+        "NHibernate",
         "NUnit",
         "WinForms",
         "React",
@@ -35,25 +35,10 @@ const Skills = () => {
         "Django",
         "Tailwind CSS",
         "Prisma",
+        "Zustand",
+        "Redux"
       ],
       color: "portfolio-accent",
-    },
-    {
-      title: "Libraries & Tools",
-      icon: "📚",
-      skills: [
-        "NHibernate",
-        "Zustand",
-        "Redux",
-        "Axios",
-        "React Hook Form",
-        "Jest",
-        "NumPy",
-        "Pandas",
-        "Seaborn",
-        "Scikit-learn",
-      ],
-      color: "portfolio-glow",
     },
     {
       title: "Developer Tools & Methodologies",
@@ -61,16 +46,28 @@ const Skills = () => {
       skills: [
         "Git",
         "Postman",
-        "Agile",
-        "Scrum",
         "Jupyter Notebook",
-        "ChatGPT",
-        "Claude",
-        "Cursor",
+        "Docker",
+        "Jest",
+        "Agile",
+        "Scrum"
       ],
       color: "portfolio-accent",
     },
+    {
+      title: "Data & Machine Learning",
+      icon: "📊",
+      skills: [
+        "NumPy",
+        "Pandas",
+        "Scikit-learn",
+        "Seaborn",
+        "Matplotlib"
+      ],
+      color: "portfolio-glow",
+    },
   ];
+
 
   return (
     <section

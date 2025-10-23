@@ -225,11 +225,6 @@ const Projects = () => {
               <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-portfolio-glow">
                 More Projects Coming Soon
               </h3>
-              <p className="text-muted-foreground mb-4 sm:mb-6 text-sm sm:text-base px-4">
-                I'm constantly working on new projects that push the boundaries
-                of what's possible with modern web technologies and machine
-                learning. Stay tuned for more exciting developments!
-              </p>
               <Button
                 variant="outline"
                 className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 w-full sm:w-auto"

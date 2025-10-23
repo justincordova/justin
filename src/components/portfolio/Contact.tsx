@@ -96,13 +96,11 @@ const Contact = () => {
             <Card className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500">
               <CardContent className="p-6 sm:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-portfolio-glow">
-                  Ready to Work Together?
+                  Get in Touch
                 </h3>
                 <p className="text-muted-foreground mb-4 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base px-4">
-                  Whether you're looking for a passionate developer for your
-                  team, have an exciting project in mind, or want to discuss the
-                  latest in web development and AI/ML, I'm always excited to
-                  connect with fellow innovators.
+                  I'm always open to connecting—whether it's to collaborate on a
+                  project, join a team, or chat about web development and AI/ML.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                   <Button
@@ -153,7 +151,7 @@ const Contact = () => {
                 <span className="text-portfolio-glow font-medium">
                   Currently:
                 </span>{" "}
-                Available for internships, part-time opportunities, and exciting
+                Available for internships, part-time opportunities, and
                 projects. Expected graduation: Fall 2026.
               </p>
             </div>
