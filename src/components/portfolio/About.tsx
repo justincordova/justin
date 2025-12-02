@@ -47,7 +47,7 @@ const About = () => {
                       B.S. Computer Science
                     </p>
                     <p className="text-xs sm:text-sm text-portfolio-glow">
-                      Expected Fall 2026 • Newark, New Jersey
+                      Expected December 2026 • Newark, New Jersey
                     </p>
                     <div className="mt-2 flex flex-wrap gap-1 sm:gap-2">
                       <Badge variant="secondary" className="text-xs">

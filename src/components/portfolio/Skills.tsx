@@ -13,7 +13,8 @@ const Skills = () => {
         "Python",
         "C",
         "MySQL",
-        "PostgreSQL"
+        "PostgreSQL",
+        "MongoDB",
       ],
       color: "portfolio-glow",
     },
@@ -49,8 +50,9 @@ const Skills = () => {
         "Jupyter Notebook",
         "Docker",
         "Jest",
+        "NUnit",
         "Agile",
-        "Scrum"
+        "CI/CD",
       ],
       color: "portfolio-accent",
     },

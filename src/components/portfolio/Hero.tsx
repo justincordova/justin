@@ -18,15 +18,13 @@ const Hero = () => {
               </span>
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-              Computer Science Student at NJIT passionate
+              Computer Science Student @NJIT passionate
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>about
               <span className="text-portfolio-glow font-semibold">
                 {" "}
-                full-stack development
+                software engineering
               </span>{" "}
-              and
-              <span className="text-portfolio-glow font-semibold"> AI/ML</span>
             </p>
           </div>
 

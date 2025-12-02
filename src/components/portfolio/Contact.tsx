@@ -41,9 +41,8 @@ const Contact = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
           <p className="text-lg sm:text-xl text-muted-foreground mt-4 sm:mt-6 max-w-3xl mx-auto px-4">
-            Ready to discuss opportunities, collaborate on projects, or just
-            have a great conversation about technology? I'd love to hear from
-            you!
+            Whether you want to chat about tech, team up on a project, or just
+            say hi, I’d love to connect!
           </p>
         </div>
 
@@ -152,7 +151,7 @@ const Contact = () => {
                   Currently:
                 </span>{" "}
                 Available for internships, part-time opportunities, and
-                projects. Expected graduation: Fall 2026.
+                projects. Expected graduation: December 2026.
               </p>
             </div>
           </div>

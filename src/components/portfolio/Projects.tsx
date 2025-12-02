@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, ExternalLink, Github } from "lucide-react";
 
 const Projects = () => {
   const projects = [
@@ -16,7 +15,7 @@ const Projects = () => {
         "PostgreSQL",
         "Socket.IO",
         "Zustand",
-        "Stripe",
+        "Stripe"
       ],
       description:
         "A dating app exclusively for college students with .edu emails. Users can only connect with students from their own college. Includes profiles, likes, super likes, subscriptions, safety features, and a community-driven experience.",
@@ -25,12 +24,11 @@ const Projects = () => {
         "User profiles with likes, super likes, and matchmaking",
         "Subscription tiers for premium features",
         "Real-time messaging, notifications, and presence via Socket.IO",
-        "Safety and community-driven features to foster a secure environment",
+        "Safety and community-driven features to foster a secure environment"
       ],
       color: "portfolio-glow",
-      icon: "🎓",
       codeLink: "https://github.com/justincordova/findu",
-      demoLink: "https://findu-demo.com",
+      demoLink: "https://findu-demo.com"
     },
     {
       title: "Bunso",
@@ -40,13 +38,12 @@ const Projects = () => {
       description:
         "Built a full-stack social media platform with real-time post creation, commenting, and user interaction, featuring secure authentication and rate limiting.",
       features: [
-        "Designed a responsive React frontend with advanced features like search, bookmarks, messaging, and notifications for enhanced user engagement",
-        "Developed RESTful APIs and integrated custom logging and error handling for robust backend performance and maintainability",
+        "Designed a responsive React frontend with advanced features like search, bookmarks, messaging, and notifications",
+        "Developed RESTful APIs and integrated custom logging and error handling for robust backend performance and maintainability"
       ],
       color: "portfolio-glow",
-      icon: "🌐",
       codeLink: "https://github.com/justincordova/bunso",
-      demoLink: "https://bunso-demo.com",
+      demoLink: "https://bunso-demo.com"
     },
     {
       title: "Plush Pals",
@@ -54,15 +51,14 @@ const Projects = () => {
       period: "May 2025",
       technologies: ["Django", "Python", "HTML", "CSS"],
       description:
-        "Developed a multi-page web app to showcase a collection of 8+ handcrafted plush toys, complete with images, descriptions, and pricing.",
+        "Developed a multi-page web app to showcase a collection of handcrafted plush toys with images, descriptions, and pricing.",
       features: [
-        "Built interactive features including star ratings (1–5) and user-submitted reviews, using Django Forms and template logic for live feedback display",
-        "Designed a custom admin panel to manage products and view reviews, enabling seamless content moderation and updates",
+        "Built interactive features including star ratings and user-submitted reviews using Django Forms and template logic",
+        "Designed a custom admin panel to manage products and view reviews"
       ],
       color: "portfolio-accent",
-      icon: "🧸",
       codeLink: "https://github.com/justincordova/PlushPals",
-      demoLink: "https://plushpals.onrender.com/",
+      demoLink: "https://plushpals.onrender.com/"
     },
     {
       title: "Student Depression Prediction",
@@ -74,19 +70,17 @@ const Projects = () => {
         "NumPy",
         "Seaborn",
         "Scikit-learn",
-        "Matplotlib",
+        "Matplotlib"
       ],
       description:
         "Built a supervised machine learning pipeline to predict student depression based on academic, social, and emotional indicators from a Kaggle dataset.",
       features: [
-        "Trained and fine-tuned Logistic Regression (78.3% accuracy, 0.82 F1-score) and Random Forest (76.3% accuracy, 0.80 F1-score) models using GridSearchCV",
-        "Applied preprocessing techniques such as normalization, encoding, and correlation-based feature selection; visualized key insights using Matplotlib and Seaborn",
+        "Trained and tuned Logistic Regression (78.3% accuracy, 0.82 F1-score) and Random Forest (76.3% accuracy, 0.80 F1-score) using GridSearchCV",
+        "Applied preprocessing such as normalization, encoding, and correlation-based feature selection; visualized insights using Matplotlib and Seaborn"
       ],
       color: "portfolio-glow",
-      icon: "🤖",
-      codeLink:
-        "https://github.com/JustinCordova/student-depression-prediction",
-    },
+      codeLink: "https://github.com/JustinCordova/student-depression-prediction"
+    }
   ];
 
   return (
@@ -118,25 +112,20 @@ const Projects = () => {
               <CardHeader className="pb-4 sm:pb-6">
                 <div className="flex flex-col gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                      <span className="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
-                        {project.icon}
-                      </span>
-                      <CardTitle
-                        className={`text-xl sm:text-2xl text-${project.color} group-hover:text-portfolio-glow transition-colors duration-300`}
-                      >
-                        {project.title}
-                      </CardTitle>
-                    </div>
+                    <CardTitle
+                      className={`text-xl sm:text-2xl text-${project.color} group-hover:text-portfolio-glow transition-colors duration-300`}
+                    >
+                      {project.title}
+                    </CardTitle>
+
                     <p className="text-base sm:text-lg text-portfolio-accent font-medium mb-2 sm:mb-3">
                       {project.subtitle}
                     </p>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-3 sm:mb-4">
-                      <Calendar className="h-4 w-4" />
-                      <span className="text-sm sm:text-base">
-                        {project.period}
-                      </span>
-                    </div>
+
+                    <span className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 block">
+                      {project.period}
+                    </span>
+
                     <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
                       {project.description}
                     </p>
@@ -154,10 +143,10 @@ const Projects = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Github className="h-4 w-4 mr-2" />
                         Code
                       </a>
                     </Button>
+
                     {project.demoLink && (
                       <Button
                         asChild
@@ -170,7 +159,6 @@ const Projects = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <ExternalLink className="h-4 w-4 mr-2" />
                           Live Demo
                         </a>
                       </Button>
@@ -229,7 +217,6 @@ const Projects = () => {
                 variant="outline"
                 className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 w-full sm:w-auto"
               >
-                <Github className="h-4 w-4 mr-2" />
                 View All on GitHub
               </Button>
             </CardContent>
