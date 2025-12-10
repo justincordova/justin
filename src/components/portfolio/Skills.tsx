@@ -1,5 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 const Skills = () => {
   const skillCategories = [
@@ -72,59 +70,39 @@ const Skills = () => {
 
 
   return (
-    <section
-      className="py-16 sm:py-20 px-4 sm:px-6 bg-portfolio-section/30"
-      id="skills"
-    >
-      <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="bg-gradient-text bg-clip-text text-transparent">
-              Technical Skills
-            </span>
+    <section className="py-24 lg:py-32 px-4 sm:px-6" id="skills">
+      <div className="container max-w-5xl mx-auto">
+        <div className="mb-16 lg:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
+            Technical Skills
           </h2>
-          <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-          <p className="text-lg sm:text-xl text-muted-foreground mt-4 sm:mt-6 max-w-3xl mx-auto px-4">
+          <div className="h-1 w-20 bg-primary rounded-full"></div>
+          <p className="text-lg text-muted-foreground mt-8 max-w-2xl">
             A comprehensive toolkit for building modern, scalable applications
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-          {skillCategories.map((category, index) => (
-            <Card
-              key={category.title}
-              className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500 hover:scale-105 group"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <CardHeader className="pb-3 sm:pb-4">
-                <CardTitle className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl">
-                  <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {category.icon}
-                  </span>
+        <div className="space-y-12 lg:space-y-16">
+          {skillCategories.map((category) => (
+            <div key={category.title}>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-2xl">{category.icon}</span>
+                <h3 className="text-2xl font-serif font-bold text-foreground">
+                  {category.title}
+                </h3>
+                <div className="flex-1 h-0.5 bg-primary/20" />
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {category.skills.map((skill) => (
                   <span
-                    className={`text-${category.color} group-hover:text-portfolio-glow transition-colors duration-300`}
+                    key={skill}
+                    className="px-4 py-2 text-sm font-medium text-muted-foreground border border-border/50 rounded-lg hover:border-primary/50 hover:text-foreground hover:bg-primary/5 transition-all duration-300 cursor-default"
                   >
-                    {category.title}
+                    {skill}
                   </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                  {category.skills.map((skill, skillIndex) => (
-                    <Badge
-                      key={skill}
-                      variant="secondary"
-                      className={`hover:bg-${category.color}/20 hover:border-${category.color}/50 transition-all duration-300 hover:scale-105 cursor-default text-xs sm:text-sm`}
-                      style={{
-                        animationDelay: `${index * 150 + skillIndex * 50}ms`,
-                      }}
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

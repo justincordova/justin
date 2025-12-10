@@ -1,6 +1,4 @@
 import { Calendar, MapPin } from "lucide-react";
-import { NamedExpCard as ExpCard } from "@/components/ui/exp-card"; // your reusable card component
-import { Badge } from "@/components/ui/badge";
 
 const experiences = [
   {
@@ -79,77 +77,70 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6" id="experience">
-      <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="bg-gradient-text bg-clip-text text-transparent">
-              Experience
-            </span>
+    <section className="py-24 lg:py-32 px-4 sm:px-6" id="experience">
+      <div className="container max-w-5xl mx-auto">
+        <div className="mb-16 lg:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
+            Experience
           </h2>
-          <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
+          <div className="h-1 w-20 bg-primary rounded-full"></div>
         </div>
 
-        <div className="space-y-6 sm:space-y-8 max-w-4xl mx-auto">
+        <div className="space-y-8 lg:space-y-12">
           {experiences.map((exp, index) => (
-            <ExpCard key={index}>
-              <ExpCard.Header>
-                <div className="flex flex-col gap-4">
-                  <div>
-                    <ExpCard.Title className="text-xl sm:text-2xl text-portfolio-glow mb-2">
-                      {exp.title}
-                    </ExpCard.Title>
-                    <p className="text-base sm:text-lg text-portfolio-accent font-medium">
-                      {exp.company}
-                    </p>
+            <div
+              key={index}
+              className="relative pl-8 pb-8 border-l-2 border-primary/30 last:pb-0 last:border-l-0"
+            >
+              {/* Timeline dot */}
+              <div className="absolute -left-4 -top-2 w-6 h-6 rounded-full bg-primary border-4 border-background" />
+
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-2xl font-serif font-bold text-foreground">
+                    {exp.title}
+                  </h3>
+                  <p className="text-primary font-medium text-lg">
+                    {exp.company}
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    <span>{exp.period}</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between gap-2 text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4" />
-                      <span className="text-sm sm:text-base">{exp.period}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4" />
-                      <span className="text-sm sm:text-base">
-                        {exp.location}
-                      </span>
-                    </div>
+                  <div className="hidden sm:block w-1 h-1 rounded-full bg-border" />
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    <span>{exp.location}</span>
                   </div>
                 </div>
-              </ExpCard.Header>
 
-              <ExpCard.Content>
-                <div className="grid gap-3 sm:gap-4 mb-4">
+                <div className="space-y-3 pt-4">
                   {exp.highlights.map((highlight, i) => (
-                    <div
+                    <p
                       key={i}
-                      className="p-3 sm:p-4 bg-portfolio-section rounded-lg border border-border/30"
+                      className="text-muted-foreground leading-relaxed text-sm sm:text-base"
                     >
-                      <p className="text-muted-foreground text-sm sm:text-base">
-                        {highlight}
-                      </p>
-                    </div>
+                      <span className="text-primary mr-3">→</span>
+                      {highlight}
+                    </p>
                   ))}
                 </div>
 
-                <div className="pt-3 sm:pt-4">
-                  <h4 className="font-semibold mb-2 sm:mb-3 text-foreground text-sm sm:text-base">
-                    Key Skills
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {exp.skills.map((skill, i) => (
-                      <Badge
-                        key={i}
-                        variant="secondary"
-                        className="hover:bg-portfolio-glow/20 transition-colors duration-300 text-xs sm:text-sm"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
+                <div className="pt-4 flex flex-wrap gap-2">
+                  {exp.skills.map((skill, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 text-xs font-medium text-muted-foreground border border-border/50 rounded-full hover:border-primary/50 hover:text-foreground transition-all duration-300"
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
-              </ExpCard.Content>
-            </ExpCard>
+              </div>
+            </div>
           ))}
         </div>
       </div>

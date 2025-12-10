@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const About = () => {
@@ -11,92 +10,84 @@ const About = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6" id="about">
-      <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="bg-gradient-text bg-clip-text text-transparent">
-              About Me
-            </span>
+    <section className="py-24 lg:py-32 px-4 sm:px-6" id="about">
+      <div className="container max-w-5xl mx-auto">
+        <div className="mb-16 lg:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
+            About Me
           </h2>
-          <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
+          <div className="h-1 w-20 bg-primary rounded-full"></div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
-          <Card className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500">
-            <CardContent className="p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-portfolio-glow">
+        <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
+          {/* Profile - takes more space */}
+          <div className="lg:col-span-2 space-y-8">
+            <div>
+              <h3 className="text-2xl font-serif font-bold text-foreground mb-4">
                 Profile
               </h3>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6">
-                Computer Science student at NJIT with hands-on experience in
-                full-stack development and software engineering. I specialize in
-                building mobile apps, web apps, and desktop apps.
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Computer Science student at NJIT with hands-on experience in full-stack development and software engineering. I specialize in building mobile, web, and desktop applications with a focus on clean code and user-centric design.
               </p>
+            </div>
 
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-portfolio-accent">
-                    Education
-                  </h4>
-                  <div className="bg-portfolio-section p-3 sm:p-4 rounded-lg border border-border/30">
-                    <h5 className="font-medium text-foreground text-sm sm:text-base">
-                      New Jersey Institute of Technology
-                    </h5>
-                    <p className="text-muted-foreground text-sm sm:text-base">
-                      B.S. Computer Science
-                    </p>
-                    <p className="text-xs sm:text-sm text-portfolio-glow">
-                      Expected December 2026 • Newark, New Jersey
-                    </p>
-                    <div className="mt-2 flex flex-wrap gap-1 sm:gap-2">
-                      <Badge variant="secondary" className="text-xs">
-                        Highlander Achievement Scholarship
-                      </Badge>
-                      <Badge variant="secondary" className="text-xs">
-                        Dean's Scholar
-                      </Badge>
-                    </div>
-                  </div>
+            {/* Education Timeline */}
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-3">
+                <span className="h-0.5 w-8 bg-primary" />
+                Education
+              </h3>
+              <div className="pl-6 border-l-2 border-primary/30 space-y-1">
+                <h4 className="text-lg font-medium text-foreground">
+                  New Jersey Institute of Technology
+                </h4>
+                <p className="text-primary font-medium text-sm">
+                  B.S. Computer Science
+                </p>
+                <p className="text-muted-foreground text-sm">
+                  Expected December 2026 • Newark, NJ
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  <Badge variant="secondary" className="text-xs font-normal">
+                    Highlander Achievement Scholarship
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs font-normal">
+                    Dean's Scholar
+                  </Badge>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          <Card className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500">
-            <CardContent className="p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-portfolio-accent">
-                Soft Skills
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                {softSkills.map((skill, index) => (
-                  <div
-                    key={skill}
-                    className="group p-3 sm:p-4 bg-portfolio-section rounded-lg border border-border/30 hover:border-portfolio-glow/50 transition-all duration-300 hover:shadow-glow/20"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <div className="flex items-center space-x-2 sm:space-x-3">
-                      <div className="w-2 h-2 bg-gradient-primary rounded-full group-hover:scale-150 transition-transform duration-300"></div>
-                      <span className="text-xs sm:text-sm font-medium text-foreground group-hover:text-portfolio-glow transition-colors duration-300">
-                        {skill}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            {/* Current Focus */}
+            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5">
+              <h4 className="text-base font-semibold text-primary mb-3">
+                Current Focus
+              </h4>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Currently diving deep into .NET development (C#, ASP.NET Core, Winforms) and building projects with React, Node.js, and Express.
+              </p>
+            </div>
+          </div>
 
-              <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-portfolio-section rounded-lg border border-border/30">
-                <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-portfolio-glow">
-                  Current Focus
-                </h4>
-                <p className="text-muted-foreground text-sm sm:text-base">
-                  Currently diving deep into .NET development (C#, ASP.NET Core,
-                  Winforms) and also building projects with React, Node.js, and
-                  Express.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Soft Skills - sidebar */}
+          <div>
+            <h3 className="text-lg font-semibold text-foreground mb-6">
+              Key Attributes
+            </h3>
+            <div className="space-y-3">
+              {softSkills.map((skill) => (
+                <div
+                  key={skill}
+                  className="group flex items-center gap-3 p-4 rounded-lg border border-border/50 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300"
+                >
+                  <span className="w-2 h-2 rounded-full bg-primary group-hover:scale-150 transition-transform duration-300" />
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                    {skill}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

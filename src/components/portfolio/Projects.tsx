@@ -1,7 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-
 const Projects = () => {
   const projects = [
     {
@@ -27,8 +23,7 @@ const Projects = () => {
         "Safety and community-driven features to foster a secure environment"
       ],
       color: "portfolio-glow",
-      codeLink: "https://github.com/justincordova/findu",
-      demoLink: "https://findu-demo.com"
+      codeLink: "https://github.com/justincordova/findu"
     },
     {
       title: "Bunso",
@@ -42,8 +37,7 @@ const Projects = () => {
         "Developed RESTful APIs and integrated custom logging and error handling for robust backend performance and maintainability"
       ],
       color: "portfolio-glow",
-      codeLink: "https://github.com/justincordova/bunso",
-      demoLink: "https://bunso-demo.com"
+      codeLink: "https://github.com/justincordova/bunso"
     },
     {
       title: "Plush Pals",
@@ -84,143 +78,116 @@ const Projects = () => {
   ];
 
   return (
-    <section
-      className="py-16 sm:py-20 px-4 sm:px-6 bg-portfolio-section/30"
-      id="projects"
-    >
-      <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="bg-gradient-text bg-clip-text text-transparent">
-              Featured Projects
-            </span>
+    <section className="py-24 lg:py-32 px-4 sm:px-6" id="projects">
+      <div className="container max-w-5xl mx-auto">
+        <div className="mb-16 lg:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
+            Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-          <p className="text-lg sm:text-xl text-muted-foreground mt-4 sm:mt-6 max-w-3xl mx-auto px-4">
+          <div className="h-1 w-20 bg-primary rounded-full"></div>
+          <p className="text-lg text-muted-foreground mt-8 max-w-2xl">
             A showcase of my passion for building innovative solutions across
             full-stack development and machine learning
           </p>
         </div>
 
-        <div className="space-y-6 sm:space-y-8">
-          {projects.map((project, index) => (
-            <Card
+        <div className="space-y-8 lg:space-y-12">
+          {projects.map((project) => (
+            <div
               key={project.title}
-              className="bg-gradient-card border-border/50 hover:shadow-card transition-all duration-500 hover:scale-[1.02] group"
-              style={{ animationDelay: `${index * 200}ms` }}
+              className="group border border-border/50 rounded-lg p-6 lg:p-8 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
             >
-              <CardHeader className="pb-4 sm:pb-6">
-                <div className="flex flex-col gap-4">
-                  <div className="flex-1">
-                    <CardTitle
-                      className={`text-xl sm:text-2xl text-${project.color} group-hover:text-portfolio-glow transition-colors duration-300`}
-                    >
-                      {project.title}
-                    </CardTitle>
-
-                    <p className="text-base sm:text-lg text-portfolio-accent font-medium mb-2 sm:mb-3">
-                      {project.subtitle}
-                    </p>
-
-                    <span className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 block">
-                      {project.period}
-                    </span>
-
-                    <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="border-portfolio-glow/30 hover:border-portfolio-glow hover:bg-portfolio-glow/10 w-full sm:w-auto"
-                    >
-                      <a
-                        href={project.codeLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Code
-                      </a>
-                    </Button>
-
-                    {project.demoLink && (
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 w-full sm:w-auto"
-                      >
-                        <a
-                          href={project.demoLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Live Demo
-                        </a>
-                      </Button>
-                    )}
-                  </div>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-3xl font-serif font-bold text-foreground mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-primary font-medium text-lg mb-1">
+                    {project.subtitle}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {project.period}
+                  </p>
                 </div>
-              </CardHeader>
 
-              <CardContent className="space-y-4 sm:space-y-6">
-                <div className="space-y-3 sm:space-y-4">
-                  {project.features.map((feature, featureIndex) => (
-                    <div
-                      key={featureIndex}
-                      className="p-3 sm:p-4 bg-portfolio-section rounded-lg border border-border/30 hover:border-portfolio-glow/30 transition-all duration-300"
-                    >
-                      <div className="flex items-start gap-2 sm:gap-3">
-                        <div
-                          className={`w-2 h-2 bg-${project.color} rounded-full mt-2 flex-shrink-0`}
-                        ></div>
-                        <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
+                <p className="text-muted-foreground leading-relaxed">
+                  {project.description}
+                </p>
+
+                {project.features && (
+                  <div className="space-y-2 pt-4">
+                    {project.features.map((feature, i) => (
+                      <div key={i} className="flex gap-3">
+                        <span className="text-primary mt-0.5 flex-shrink-0">✓</span>
+                        <p className="text-sm text-muted-foreground">
                           {feature}
                         </p>
                       </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div>
-                  <h4 className="font-semibold mb-2 sm:mb-3 text-foreground text-sm sm:text-base">
-                    Technologies Used
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {project.technologies.map((tech) => (
-                      <Badge
-                        key={tech}
-                        variant="secondary"
-                        className={`hover:bg-${project.color}/20 hover:border-${project.color}/50 transition-all duration-300 hover:scale-105 text-xs sm:text-sm`}
-                      >
-                        {tech}
-                      </Badge>
                     ))}
                   </div>
+                )}
+
+                <div className="pt-4 space-y-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground mb-3">
+                      Tech Stack
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 text-xs font-medium text-muted-foreground border border-border/50 rounded-full hover:border-primary/50 hover:text-foreground transition-all duration-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 pt-2">
+                    <a
+                      href={project.codeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                    >
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="12 3 20.12 7.46 20.12 16.54 12 21 3.88 16.54 3.88 7.46 12 3"></polyline>
+                        <line x1="12" y1="12" x2="20.12" y2="7.46"></line>
+                        <line x1="12" y1="12" x2="12" y2="21"></line>
+                        <line x1="12" y1="12" x2="3.88" y2="7.46"></line>
+                      </svg>
+                      View Code
+                    </a>
+                    {project.demoLink && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                      >
+                        → Live Demo
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
 
-        <div className="mt-12 sm:mt-16 text-center">
-          <Card className="bg-gradient-card border-border/50 max-w-2xl mx-auto">
-            <CardContent className="p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-portfolio-glow">
-                More Projects Coming Soon
-              </h3>
-              <Button
-                variant="outline"
-                className="border-portfolio-accent/30 hover:border-portfolio-accent hover:bg-portfolio-accent/10 w-full sm:w-auto"
-              >
-                View All on GitHub
-              </Button>
-            </CardContent>
-          </Card>
+        <div className="mt-16 lg:mt-20 text-center">
+          <p className="text-muted-foreground mb-4">
+            More projects coming soon
+          </p>
+          <a
+            href="https://github.com/justincordova"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors"
+          >
+            → View all on GitHub
+          </a>
         </div>
       </div>
     </section>

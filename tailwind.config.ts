@@ -17,6 +17,10 @@ export default {
 				'2xl': '1400px'
 			}
 		},
+		fontFamily: {
+			serif: ['var(--font-serif)'],
+			sans: ['var(--font-sans)'],
+		},
 		extend: {
 			colors: {
 				border: 'hsl(var(--border))',
