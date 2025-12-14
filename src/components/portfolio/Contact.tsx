@@ -119,7 +119,7 @@ const Contact = () => {
                       style={{ paddingTop: "2.5rem" }}
                     >
                       <iframe
-                        src="/resume.pdf"
+                        src="/justincordova.pdf"
                         title="Resume Preview"
                         className="w-full h-full border-0"
                         loading="lazy"
