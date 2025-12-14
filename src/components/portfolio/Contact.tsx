@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Mail, Github, Linkedin, Eye } from "lucide-react";
+import { Mail, Github, Linkedin, Eye, Download } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 
@@ -74,61 +73,60 @@ const Contact = () => {
                 </a>
               );
             })}
-          </div>
 
-          {/* Main CTA */}
-          <div className="pt-8 border-t border-border/30">
-            <div className="space-y-4">
-              <h3 className="text-2xl font-serif font-bold text-foreground">
-                Get in Touch
-              </h3>
-              <p className="text-muted-foreground max-w-2xl">
-                Send me an email or check out my resume to learn more about my
-                experience and projects.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-primary hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-[1.02] sm:w-auto"
-                  asChild
-                >
-                  <a href="mailto:justinavodroc@gmail.com">
-                    <Mail className="mr-2 h-5 w-5" />
-                    Send Email
-                  </a>
-                </Button>
-
-                <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="border-primary/30 hover:border-primary hover:bg-primary/5 transition-all duration-300"
-                    >
-                      <Eye className="mr-2 h-5 w-5" />
-                      View Resume
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent
-                    className="max-w-[95vw] sm:max-w-3xl w-full p-0 overflow-hidden flex flex-col"
-                    style={{ height: "85vh" }}
-                  >
-                    <div
-                      className="relative w-full flex-1 flex flex-col"
-                      style={{ paddingTop: "2.5rem" }}
-                    >
-                      <iframe
-                        src="/justincordova.pdf"
-                        title="Resume Preview"
-                        className="w-full h-full border-0"
-                        loading="lazy"
-                      />
-                    </div>
-                  </DialogContent>
-                </Dialog>
+            {/* Download Resume */}
+            <a
+              href="/justincordova.pdf"
+              download="JustinCordova_Resume.pdf"
+              className="group flex items-center gap-3 text-foreground hover:text-primary transition-colors"
+            >
+              <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                <Download className="h-5 w-5 text-primary" />
               </div>
-            </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                  Resume
+                </p>
+                <p className="text-sm font-medium text-foreground">
+                  Download PDF
+                </p>
+              </div>
+            </a>
+
+            {/* View Resume */}
+            <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
+              <DialogTrigger asChild>
+                <button className="group flex items-center gap-3 text-foreground hover:text-primary transition-colors text-left">
+                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Eye className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                      Resume
+                    </p>
+                    <p className="text-sm font-medium text-foreground">
+                      View Online
+                    </p>
+                  </div>
+                </button>
+              </DialogTrigger>
+              <DialogContent
+                className="max-w-[95vw] sm:max-w-3xl w-full p-0 overflow-hidden flex flex-col"
+                style={{ height: "85vh" }}
+              >
+                <div
+                  className="relative w-full flex-1 flex flex-col"
+                  style={{ paddingTop: "2.5rem" }}
+                >
+                  <iframe
+                    src="/justincordova.pdf#navpanes=0&toolbar=0"
+                    title="Resume Preview"
+                    className="w-full h-full border-0"
+                    loading="lazy"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
           {/* Status */}
@@ -145,6 +143,9 @@ const Contact = () => {
         <div className="mt-20 pt-12 border-t border-border/20 text-center">
           <p className="text-sm text-muted-foreground">
             Built with React, TypeScript, and Tailwind CSS
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            © 2025 Justin Cordova
           </p>
         </div>
       </div>
