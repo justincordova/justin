@@ -3,24 +3,23 @@ const Projects = () => {
     {
       title: "FindU",
       subtitle: "College-Exclusive Dating App",
-      period: "August 2025 - Present",
+      period: "July 2025 - Present",
       technologies: [
-        "React Native Expo",
+        "React Native",
+        "Expo",
         "Node.js",
         "Express",
+        "Supabase",
         "PostgreSQL",
-        "Socket.IO",
-        "Zustand",
         "Stripe"
       ],
       description:
-        "A dating app exclusively for college students with .edu emails. Users can only connect with students from their own college. Includes profiles, likes, super likes, subscriptions, safety features, and a community-driven experience.",
+        "A full-stack college dating app with campus-exclusive authentication using .edu email verification, real-time matching powered by a weighted algorithm analyzing 20+ user attributes, and a swipe-based discovery interface. Designed and deployed a Node.js/Express backend with Supabase PostgreSQL for authentication, user profiles, matching logic, and real-time chat.",
       features: [
-        "College-restricted authentication using .edu emails",
-        "User profiles with likes, super likes, and matchmaking",
-        "Subscription tiers for premium features",
-        "Real-time messaging, notifications, and presence via Socket.IO",
-        "Safety and community-driven features to foster a secure environment"
+        "Weighted matching algorithm based on 20+ user attributes, improving match quality and reducing time-to-match by 40%",
+        "Real-time chat system with message persistence, read receipts, typing indicators, and photo sharing using Supabase Realtime",
+        "Campus-exclusive authentication using .edu email verification",
+        "Swipe-based discovery interface with intuitive user experience"
       ],
       color: "portfolio-glow",
       codeLink: "https://github.com/justincordova/findu"
