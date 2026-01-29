@@ -20,9 +20,7 @@ const Hero = () => {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4 font-light">
-              Computer Science Student at NJIT<br className="hidden sm:block" />
-              <span className="sm:hidden"> • </span>
-              <span className="text-primary font-medium">passionate about software engineering</span>
+              <span className="text-primary font-medium">CS @NJIT & SDE Intern @PureTechInc</span>
             </p>
           </div>
 
