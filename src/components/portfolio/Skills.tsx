@@ -8,6 +8,7 @@ const Skills = () => {
         "C#",
         "JavaScript",
         "TypeScript",
+        "Go",
         "Python",
         "C",
         "MySQL",
