@@ -8,41 +8,41 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 222 47% 3%;
-    --foreground: 210 40% 98%;
+    --background: 310 25% 6%;
+    --foreground: 310 10% 95%;
 
-    --card: 224 71% 4%;
-    --card-foreground: 210 40% 98%;
+    --card: 310 20% 9%;
+    --card-foreground: 310 10% 95%;
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 310 20% 9%;
+    --popover-foreground: 310 10% 95%;
 
-    --primary: 260 60% 55%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 320 70% 70%;
+    --primary-foreground: 310 10% 95%;
 
-    --secondary: 215 27% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 310 15% 16%;
+    --secondary-foreground: 310 10% 95%;
 
-    --muted: 215 27% 17%;
-    --muted-foreground: 217 10% 65%;
+    --muted: 310 15% 16%;
+    --muted-foreground: 310 8% 62%;
 
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 300 65% 75%;
+    --accent-foreground: 310 10% 95%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 310 10% 95%;
 
-    --border: 215 27% 17%;
-    --input: 215 27% 17%;
-    --ring: 260 60% 55%;
+    --border: 310 15% 16%;
+    --input: 310 15% 16%;
+    --ring: 320 70% 70%;
 
     --radius: 0.5rem;
 
     /* Portfolio specific colors */
-    --portfolio-glow: 280 70% 65%;
-    --portfolio-accent: 180 50% 65%;
-    --portfolio-cta: 45 90% 75%;
-    --portfolio-section: 224 71% 6%;
+    --portfolio-glow: 320 70% 70%;
+    --portfolio-accent: 300 65% 75%;
+    --portfolio-cta: 315 60% 65%;
+    --portfolio-section: 310 20% 8%;
 
     /* Font families */
     --font-serif: 'DM Serif Display', serif;
@@ -51,14 +51,14 @@ All colors MUST be HSL.
     /* Gradients */
     --gradient-primary: linear-gradient(
       135deg,
-      hsl(260 60% 55%),
-      hsl(280 70% 65%)
+      hsl(320 70% 70%),
+      hsl(300 65% 75%)
     );
-    --gradient-card: linear-gradient(145deg, hsl(224 71% 4%), hsl(224 71% 6%));
+    --gradient-card: linear-gradient(145deg, hsl(310 20% 9%), hsl(310 20% 8%));
     --gradient-text: linear-gradient(
       120deg,
-      hsl(260 60% 55%),
-      hsl(280 70% 65%)
+      hsl(320 70% 70%),
+      hsl(300 65% 75%)
     );
 
     /* Animations */
@@ -66,55 +66,55 @@ All colors MUST be HSL.
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     /* Shadows */
-    --shadow-glow: 0 0 40px hsl(280 70% 65% / 0.3);
-    --shadow-card: 0 8px 32px hsl(222 47% 3% / 0.4);
+    --shadow-glow: 0 0 40px hsl(320 70% 70% / 0.3);
+    --shadow-card: 0 8px 32px hsl(310 25% 4% / 0.4);
 
-    --sidebar-background: 224 71% 4%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 260 60% 55%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 215 27% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 215 27% 17%;
-    --sidebar-ring: 260 60% 55%;
+    --sidebar-background: 310 20% 9%;
+    --sidebar-foreground: 310 10% 95%;
+    --sidebar-primary: 320 70% 70%;
+    --sidebar-primary-foreground: 310 10% 95%;
+    --sidebar-accent: 310 15% 16%;
+    --sidebar-accent-foreground: 310 10% 95%;
+    --sidebar-border: 310 15% 16%;
+    --sidebar-ring: 320 70% 70%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 310 25% 6%;
+    --foreground: 310 10% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 310 20% 9%;
+    --card-foreground: 310 10% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 310 20% 9%;
+    --popover-foreground: 310 10% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 320 70% 70%;
+    --primary-foreground: 310 10% 95%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 310 15% 16%;
+    --secondary-foreground: 310 10% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 310 15% 16%;
+    --muted-foreground: 310 8% 62%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 300 65% 75%;
+    --accent-foreground: 310 10% 95%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 310 10% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 310 15% 16%;
+    --input: 310 15% 16%;
+    --ring: 320 70% 70%;
+    --sidebar-background: 310 20% 9%;
+    --sidebar-foreground: 310 10% 95%;
+    --sidebar-primary: 320 70% 70%;
+    --sidebar-primary-foreground: 310 10% 95%;
+    --sidebar-accent: 310 15% 16%;
+    --sidebar-accent-foreground: 310 10% 95%;
+    --sidebar-border: 310 15% 16%;
+    --sidebar-ring: 320 70% 70%;
   }
 }
 
@@ -123,9 +123,22 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  /* Smooth color transitions for color-shifting effect */
+  :root {
+    transition:
+      --background 0.3s ease-in-out,
+      --foreground 0.3s ease-in-out,
+      --card 0.3s ease-in-out,
+      --primary 0.3s ease-in-out,
+      --accent 0.3s ease-in-out,
+      --portfolio-glow 0.3s ease-in-out,
+      --portfolio-accent 0.3s ease-in-out;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -140,6 +153,9 @@ All colors MUST be HSL.
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+    }
+    :root {
+      transition: none !important;
     }
   }
 }
