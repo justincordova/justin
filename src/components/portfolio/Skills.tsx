@@ -35,12 +35,14 @@ const Skills = () => {
         "Tailwind CSS",
         "Prisma",
         "Zustand",
-        "Redux"
+        "Redux",
+        "Cobra",
+        "Viper"
       ],
       color: "portfolio-accent",
     },
     {
-      title: "Developer Tools & Methodologies",
+      title: "Developer Tools",
       icon: "🛠️",
       skills: [
         "Git",
@@ -49,10 +51,23 @@ const Skills = () => {
         "Docker",
         "Jest",
         "NUnit",
-        "Agile",
-        "CI/CD",
       ],
       color: "portfolio-accent",
+    },
+    {
+      title: "Concepts",
+      icon: "💡",
+      skills: [
+        "RESTful APIs",
+        "Microservices",
+        "CI/CD",
+        "Agile/Scrum",
+        "OOP",
+        "Design Patterns",
+        "System Design",
+        "Test-Driven Development"
+      ],
+      color: "portfolio-glow",
     },
     {
       title: "Data & Machine Learning",
