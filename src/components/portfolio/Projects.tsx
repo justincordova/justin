@@ -1,9 +1,23 @@
 const Projects = () => {
   const projects = [
     {
+      title: "DotCor",
+      subtitle: "Go-based Dotfile Manager",
+      period: "January 2026",
+      technologies: ["Go", "Cobra", "Viper", "Git"],
+      description:
+        "Developed a Go-based dotfile manager with symlink automation and Git integration, supporting cross-platform deployment across macOS, Linux, and Windows with zero-config initialization.",
+      features: [
+        "Engineered 8 CLI commands with automatic Git commits, point-in-time restoration, and per-file history tracking, enabling instant dotfile synchronization across multiple machines",
+        "Implemented safety features including credential scanning (20+ patterns), symlink health validation, and a self-healing doctor command that automatically detects and repairs broken configurations"
+      ],
+      color: "portfolio-glow",
+      codeLink: "https://github.com/justincordova/dotcor"
+    },
+    {
       title: "FindU",
       subtitle: "College-Exclusive Dating App",
-      period: "July 2025 - Present",
+      period: "July 2025 - January 2026",
       technologies: [
         "React Native",
         "Expo",
@@ -14,12 +28,11 @@ const Projects = () => {
         "Stripe"
       ],
       description:
-        "A full-stack college dating app with campus-exclusive authentication using .edu email verification, real-time matching powered by a weighted algorithm analyzing 20+ user attributes, and a swipe-based discovery interface. Designed and deployed a Node.js/Express backend with Supabase PostgreSQL for authentication, user profiles, matching logic, and real-time chat.",
+        "Developed a full-stack college dating app with campus-exclusive authentication using .edu email verification, real-time matching, and a swipe-based discovery interface.",
       features: [
-        "Weighted matching algorithm based on 20+ user attributes, improving match quality and reducing time-to-match by 40%",
-        "Real-time chat system with message persistence, read receipts, typing indicators, and photo sharing using Supabase Realtime",
-        "Campus-exclusive authentication using .edu email verification",
-        "Swipe-based discovery interface with intuitive user experience"
+        "Designed and deployed a Node.js/Express backend with Supabase PostgreSQL, powering authentication, user profiles, matching, and chatting logic",
+        "Created a weighted matching algorithm based on 20+ user attributes, improving match quality and reducing time-to-match by 40%",
+        "Implemented a real-time chat system with message persistence, read receipts, typing indicators, and photo sharing using Supabase Realtime"
       ],
       color: "portfolio-glow",
       codeLink: "https://github.com/justincordova/findu"
@@ -30,10 +43,9 @@ const Projects = () => {
       period: "May 2025 - July 2025",
       technologies: ["React", "Node.js", "Express", "MongoDB"],
       description:
-        "Built a full-stack social media platform with real-time post creation, commenting, and user interaction, featuring secure authentication and rate limiting.",
+        "Built a full-stack social media platform with real-time post creation, nested comments, direct messaging, and JWT authentication with rate limiting (100 requests/min).",
       features: [
-        "Designed a responsive React frontend with advanced features like search, bookmarks, messaging, and notifications",
-        "Developed RESTful APIs and integrated custom logging and error handling for robust backend performance and maintainability"
+        "Optimized frontend and backend with pagination and query caching, reducing page load times by 60% and database query volume by 50%"
       ],
       color: "portfolio-glow",
       codeLink: "https://github.com/justincordova/bunso"
