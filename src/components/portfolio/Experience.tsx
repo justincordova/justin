@@ -7,11 +7,10 @@ const experiences = [
     period: "August 2025 – Present",
     location: "Remote",
     highlights: [
-      "Engineered a modular cleanup engine with retention rules, estimations, and batch operations capable of processing 1M+ records/hour while maintaining 100% transactional integrity.",
-      "Built a C# maintenance utility for Retail Management Hero (RMH) reducing legacy data bloat by 40% and improving average query performance by 25%.",
-      "Architected a strict layered system with Fluent NHibernate, async operations, and dependency injection, increasing maintainability and reducing code duplication by 35%.",
-      "Developed a scriptable CLI with REPL mode, tab-completion, history, piped input support, and automation-friendly exit codes, cutting manual maintenance time by 50%.",
-      "Built NUnit test suites covering repositories, cleanup rules, schema validation, and service-layer behavior, achieving 85% test coverage and eliminating multiple production regressions during rollout.",
+      "Engineered a modular cleanup engine in C# for Retail Management Hero (RMH) with retention rules, estimations, and batch operations capable of processing 1M+ records/hour while maintaining 100% transactional integrity.",
+      "Architected a strict layered system with Fluent NHibernate and async workflows, reducing legacy data bloat by 40%, improving query performance by 25%, and cutting code duplication by 35%.",
+      "Developed a scriptable CLI with REPL mode, tab-completion, history, and automation-friendly exit codes, cutting manual maintenance time by 50%.",
+      "Built NUnit test suites covering repositories, cleanup rules, and service behavior, achieving 85% test coverage and preventing production regressions during rollout.",
     ],
     skills: [
       ".NET",
@@ -32,13 +31,12 @@ const experiences = [
   {
     title: "Full-Stack Developer Intern",
     company: "AbeScott Enterprises",
-    period: "July 2025 – September 2025",
+    period: "July 2025 – August 2025",
     location: "Remote",
     highlights: [
-      "Architected cross-platform transportation aggregator unifying multiple ride-sharing APIs (Uber, Lyft, DoorDash) into a single user interface for seamless service comparison.",
-      "Designed RESTful API backend using Node.js and Express with Supabase authentication, achieving sub-200ms average response time across all endpoints.",
-      "Led development team of 10 engineers across frontend, backend, and API integration workstreams, delegating React UI design and service layer tasks while conducting bi-weekly sprint planning meetings to coordinate deliverables.",
-      "Optimized React component rendering with memoization and virtualization to handle real-time price updates from 3+ concurrent APIs without UI lag.",
+      "Architected a cross-platform transportation aggregator integrating 3 ride-sharing APIs (Uber, Lyft, DoorDash) with a unified React interface, enabling real-time price comparison and service selection across multiple platforms.",
+      "Designed a RESTful API backend using Node.js and Express with Supabase authentication, achieving sub-200ms average response time across all endpoints.",
+      "Led development team of 10 engineers across frontend, backend, and API integration workstreams, delegating tasks and conducting bi-weekly sprint planning to coordinate feature deliveries.",
     ],
     skills: [
       "Team Leadership",
