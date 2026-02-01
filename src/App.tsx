@@ -1,33 +1,52 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import { useColorShift } from "@/hooks/use-color-shift";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Home from "@/pages/Home";
+import Projects from "@/pages/Projects";
+import About from "@/pages/About";
+import Pics from "@/pages/Pics";
+import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
 
-const queryClient = new QueryClient();
+function PageTransition({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitioning, setTransitioning] = useState(false);
 
-const App = () => {
-  // Enable smooth color-shifting animation across entire spectrum
-  useColorShift();
+  useEffect(() => {
+    if (location.pathname !== displayLocation.pathname) {
+      setTransitioning(true);
+      const timeout = setTimeout(() => {
+        setDisplayLocation(location);
+        setTransitioning(false);
+      }, 120);
+      return () => clearTimeout(timeout);
+    }
+  }, [location, displayLocation]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <div
+      className={`transition-opacity duration-120 ${transitioning ? "opacity-0" : "opacity-100"}`}
+    >
+      <Routes location={displayLocation}>
+        {children}
+      </Routes>
+    </div>
   );
-};
+}
 
-export default App;
+export default function App() {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Navigation />
+      <main className="flex-1">
+        <PageTransition>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/pics" element={<Pics />} />
+        </PageTransition>
+      </main>
+      <Footer />
+    </div>
+  );
+}
