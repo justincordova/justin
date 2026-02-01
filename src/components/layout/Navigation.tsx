@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ThemeSelector from "@/components/layout/ThemeSelector";
 
 const navLinks = [
   { label: "justin", path: "/" },
@@ -28,7 +29,7 @@ export default function Navigation() {
         </span>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-8 sm:flex">
+        <div className="hidden items-center gap-6 sm:flex">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -47,17 +48,22 @@ export default function Navigation() {
               )}
             </Link>
           ))}
+          <ThemeSelector />
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="rounded-md p-2 text-ctp-subtext0 transition-colors hover:bg-ctp-surface0 hover:text-ctp-text sm:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Mobile nav and theme selector */}
+        <div className="flex items-center gap-2 sm:hidden">
+          <ThemeSelector />
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="rounded-md p-2 text-ctp-subtext0 transition-colors hover:bg-ctp-surface0 hover:text-ctp-text"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav */}

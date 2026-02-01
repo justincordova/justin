@@ -19,7 +19,8 @@
   }
 
   ::selection {
-    @apply bg-ctp-mauve/30 text-ctp-text;
+    background-color: rgb(from var(--ctp-mauve, #cba6f7) r g b / 0.3);
+    color: var(--ctp-text, #cdd6f4);
   }
 
   *:focus-visible {
