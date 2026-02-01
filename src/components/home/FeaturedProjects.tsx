@@ -12,7 +12,7 @@ export default function FeaturedProjects() {
   return (
     <section className="px-6 py-10">
       <div className="mx-auto max-w-container">
-        <h2 className="mb-6 text-2xl tracking-tight text-ctp-text">
+        <h2 className="mb-6 text-2xl tracking-tight text-ctp-mauve">
           Featured Projects
         </h2>
 
