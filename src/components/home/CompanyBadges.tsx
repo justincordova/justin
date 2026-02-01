@@ -14,7 +14,7 @@ const companies: Badge[] = [
 
 export default function CompanyBadges() {
   return (
-    <section className="px-6 py-4">
+    <section className="px-6 py-2">
       <div className="animate-fade-up stagger-4 mx-auto flex max-w-container flex-wrap items-center justify-center gap-4">
         {companies.map((company) => {
           const content = (
