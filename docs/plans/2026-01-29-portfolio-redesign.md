@@ -410,6 +410,7 @@ interface CommitItemProps {
 5. **Subagent-driven development**: Break work into parallel phases (see below)
 6. **Test on multiple devices**: Desktop, tablet, mobile viewports
 7. **Commit frequently**: Small, logical commits after each phase
+8. **Commit message format**: Use conventional commits (e.g., `feat:`, `fix:`, `refactor:`). **Never** include "Generated with Claude Code", "Co-authored by Claude", or any AI attribution footers
 
 ## Implementation Phases
 
