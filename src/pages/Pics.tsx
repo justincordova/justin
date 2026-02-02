@@ -23,6 +23,19 @@ export default function Pics() {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [selectedImage]);
 
+  // Prevent body scroll when lightbox is open
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedImage]);
+
   return (
     <div className="px-6 py-10">
       <div className="mx-auto max-w-container">
