@@ -1,10 +1,10 @@
 # Justin Cordova's Portfolio
 
-A modern, accessible portfolio website showcasing my work, photography, and experience.
+My portfolio website.
 
-🌐 **[Visit Live Site](https://justincordova.vercel.app/)**
+**[Visit Live Site](https://justincordova.vercel.app/)**
 
-## ✨ Features
+## Features
 
 - **Dynamic Photo Gallery** - Click to enlarge images with keyboard-accessible lightbox
 - **Theme Selector** - Switch between Catppuccin variants (Mocha, Macchiato, Frappe, Latte)
@@ -12,7 +12,7 @@ A modern, accessible portfolio website showcasing my work, photography, and expe
 - **Optimized Performance** - Images compressed by 90% (13MB total), lazy loading, focus management
 - **Responsive Design** - Mobile-first approach with smooth animations
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework:** React 18 + TypeScript
 - **Build Tool:** Vite
@@ -21,7 +21,7 @@ A modern, accessible portfolio website showcasing my work, photography, and expe
 - **Icons:** Lucide React
 - **Accessibility:** react-focus-lock for modal management
 
-## 🎨 Theme
+## Theme
 
 Built with [Catppuccin](https://catppuccin.com/) color palette, featuring four theme variants:
 - **Mocha** (default) - Warm dark theme
@@ -29,7 +29,7 @@ Built with [Catppuccin](https://catppuccin.com/) color palette, featuring four t
 - **Frappe** - Cool dark theme
 - **Latte** - Light theme
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -43,7 +43,7 @@ src/
 └── assets/            # Images and static assets
 ```
 
-## 🚀 Development
+## Development
 
 ```bash
 # Install dependencies
@@ -59,7 +59,7 @@ npm run build
 npm run preview
 ```
 
-## 📸 Photography
+## Photography
 
 The Pics page features a dynamic image gallery that automatically loads all photos from `src/assets/pics/`. Images are optimized for web delivery and include:
 - Hover effects with smooth transitions
@@ -67,7 +67,7 @@ The Pics page features a dynamic image gallery that automatically loads all phot
 - Keyboard navigation (ESC to close, Tab for focus management)
 - ARIA labels for screen readers
 
-## 📬 Contact
+## Contact
 
 **Email:** [justinavodroc@gmail.com](mailto:justinavodroc@gmail.com)
 **LinkedIn:** [justinalolorcordova](https://www.linkedin.com/in/justinalolorcordova/)
@@ -75,4 +75,4 @@ The Pics page features a dynamic image gallery that automatically loads all phot
 
 ---
 
-Built with ❤️ using React, TypeScript, and Tailwind CSS
+Built with React, TypeScript, and Tailwind CSS
