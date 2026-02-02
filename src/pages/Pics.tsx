@@ -1,22 +1,14 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
-const images = import.meta.glob('../assets/pics/*.JPG', {
+const imageModules = import.meta.glob<{ default: string }>('../assets/pics/*.{jpg,JPG,jpeg,JPEG}', {
   eager: true,
   query: '?url',
 });
 
 export default function Pics() {
-  const imageUrls = Object.values(images).map((mod: any) => mod.default);
+  const imageUrls = Object.values(imageModules).map((mod) => mod.default);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  // Preload images for caching
-  useEffect(() => {
-    imageUrls.forEach((url) => {
-      const img = new Image();
-      img.src = url;
-    });
-  }, [imageUrls]);
 
   return (
     <div className="px-6 py-10">
