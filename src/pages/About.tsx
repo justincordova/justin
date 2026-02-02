@@ -1,13 +1,13 @@
-import { User } from "lucide-react";
-
 export default function About() {
   return (
     <div className="px-6 py-10">
       <div className="mx-auto grid max-w-container items-start gap-10 md:grid-cols-[2fr_3fr]">
         <div className="flex justify-center">
-          <div className="flex h-56 w-56 items-center justify-center rounded-xl border border-ctp-surface1 bg-ctp-surface0">
-            <User className="h-12 w-12 text-ctp-overlay0" />
-          </div>
+          <img
+            src="/about.JPG"
+            alt="Justin Cordova"
+            className="h-56 w-56 rounded-xl border border-ctp-surface1 object-cover"
+          />
         </div>
 
         <div>
