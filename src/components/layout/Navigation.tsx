@@ -24,7 +24,7 @@ export default function Navigation() {
   return (
     <nav className="sticky top-0 z-50 bg-ctp-base/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-container items-center justify-between px-6 py-4">
-        <span className="font-mono text-sm tracking-wide text-ctp-overlay1">
+        <span className="font-mono text-sm tracking-wide text-ctp-mauve">
           {pathDisplay}
         </span>
 
