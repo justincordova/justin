@@ -30,7 +30,7 @@ export default function Pics() {
 
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          className="fixed inset-0 z-50 flex animate-in fade-in items-center justify-center bg-black/80 p-4 duration-200"
           onClick={() => setSelectedImage(null)}
         >
           <button
@@ -43,7 +43,7 @@ export default function Pics() {
             src={selectedImage}
             alt="Enlarged photo"
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
+            className="max-h-[90vh] max-w-[90vw] animate-in zoom-in rounded-lg object-contain duration-200"
           />
         </div>
       )}
