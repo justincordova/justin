@@ -33,7 +33,7 @@ export default function Hero() {
   const [resumeOpen, setResumeOpen] = useState(false);
 
   return (
-    <section className="flex min-h-[65vh] items-center justify-center px-6 py-6 pb-2">
+    <section className="flex min-h-[40vh] items-center justify-center px-6 pt-2 pb-0">
       <div className="max-w-2xl text-center">
         <h1 className="animate-fade-up stagger-1 text-4xl tracking-tight text-ctp-text sm:text-5xl">
           Hey! I'm <span className="text-ctp-mauve">Justin Cordova</span>
@@ -48,7 +48,7 @@ export default function Hero() {
           <span className="text-ctp-sapphire">TypeScript</span>. Building
           software from scratch is what makes it fun for me.
         </p>
-        <div className="animate-fade-up stagger-3 mt-8 flex items-center justify-center gap-2">
+        <div className="animate-fade-up stagger-3 mt-4 flex items-center justify-center gap-2">
           {socialLinks.map((link) =>
             link.label === "Resume" ? (
               <button
