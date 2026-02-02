@@ -12,9 +12,20 @@ export default function About() {
 
         <div>
           <h1 className="mb-4 text-3xl tracking-tight text-ctp-text">About</h1>
-          <p className="leading-relaxed text-ctp-subtext1">
-            Bio coming soon.
-          </p>
+          <div className="space-y-4 leading-relaxed text-ctp-subtext1">
+            <p>
+              Hey! I'm Justin, an SDE Intern at Pure Technology Inc. I build software both professionally and for fun, and I'm always tinkering with new ideas when I have free time.
+            </p>
+            <p>
+              Lately, I've been really interested in Go, especially for backend services and tooling. For my current internship, though, I'm diving deep into C# and .NET, working on production systems and getting hands-on experience with real-world engineering challenges. In the past, I've built a variety of full-stack applications using TypeScript, React, Node.js, Express, and related tooling.
+            </p>
+            <p>
+              My latest project is dotcor, a simple symlink-based dotfile manager focused on being lightweight and easy to reason about. Before that, I built FindU, a college-exclusive dating app designed to connect verified students on campus, with an emphasis on privacy, safety, and clean UX.
+            </p>
+            <p>
+              Outside of software, I play racquetball and tennis, hit the gym daily, and run a couple of times a week. I also enjoy photography, as you can probably tell from my photos, and I'm always down to explore new places and experiences.
+            </p>
+          </div>
         </div>
       </div>
     </div>
