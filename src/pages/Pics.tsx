@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 const images = import.meta.glob('../assets/pics/*.JPG', {
@@ -9,6 +9,14 @@ const images = import.meta.glob('../assets/pics/*.JPG', {
 export default function Pics() {
   const imageUrls = Object.values(images).map((mod: any) => mod.default);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // Preload images for caching
+  useEffect(() => {
+    imageUrls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, [imageUrls]);
 
   return (
     <div className="px-6 py-10">
@@ -21,6 +29,7 @@ export default function Pics() {
               key={index}
               src={url}
               alt="Photo"
+              loading="eager"
               onClick={() => setSelectedImage(url)}
               className="aspect-[4/3] w-full cursor-pointer rounded-lg border border-ctp-surface1 object-cover transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-ctp-surface1/50"
             />
