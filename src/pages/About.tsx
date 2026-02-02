@@ -6,7 +6,7 @@ export default function About() {
           <img
             src="/about.JPG"
             alt="Justin Cordova"
-            className="h-56 w-56 rounded-xl border border-ctp-surface1 object-contain"
+            className="max-w-full rounded-xl border border-ctp-surface1"
           />
         </div>
 
