@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Loader2 } from 'lucide-react';
 
 const imageModules = import.meta.glob<{ default: string }>('../assets/pics/*.{jpg,JPG,jpeg,JPEG}', {
   eager: true,
@@ -9,6 +9,7 @@ const imageModules = import.meta.glob<{ default: string }>('../assets/pics/*.{jp
 export default function Pics() {
   const imageUrls = Object.values(imageModules).map((mod) => mod.default);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [imageLoading, setImageLoading] = useState(false);
 
   // ESC key to close lightbox
   useEffect(() => {
@@ -34,7 +35,10 @@ export default function Pics() {
               src={url}
               alt={`Photo ${index + 1} of ${imageUrls.length}`}
               loading="eager"
-              onClick={() => setSelectedImage(url)}
+              onClick={() => {
+                setImageLoading(true);
+                setSelectedImage(url);
+              }}
               className="aspect-[4/3] w-full cursor-pointer rounded-lg border border-ctp-surface1 object-cover transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-ctp-surface1/50"
             />
           ))}
@@ -56,11 +60,15 @@ export default function Pics() {
           >
             <X className="h-6 w-6" aria-hidden="true" />
           </button>
+          {imageLoading && (
+            <Loader2 className="absolute h-12 w-12 animate-spin text-ctp-blue" />
+          )}
           <img
             src={selectedImage}
             alt={`Enlarged view - Photo ${imageUrls.indexOf(selectedImage) + 1}`}
+            onLoad={() => setImageLoading(false)}
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[90vh] max-w-[90vw] animate-zoom-in rounded-lg object-contain"
+            className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? 'opacity-0' : 'animate-zoom-in'}`}
           />
         </div>
       )}
