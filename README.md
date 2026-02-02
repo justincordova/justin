@@ -1,6 +1,6 @@
 # Justin Cordova's Portfolio
 
-My portfolio website.
+Justin's portfolio site.
 
 **[Visit Live Site](https://justincordova.vercel.app/)**
 
