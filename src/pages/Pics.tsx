@@ -43,14 +43,18 @@ export default function Pics() {
 
       {selectedImage && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image lightbox"
           className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/80 p-4"
           onClick={() => setSelectedImage(null)}
         >
           <button
             onClick={() => setSelectedImage(null)}
+            aria-label="Close lightbox"
             className="absolute right-4 top-4 rounded-full bg-ctp-surface0 p-2 text-ctp-text transition-colors hover:bg-ctp-surface1"
           >
-            <X className="h-6 w-6" />
+            <X className="h-6 w-6" aria-hidden="true" />
           </button>
           <img
             src={selectedImage}
