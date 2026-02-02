@@ -1,10 +1,10 @@
-const images = import.meta.glob<{ default: string }>('../assets/pics/*.JPG', {
+const images = import.meta.glob('../assets/pics/*.JPG', {
   eager: true,
-  import: 'default',
+  query: '?url',
 });
 
 export default function Pics() {
-  const imageUrls = Object.values(images);
+  const imageUrls = Object.values(images).map((mod: any) => mod.default);
 
   return (
     <div className="px-6 py-10">
