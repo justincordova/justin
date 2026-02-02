@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Loader2 } from 'lucide-react';
+import FocusLock from 'react-focus-lock';
 
 const imageModules = import.meta.glob<{ default: string }>('../assets/pics/*.{jpg,JPG,jpeg,JPEG}', {
   eager: true,
@@ -59,31 +60,33 @@ export default function Pics() {
       </div>
 
       {selectedImage && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Image lightbox"
-          className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/80 p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button
+        <FocusLock returnFocus>
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image lightbox"
+            className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/80 p-4"
             onClick={() => setSelectedImage(null)}
-            aria-label="Close lightbox"
-            className="absolute right-4 top-4 rounded-full bg-ctp-surface0 p-2 text-ctp-text transition-colors hover:bg-ctp-surface1"
           >
-            <X className="h-6 w-6" aria-hidden="true" />
-          </button>
-          {imageLoading && (
-            <Loader2 className="absolute h-12 w-12 animate-spin text-ctp-blue" />
-          )}
-          <img
-            src={selectedImage}
-            alt={`Enlarged view - Photo ${imageUrls.indexOf(selectedImage) + 1}`}
-            onLoad={() => setImageLoading(false)}
-            onClick={(e) => e.stopPropagation()}
-            className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? 'opacity-0' : 'animate-zoom-in'}`}
-          />
-        </div>
+            <button
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close lightbox"
+              className="absolute right-4 top-4 rounded-full bg-ctp-surface0 p-2 text-ctp-text transition-colors hover:bg-ctp-surface1"
+            >
+              <X className="h-6 w-6" aria-hidden="true" />
+            </button>
+            {imageLoading && (
+              <Loader2 className="absolute h-12 w-12 animate-spin text-ctp-blue" />
+            )}
+            <img
+              src={selectedImage}
+              alt={`Enlarged view - Photo ${imageUrls.indexOf(selectedImage) + 1}`}
+              onLoad={() => setImageLoading(false)}
+              onClick={(e) => e.stopPropagation()}
+              className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? 'opacity-0' : 'animate-zoom-in'}`}
+            />
+          </div>
+        </FocusLock>
       )}
     </div>
   );
