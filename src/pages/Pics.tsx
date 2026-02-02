@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { X } from 'lucide-react';
+
 const images = import.meta.glob('../assets/pics/*.JPG', {
   eager: true,
   query: '?url',
@@ -5,6 +8,7 @@ const images = import.meta.glob('../assets/pics/*.JPG', {
 
 export default function Pics() {
   const imageUrls = Object.values(images).map((mod: any) => mod.default);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <div className="px-6 py-10">
@@ -17,11 +21,32 @@ export default function Pics() {
               key={index}
               src={url}
               alt="Photo"
-              className="aspect-[4/3] w-full rounded-lg border border-ctp-surface1 object-cover"
+              onClick={() => setSelectedImage(url)}
+              className="aspect-[4/3] w-full cursor-pointer rounded-lg border border-ctp-surface1 object-cover transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-ctp-surface1/50"
             />
           ))}
         </div>
       </div>
+
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute right-4 top-4 rounded-full bg-ctp-surface0 p-2 text-ctp-text transition-colors hover:bg-ctp-surface1"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <img
+            src={selectedImage}
+            alt="Enlarged photo"
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
+          />
+        </div>
+      )}
     </div>
   );
 }
