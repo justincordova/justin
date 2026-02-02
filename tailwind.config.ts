@@ -51,6 +51,10 @@ export default {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        "zoom-in": {
+          from: { opacity: "0", transform: "scale(0.95)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
@@ -59,6 +63,7 @@ export default {
       animation: {
         "fade-up": "fade-up 0.5s ease-out both",
         "fade-in": "fade-in 0.3s ease-out both",
+        "zoom-in": "zoom-in 0.3s ease-out both",
         shimmer: "shimmer 2s linear infinite",
       },
     },
