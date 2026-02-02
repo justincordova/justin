@@ -32,7 +32,7 @@ export default function Pics() {
             <img
               key={index}
               src={url}
-              alt="Photo"
+              alt={`Photo ${index + 1} of ${imageUrls.length}`}
               loading="eager"
               onClick={() => setSelectedImage(url)}
               className="aspect-[4/3] w-full cursor-pointer rounded-lg border border-ctp-surface1 object-cover transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-ctp-surface1/50"
@@ -54,7 +54,7 @@ export default function Pics() {
           </button>
           <img
             src={selectedImage}
-            alt="Enlarged photo"
+            alt={`Enlarged view - Photo ${imageUrls.indexOf(selectedImage) + 1}`}
             onClick={(e) => e.stopPropagation()}
             className="max-h-[90vh] max-w-[90vw] animate-zoom-in rounded-lg object-contain"
           />
