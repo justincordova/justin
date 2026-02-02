@@ -10,6 +10,18 @@ export default function Pics() {
   const imageUrls = Object.values(imageModules).map((mod) => mod.default);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  // ESC key to close lightbox
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedImage) {
+        setSelectedImage(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [selectedImage]);
+
   return (
     <div className="px-6 py-10">
       <div className="mx-auto max-w-container">
