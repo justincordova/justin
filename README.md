@@ -7,6 +7,8 @@ SDE @ **PureTechInc**
 
 ## Contact
 
-**Email:** [justinavodroc@gmail.com](mailto:justinavodroc@gmail.com)
-**LinkedIn:** [justinalolorcordova](https://www.linkedin.com/in/justinalolorcordova/)
-**GitHub:** [justincordova](https://github.com/justincordova)
+[justinavodroc@gmail.com](mailto:justinavodroc@gmail.com)
+
+[justinalolorcordova](https://www.linkedin.com/in/justinalolorcordova/)
+
+[justincordova](https://github.com/justincordova)
