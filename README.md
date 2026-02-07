@@ -3,6 +3,8 @@
 CS @ NJIT
 SDE @ PureTechInc
 
+**[justincordova.vercel.app](https://justincordova.vercel.app/)**
+
 ## Contact
 
 **Email:** [justinavodroc@gmail.com](mailto:justinavodroc@gmail.com)
