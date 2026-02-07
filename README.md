@@ -1,7 +1,10 @@
 # Justin Cordova
 
-CS @ **NJIT**
-SDE @ **PureTechInc**
+CS
+@ **NJIT**
+
+SDE
+@ **PureTechInc**
 
 **[justincordova.vercel.app](https://justincordova.vercel.app/)**
 
