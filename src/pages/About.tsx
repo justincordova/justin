@@ -1,18 +1,18 @@
 export default function About() {
   return (
-    <div className="px-6 py-10">
-      <div className="mx-auto grid max-w-container items-start gap-10 md:grid-cols-[2fr_3fr]">
-        <div className="flex justify-center">
+    <div className="flex h-full flex-col px-6 py-4 overflow-hidden">
+      <div className="mx-auto grid max-w-container flex-shrink-0 items-start gap-6 md:grid-cols-[2fr_3fr]">
+        <div className="mt-12 flex justify-center">
           <img
-            src="/about.JPG"
+            src="/about.PNG"
             alt="Justin Cordova"
-            className="max-h-[60vh] max-w-full rounded-xl border border-ctp-surface1"
+            className="max-h-[45vh] max-w-full rounded-xl border border-ctp-surface1"
           />
         </div>
 
-        <div>
-          <h1 className="mb-4 text-3xl tracking-tight text-ctp-text">About</h1>
-          <div className="space-y-4 leading-relaxed text-ctp-subtext1">
+        <div className="min-h-0">
+          <h1 className="mb-3 text-3xl tracking-tight text-ctp-text">About</h1>
+          <div className="space-y-3 leading-relaxed text-ctp-subtext1">
             <p>
               Hey! I'm Justin, an SDE Intern at <span className="text-ctp-mauve">Pure Technology Inc</span>. I build software both professionally and for fun, and I'm always tinkering with new ideas when I have free time.
             </p>
@@ -26,6 +26,37 @@ export default function About() {
               Outside of software, I play <span className="text-ctp-mauve">racquetball</span> and <span className="text-ctp-mauve">tennis</span>, hit the <span className="text-ctp-mauve">gym</span> daily, and run a couple of times a week. I also enjoy <span className="text-ctp-mauve">photography</span>, as you can probably tell from my photos, and I'm always down to explore new places and experiences.
             </p>
           </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-4 flex max-w-container flex-col items-center justify-center flex-1 min-h-0">
+        <h2 className="mb-3 text-lg font-semibold text-ctp-mauve">For Fun</h2>
+        <div className="flex flex-row gap-4 justify-center items-center">
+          <img
+            src="/ai-ghibli/g1.png"
+            alt="AI Ghibli style artwork"
+            className="h-40 w-auto rounded-lg border border-ctp-surface1 transition-all duration-200 hover:scale-105 hover:border-ctp-mauve"
+          />
+          <img
+            src="/ai-ghibli/g2.png"
+            alt="AI Ghibli style artwork"
+            className="h-40 w-auto rounded-lg border border-ctp-surface1 transition-all duration-200 hover:scale-105 hover:border-ctp-mauve"
+          />
+          <img
+            src="/ai-ghibli/g3.png"
+            alt="AI Ghibli style artwork"
+            className="h-40 w-auto rounded-lg border border-ctp-surface1 transition-all duration-200 hover:scale-105 hover:border-ctp-mauve"
+          />
+          <img
+            src="/ai-ghibli/g4.png"
+            alt="AI Ghibli style artwork"
+            className="h-40 w-auto rounded-lg border border-ctp-surface1 transition-all duration-200 hover:scale-105 hover:border-ctp-mauve"
+          />
+          <img
+            src="/ai-ghibli/g5.png"
+            alt="AI Ghibli style artwork"
+            className="h-40 w-auto rounded-lg border border-ctp-surface1 transition-all duration-200 hover:scale-105 hover:border-ctp-mauve"
+          />
         </div>
       </div>
     </div>
