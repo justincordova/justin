@@ -86,6 +86,7 @@ export const CURATED_PROJECTS = [
   "mini-calendar",
   "image-generator",
   "file-downloader",
+  "cspathfinder",
 ] as const;
 
 export const FEATURED_PROJECTS = ["dotcor", "findu", "bunso"] as const;
