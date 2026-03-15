@@ -2,7 +2,7 @@ export default function About() {
   return (
     <div className="flex h-full flex-col px-6 py-4 overflow-hidden">
       <div className="mx-auto grid max-w-container flex-shrink-0 items-start gap-6 md:grid-cols-[2fr_3fr]">
-        <div className="mt-12 flex justify-center">
+        <div className="animate-fade-up stagger-1 mt-12 flex justify-center">
           <img
             src="/about.PNG"
             alt="Justin Cordova"
@@ -10,7 +10,7 @@ export default function About() {
           />
         </div>
 
-        <div className="min-h-0">
+        <div className="animate-fade-up stagger-2 min-h-0">
           <h1 className="mb-3 text-3xl tracking-tight text-ctp-text">About</h1>
           <div className="space-y-3 leading-relaxed text-ctp-subtext1">
             <p>
@@ -29,7 +29,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="mx-auto mt-4 flex max-w-container flex-col items-center justify-center flex-1 min-h-0">
+      <div className="animate-fade-up stagger-3 mx-auto mt-4 flex max-w-container flex-col items-center justify-center flex-1 min-h-0">
         <h2 className="mb-3 text-lg font-semibold text-ctp-mauve">For Fun</h2>
         <div className="flex flex-row gap-4 justify-center items-center">
           <img
