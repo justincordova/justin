@@ -13,8 +13,12 @@ export default function Home() {
 
       <section className="px-6 py-10">
         <div className="mx-auto grid max-w-container items-stretch gap-6 lg:grid-cols-[1fr_280px]">
-          <RecentActivity />
-          <LocationWidget />
+          <div className="animate-fade-up stagger-3">
+            <RecentActivity />
+          </div>
+          <div className="animate-fade-up stagger-4">
+            <LocationWidget />
+          </div>
         </div>
       </section>
     </div>

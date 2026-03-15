@@ -10,7 +10,7 @@ export default function FeaturedProjects() {
   const { data: repos, isLoading, isError, refetch } = useGitHubProjects(FEATURED_PROJECTS);
 
   return (
-    <section className="px-6 py-10">
+    <section className="animate-fade-up stagger-2 px-6 py-10">
       <div className="mx-auto max-w-container">
         <h2 className="mb-6 text-2xl tracking-tight text-ctp-mauve">
           Featured Projects
