@@ -18,7 +18,7 @@ export default function CompanyBadges() {
       <p className="animate-fade-up stagger-4 mb-3 text-center text-xs text-ctp-overlay0">
         Currently working at
       </p>
-      <div className="animate-fade-up stagger-4 mx-auto flex max-w-container flex-wrap items-center justify-center gap-4">
+      <div className="animate-fade-up stagger-4 mx-auto flex max-w-container flex-col items-center gap-2">
         {companies.map((company) => {
           const content = (
             <>
