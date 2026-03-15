@@ -12,7 +12,7 @@ export default function Home() {
       <FeaturedProjects />
 
       <section className="px-6 py-10">
-        <div className="mx-auto grid max-w-container items-start gap-6 lg:grid-cols-[1fr_280px]">
+        <div className="mx-auto grid max-w-container items-stretch gap-6 lg:grid-cols-[1fr_280px]">
           <RecentActivity />
           <LocationWidget />
         </div>

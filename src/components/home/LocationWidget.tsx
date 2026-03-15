@@ -38,7 +38,7 @@ export default function LocationWidget() {
   }, []);
 
   return (
-    <div className="h-fit overflow-hidden rounded-lg border border-ctp-surface1 bg-ctp-surface0">
+    <div className="overflow-hidden rounded-lg border border-ctp-surface1 bg-ctp-surface0">
       <div className="border-b border-ctp-surface1/50 px-4 py-3">
         <h2 className="font-sans text-sm font-semibold text-ctp-text">Currently Based In</h2>
       </div>
