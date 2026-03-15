@@ -89,4 +89,4 @@ export const CURATED_PROJECTS = [
   "file-downloader",
 ] as const;
 
-export const FEATURED_PROJECTS = ["dotcor", "findu", "bunso"] as const;
+export const FEATURED_PROJECTS = ["dotcor", "findu", "cspathfinder"] as const;
