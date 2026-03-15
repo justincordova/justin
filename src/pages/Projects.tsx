@@ -10,7 +10,7 @@ export default function Projects() {
   return (
     <div className="px-6 py-10">
       <div className="mx-auto max-w-container">
-        <h1 className="mb-8 text-3xl tracking-tight text-ctp-text">Projects</h1>
+        <h1 className="animate-fade-up stagger-1 mb-8 text-3xl tracking-tight text-ctp-text">Projects</h1>
 
         {isLoading && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -29,9 +29,15 @@ export default function Projects() {
 
         {repos && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {repos.map((repo) => (
-              <ProjectCard key={repo.name} repo={repo} />
-            ))}
+            {repos.map((repo, i) => {
+              const levels = ["stagger-1", "stagger-2", "stagger-3", "stagger-4", "stagger-5", "stagger-6"];
+              const stagger = levels[Math.min(i, levels.length - 1)];
+              return (
+                <div key={repo.name} className={`animate-fade-up ${stagger}`}>
+                  <ProjectCard repo={repo} />
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
