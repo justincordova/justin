@@ -40,9 +40,9 @@ export default function Pics() {
   return (
     <div className="px-6 py-10">
       <div className="mx-auto max-w-container">
-        <h1 className="mb-8 text-3xl tracking-tight text-ctp-text">Pics</h1>
+        <h1 className="animate-fade-up stagger-1 mb-8 text-3xl tracking-tight text-ctp-text">Pics</h1>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="animate-fade-up stagger-2 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {imageUrls.map((url, index) => (
             <img
               key={index}
