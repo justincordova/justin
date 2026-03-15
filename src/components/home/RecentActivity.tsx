@@ -25,7 +25,7 @@ function timeAgo(dateString: string): string {
 }
 
 export default function RecentActivity() {
-  const { data: commits, isLoading, isError, refetch } = useGitHubCommits(5);
+  const { data: commits, isLoading, isError, refetch } = useGitHubCommits(3);
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-lg border border-ctp-surface1 bg-ctp-surface0">
@@ -36,7 +36,7 @@ export default function RecentActivity() {
       <div className="overflow-y-auto">
         {isLoading && (
           <div>
-            {Array.from({ length: 5 }).map((_, i) => (
+            {Array.from({ length: 3 }).map((_, i) => (
               <CommitItemSkeleton key={i} />
             ))}
           </div>

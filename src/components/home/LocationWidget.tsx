@@ -38,11 +38,11 @@ export default function LocationWidget() {
   }, []);
 
   return (
-    <div className="overflow-hidden rounded-lg border border-ctp-surface1 bg-ctp-surface0">
+    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-ctp-surface1 bg-ctp-surface0">
       <div className="border-b border-ctp-surface1/50 px-4 py-3">
         <h2 className="font-sans text-sm font-semibold text-ctp-text">Currently Based In</h2>
       </div>
-      <div className="flex flex-col items-center gap-3 p-5 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center gap-3 p-5 text-center">
         <MapPin className="h-5 w-5 text-ctp-mauve" />
         <p className="text-sm font-medium text-ctp-text">
           Stewartsville, NJ
