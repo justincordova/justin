@@ -25,6 +25,7 @@ function PageTransition({ children }: { children: React.ReactNode }) {
 
   return (
     <div
+      key={displayLocation.pathname}
       className={`transition-opacity duration-120 ${transitioning ? "opacity-0" : "opacity-100"}`}
     >
       <Routes location={displayLocation}>
