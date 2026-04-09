@@ -1,5 +1,4 @@
 {
-  "buildCommand": "bun run build",
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/((?!api/)[^.]*)", "destination": "/index.html" }
