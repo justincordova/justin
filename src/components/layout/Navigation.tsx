@@ -1,7 +1,7 @@
 import type { LucideProps } from "lucide-react";
 import { FileText, Mail, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 import ThemeSelector from "@/components/layout/ThemeSelector";
 import ResumeModal from "@/components/shared/ResumeModal";
@@ -82,9 +82,18 @@ function getPathDisplay(pathname: string): string {
 
 export default function Navigation() {
   const location = useLocation();
+  const navigate = useNavigate();
   const pathDisplay = getPathDisplay(location.pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+
+  const pageRoutes = ["/", "/projects", "/pics"];
+  const currentIndex = pageRoutes.indexOf(location.pathname);
+
+  const handleToggle = () => {
+    const nextIndex = (currentIndex + 1) % pageRoutes.length;
+    navigate(pageRoutes[nextIndex]);
+  };
 
   return (
     <>
@@ -111,12 +120,16 @@ export default function Navigation() {
             ))}
           </div>
 
-          <div className="group absolute left-1/2 -translate-x-1/2 px-6 py-2">
+          <button
+            type="button"
+            onClick={handleToggle}
+            className="group absolute left-1/2 -translate-x-1/2 cursor-pointer px-6 py-2"
+          >
             <span className="block select-none font-mono text-sm tracking-wide opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
               <span className="text-primary">~</span>
               <span className="text-muted">{pathDisplay.slice(1)}</span>
             </span>
-          </div>
+          </button>
 
           <div className="hidden items-center gap-1 sm:flex">
             {socialLinks.map((link) => (
