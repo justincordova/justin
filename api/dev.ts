@@ -9,9 +9,9 @@ interface ApiRoute {
 }
 
 async function loadRoutes(): Promise<ApiRoute[]> {
-  const health = await import("./health");
-  const repos = await import("./github/repos");
-  const commits = await import("./github/commits");
+  const health = await import("./health.js");
+  const repos = await import("./github/repos.js");
+  const commits = await import("./github/commits.js");
 
   return [
     { pattern: "/api/health", handler: health.default },

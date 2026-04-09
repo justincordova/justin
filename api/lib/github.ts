@@ -1,4 +1,4 @@
-import { childLogger, logHttp } from "./logger";
+import { childLogger, logHttp } from "./logger.js";
 
 const log = childLogger("github");
 

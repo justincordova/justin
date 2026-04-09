@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { githubFetch, GITHUB_USERNAME } from "../lib/github";
-import { logError } from "../lib/logger";
+import { githubFetch, GITHUB_USERNAME } from "../lib/github.js";
+import { logError } from "../lib/logger.js";
 
 interface GitHubRepoResponse {
   name: string;
