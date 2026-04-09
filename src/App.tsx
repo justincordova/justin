@@ -1,11 +1,10 @@
-import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Home from "@/pages/Home";
-import Projects from "@/pages/Projects";
-import About from "@/pages/About";
-import Pics from "@/pages/Pics";
-import Navigation from "@/components/layout/Navigation";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import Footer from "@/components/layout/Footer";
+import Navigation from "@/components/layout/Navigation";
+import Home from "@/pages/Home";
+import Pics from "@/pages/Pics";
+import Projects from "@/pages/Projects";
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation();
@@ -28,9 +27,7 @@ function PageTransition({ children }: { children: React.ReactNode }) {
       key={displayLocation.pathname}
       className={`transition-opacity duration-120 ${transitioning ? "opacity-0" : "opacity-100"}`}
     >
-      <Routes location={displayLocation}>
-        {children}
-      </Routes>
+      <Routes location={displayLocation}>{children}</Routes>
     </div>
   );
 }
@@ -43,8 +40,8 @@ export default function App() {
         <PageTransition>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/about" element={<About />} />
           <Route path="/pics" element={<Pics />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </PageTransition>
       </main>
       <Footer />

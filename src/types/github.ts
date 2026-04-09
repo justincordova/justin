@@ -16,4 +16,6 @@ export interface CommitActivity {
   repoName: string;
   timestamp: string;
   commitUrl: string;
+  additions: number;
+  deletions: number;
 }

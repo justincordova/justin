@@ -10,13 +10,14 @@ export default function ErrorMessage({
   onRetry,
 }: ErrorMessageProps) {
   return (
-    <div className="flex flex-col items-center gap-4 rounded-lg border border-ctp-surface1/40 bg-ctp-surface0/30 p-8 text-center">
-      <AlertCircle className="h-6 w-6 text-ctp-red/80" />
-      <p className="text-sm text-ctp-subtext0">{message}</p>
+    <div className="flex flex-col items-center gap-4 rounded-lg border border-edge/40 bg-surface/30 p-8 text-center">
+      <AlertCircle className="h-6 w-6 text-red-400/80" />
+      <p className="text-sm text-muted">{message}</p>
       {onRetry && (
         <button
+          type="button"
           onClick={onRetry}
-          className="rounded-lg border border-ctp-surface1 px-4 py-1.5 text-xs font-medium tracking-wide text-ctp-subtext1 transition-all duration-200 hover:border-ctp-mauve/50 hover:text-ctp-mauve"
+          className="rounded-lg border border-edge px-4 py-1.5 text-xs font-medium tracking-wide text-muted transition-all duration-200 hover:border-primary/50 hover:text-primary"
         >
           Retry
         </button>
