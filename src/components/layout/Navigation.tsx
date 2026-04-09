@@ -150,6 +150,7 @@ export default function Navigation() {
               className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-content"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -157,7 +158,7 @@ export default function Navigation() {
         </div>
 
         {mobileOpen && (
-          <div className="animate-fade-in px-6 py-4 sm:hidden">
+          <div id="mobile-menu" className="animate-fade-in px-6 py-4 sm:hidden">
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
