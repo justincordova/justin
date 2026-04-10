@@ -6,7 +6,7 @@ CS
 SDE
 @ **PureTechInc**
 
-[View portfolio](https://justincordova.vercel.app/){target="_blank"}
+[View portfolio](https://www.justincordova.dev/)
 
 ## Contact
 
