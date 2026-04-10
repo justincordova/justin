@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://justincordova.com/sitemap.xml
