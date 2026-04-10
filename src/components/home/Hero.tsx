@@ -3,10 +3,13 @@ export default function Hero() {
     <section className="flex items-center justify-center px-6 pt-8 pb-0">
       <div className="max-w-2xl text-center">
         <p className="animate-fade-up stagger-1 text-base text-muted">Hi there! I'm</p>
-        <h1 className="animate-fade-up stagger-2 text-4xl tracking-tight text-primary sm:text-5xl">
+        <h1 className="animate-fade-up stagger-2 tracking-tight text-primary" style={{ fontFamily: "'Outfit', sans-serif", fontSize: "48px", fontWeight: 650 }}>
           Justin Cordova
         </h1>
-        <p className="animate-fade-up stagger-3 mt-2 text-lg text-secondary">
+        <p className="animate-fade-up stagger-3 tracking-tight text-secondary" style={{ fontFamily: "'Outfit', sans-serif", fontSize: "48px", fontWeight: 650 }}>
+          I make things on the internet.
+        </p>
+        <p className="animate-fade-up stagger-4 mt-4 text-lg text-content">
           Software Developer Intern @{" "}
           <a
             href="https://pureittech.com/"
@@ -17,7 +20,7 @@ export default function Hero() {
             Pure Technology Inc.
           </a>
         </p>
-        <p className="animate-fade-up stagger-4 mt-1 text-base text-secondary">
+        <p className="animate-fade-up stagger-5 mt-1 text-base text-content">
           CS @{" "}
           <a
             href="https://www.njit.edu/"
