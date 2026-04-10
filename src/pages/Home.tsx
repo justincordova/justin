@@ -37,41 +37,43 @@ export default function Home() {
             }}
             className="h-48 w-auto cursor-pointer rounded-xl border border-edge object-cover transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-edge/50 sm:h-64"
           />
-          <div className="max-w-[600px] space-y-4 text-center text-lg leading-relaxed text-muted sm:text-2xl">
+          <div className="max-w-[600px] space-y-4 text-left text-lg leading-relaxed text-content sm:text-2xl">
             <p>
               I'm a software developer intern at{" "}
               <span className="text-accent underline decoration-dotted underline-offset-4">
                 Pure Technology Inc
               </span>
-              , building software for a <span className="text-accent">POS</span> system: utilities,
+              , building software for a <span className="text-accent">POS</span> system — utilities,
               extensions, services, and everything in between with{" "}
               <span className="text-accent">C# and .NET</span>.
             </p>
             <p>
-              I have a lot of experience with the usual full-stack tooling:{" "}
+              I work across the full stack:{" "}
               <span className="text-accent">TypeScript</span>,{" "}
               <span className="text-accent">React</span>,{" "}
               <span className="text-accent">Node.js</span>,{" "}
               <span className="text-accent">Express</span>,{" "}
-              <span className="text-accent">Next.js</span>, and more.
+              <span className="text-accent">Next.js</span>,{" "}
+              <span className="text-accent">PostgreSQL</span>,{" "}
+              <span className="text-accent">NoSQL</span>,{" "}
+              <span className="text-accent">MySQL</span>.
             </p>
             <p>
               I've also been learning <span className="text-accent">Go</span>, building backend
               projects and small CLI tools.
             </p>
             <p>
-              My go-to AI tool is <span className="text-accent">Claude</span>, I use it across all
-              my projects. I also use <span className="text-accent">GLM</span> on the side as a
-              cheaper alternative.
+              My go-to AI tool is <span className="text-accent">Claude</span> — I use it across all
+              my projects. I use <span className="text-accent">GLM</span> as a fallback.
             </p>
             <p>
               Outside of code, I play <span className="text-accent">racquetball</span> and{" "}
-              <span className="text-accent">tennis</span>, hit the gym, and run a few times a week.
-              I also enjoy <span className="text-accent">photography</span>, and I'm always down to
+              <span className="text-accent">tennis</span>, hit the gym and run a few times a week.
+              I also enjoy <span className="text-accent">photography</span> and I'm always down to
               explore new places.
             </p>
             <p>
-              If you wanna say hi, you can find me on{" "}
+              If you want to say hi, you can find me on{" "}
               <a
                 href="https://www.linkedin.com/in/justinalolorcordova/"
                 target="_blank"
