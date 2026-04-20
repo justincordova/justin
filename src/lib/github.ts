@@ -1,7 +1,7 @@
 import type { CommitActivity, GitHubRepo } from "@/types/github";
 
 export const CURATED_PROJECTS = [
-  "cspathfinder",
+  "seshr",
   "findu",
   "dotcor",
   "JobDaemon",
@@ -22,7 +22,7 @@ export const CURATED_PROJECTS = [
   "file-downloader",
 ] as const;
 
-export const FEATURED_PROJECTS = ["dotcor", "findu", "cspathfinder"] as const;
+export const FEATURED_PROJECTS = ["findu", "dotcor", "seshr"] as const;
 
 export async function fetchRepos(repoNames: string[]): Promise<GitHubRepo[]> {
   const res = await fetch(`/api/github/repos?names=${repoNames.join(",")}`);
