@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { githubFetch, GITHUB_USERNAME } from "../lib/github.js";
+import { githubFetch, GITHUB_USERNAME, HttpBatch } from "../lib/github.js";
 import { logError } from "../lib/logger.js";
 
 interface GitHubRepoResponse {
@@ -31,11 +31,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    const batch = new HttpBatch();
+
     const results = await Promise.allSettled(
       repoNames.map((name) =>
-        githubFetch<GitHubRepoResponse>(`/repos/${GITHUB_USERNAME}/${name}`),
+        githubFetch<GitHubRepoResponse>(`/repos/${GITHUB_USERNAME}/${name}`, batch),
       ),
     );
+
+    batch.flush("GET /api/github/repos");
 
     const repos = results
       .filter((r): r is PromiseFulfilledResult<GitHubRepoResponse> => r.status === "fulfilled")

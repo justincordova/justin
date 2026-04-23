@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { githubFetch, GITHUB_USERNAME } from "../lib/github.js";
+import { githubFetch, GITHUB_USERNAME, HttpBatch } from "../lib/github.js";
 import { logError } from "../lib/logger.js";
 
 interface SearchCommitsResponse {
@@ -35,15 +35,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const limit = Math.min(Number(req.query.limit) || 5, 20);
 
   try {
+    const batch = new HttpBatch();
+
     const data = await githubFetch<SearchCommitsResponse>(
       `/search/commits?q=author:${GITHUB_USERNAME}&sort=author-date&order=desc&per_page=${limit}`,
+      batch,
     );
 
     const details = await Promise.allSettled(
       data.items.map((item) =>
-        githubFetch<CommitDetail>(`/repos/${item.repository.full_name}/commits/${item.sha}`),
+        githubFetch<CommitDetail>(`/repos/${item.repository.full_name}/commits/${item.sha}`, batch),
       ),
     );
+
+    batch.flush("GET /api/github/commits");
 
     const commits = data.items.map((item, i) => {
       const detail = details[i].status === "fulfilled" ? details[i].value : null;

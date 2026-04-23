@@ -5,7 +5,31 @@ const log = childLogger("github");
 const GITHUB_USERNAME = "justincordova";
 const BASE_URL = "https://api.github.com";
 
-export async function githubFetch<T>(endpoint: string): Promise<T> {
+type BatchEntry = { method: string; url: string; status: number; duration: number };
+
+export class HttpBatch {
+  private entries: BatchEntry[] = [];
+
+  add(entry: BatchEntry) {
+    this.entries.push(entry);
+  }
+
+  flush(label: string) {
+    if (this.entries.length === 0) return;
+    const total = this.entries.reduce((sum, e) => sum + e.duration, 0);
+    const logger = childLogger("http");
+    logger.info(`${label} (${this.entries.length} requests, ${total}ms total)`, {
+      requests: this.entries,
+      total,
+    });
+    this.entries = [];
+  }
+}
+
+export async function githubFetch<T>(
+  endpoint: string,
+  batch?: HttpBatch,
+): Promise<T> {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github.v3+json",
   };
@@ -18,8 +42,13 @@ export async function githubFetch<T>(endpoint: string): Promise<T> {
   const start = Date.now();
   const url = `${BASE_URL}${endpoint}`;
   const res = await fetch(url, { headers });
+  const duration = Date.now() - start;
 
-  logHttp("GET", url, res.status, Date.now() - start);
+  if (batch) {
+    batch.add({ method: "GET", url, status: res.status, duration });
+  } else {
+    logHttp("GET", url, res.status, duration);
+  }
 
   if (!res.ok) {
     log.error("GitHub API error", {
