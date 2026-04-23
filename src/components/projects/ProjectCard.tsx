@@ -13,6 +13,7 @@ const PROJECT_LOGOS: Record<string, string> = {
 const PROJECT_GALLERY: Record<string, string[]> = {
   seshr: ["/demo/seshr1.png", "/demo/seshr2.png", "/demo/seshr3.png"],
   dotcor: ["/demo/dotcor1.png", "/demo/dotcor2.png", "/demo/dotcor3.png"],
+  findu: ["/demo/findu1.jpeg", "/demo/findu2.jpeg", "/demo/findu3.png", "/demo/findu4.png"],
 };
 
 interface ProjectCardProps {
