@@ -39,7 +39,7 @@ function ProjectThumbnail({ name }: { name: string }) {
 
   if (logo) {
     return (
-      <div className="aspect-[4/3] overflow-hidden rounded-t-xl">
+      <div className="aspect-square w-full overflow-hidden">
         <img
           src={logo}
           alt={`${name} logo`}
@@ -51,8 +51,8 @@ function ProjectThumbnail({ name }: { name: string }) {
   }
 
   return (
-    <div className="flex aspect-[4/3] items-center justify-center rounded-t-xl bg-gradient-to-br from-surface-2 to-surface">
-      <span className="text-4xl font-light text-faint/40 select-none">
+    <div className="flex aspect-square w-full items-center justify-center bg-surface-2/40">
+      <span className="text-2xl font-light text-faint/40 select-none">
         {name.slice(0, 1).toUpperCase()}
       </span>
     </div>
@@ -69,7 +69,7 @@ export default function ProjectCard({ repo }: ProjectCardProps) {
         type="button"
         onClick={() => gallery.length > 0 && setGalleryOpen(true)}
         className={`group flex h-full w-full flex-col overflow-hidden rounded-xl border border-edge bg-surface text-left transition-all duration-200 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/5 ${
-          gallery.length > 0 ? "cursor-pointer hover:scale-105" : ""
+          gallery.length > 0 ? "cursor-pointer hover:scale-[1.02]" : ""
         }`}
       >
         <div className="relative">
@@ -79,7 +79,7 @@ export default function ProjectCard({ repo }: ProjectCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="absolute right-2 top-2 rounded-lg bg-surface-2/80 p-2 text-muted opacity-0 backdrop-blur-sm transition-all duration-200 hover:bg-surface-2 hover:text-content group-hover:opacity-100"
+            className="absolute right-2 bottom-2 rounded-lg bg-surface-2/80 p-2 text-muted opacity-0 backdrop-blur-sm transition-all duration-200 hover:bg-surface-2 hover:text-content group-hover:opacity-100"
             aria-label="View on GitHub"
           >
             <svg
@@ -93,16 +93,16 @@ export default function ProjectCard({ repo }: ProjectCardProps) {
             </svg>
           </a>
         </div>
-        <div className="flex flex-1 flex-col p-3">
-          <h3 className="mb-1 font-sans text-sm font-semibold text-content transition-colors group-hover:text-primary">
+        <div className="flex flex-1 flex-col p-5">
+          <h3 className="mb-1.5 font-sans text-base font-semibold text-content transition-colors group-hover:text-primary">
             {repo.name}
           </h3>
-          <p className="mb-3 flex-1 line-clamp-2 text-xs leading-relaxed text-muted">
+          <p className="mb-4 flex-1 line-clamp-3 text-sm leading-relaxed text-muted">
             {repo.description || "No description available."}
           </p>
           {repo.topics.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {repo.topics.slice(0, 4).map((topic) => (
+            <div className="flex flex-wrap gap-1.5">
+              {repo.topics.slice(0, 6).map((topic) => (
                 <TopicBadge key={topic} topic={topic} />
               ))}
             </div>

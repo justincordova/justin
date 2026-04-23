@@ -26,7 +26,7 @@ export default function Home() {
 
       <section className="px-6 pt-12 pb-0">
         <div className="mx-auto flex max-w-container flex-col items-center gap-6 sm:gap-8">
-          {/* <img
+          <img
             src="/about.png"
             alt="Justin Cordova"
             width={256}
@@ -36,7 +36,7 @@ export default function Home() {
               setSelectedImage("/about.png");
             }}
             className="h-48 w-auto cursor-pointer rounded-xl border border-edge object-cover transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-edge/50 sm:h-64"
-          /> */}
+          />
           <div className="max-w-[600px] space-y-4 text-left text-lg leading-relaxed text-content sm:text-2xl">
             <p>
               I'm a software developer intern at{" "}

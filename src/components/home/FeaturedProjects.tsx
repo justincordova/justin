@@ -10,7 +10,7 @@ export default function FeaturedProjects() {
   const { data: repos, isLoading, isError, refetch } = useGitHubProjects(FEATURED_PROJECTS);
 
   return (
-    <section className="animate-fade-up stagger-2 px-6 pt-8 pb-0">
+    <section className="animate-fade-up stagger-2 px-6 pt-4 pb-0">
       <div className="mx-auto max-w-container">
         {isLoading && (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -23,7 +23,7 @@ export default function FeaturedProjects() {
         {isError && <ErrorMessage message="Failed to load projects." onRetry={() => refetch()} />}
 
         {repos && (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[...repos]
               .sort((a, b) => {
                 const order =
