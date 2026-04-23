@@ -26,7 +26,7 @@ export default function Home() {
 
       <section className="px-6 pt-12 pb-0">
         <div className="mx-auto flex max-w-container flex-col items-center gap-6 sm:gap-8">
-          <img
+          {/* <img
             src="/about.png"
             alt="Justin Cordova"
             width={256}
@@ -36,7 +36,7 @@ export default function Home() {
               setSelectedImage("/about.png");
             }}
             className="h-48 w-auto cursor-pointer rounded-xl border border-edge object-cover transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-edge/50 sm:h-64"
-          />
+          /> */}
           <div className="max-w-[600px] space-y-4 text-left text-lg leading-relaxed text-content sm:text-2xl">
             <p>
               I'm a software developer intern at{" "}
@@ -48,15 +48,14 @@ export default function Home() {
               <span className="text-accent">C# and .NET</span>.
             </p>
             <p>
-              I work across the full stack:{" "}
-              <span className="text-accent">TypeScript</span>,{" "}
+              I work across the full stack: <span className="text-accent">TypeScript</span>,{" "}
               <span className="text-accent">React</span>,{" "}
               <span className="text-accent">Node.js</span>,{" "}
               <span className="text-accent">Express</span>,{" "}
               <span className="text-accent">Next.js</span>,{" "}
               <span className="text-accent">PostgreSQL</span>,{" "}
-              <span className="text-accent">NoSQL</span>,{" "}
-              <span className="text-accent">MySQL</span>.
+              <span className="text-accent">NoSQL</span>, <span className="text-accent">MySQL</span>
+              .
             </p>
             <p>
               I've also been learning <span className="text-accent">Go</span>, building backend
@@ -68,8 +67,8 @@ export default function Home() {
             </p>
             <p>
               Outside of code, I play <span className="text-accent">racquetball</span> and{" "}
-              <span className="text-accent">tennis</span>, hit the gym and run a few times a week.
-              I also enjoy <span className="text-accent">photography</span> and I'm always down to
+              <span className="text-accent">tennis</span>, hit the gym and run a few times a week. I
+              also enjoy <span className="text-accent">photography</span> and I'm always down to
               explore new places.
             </p>
             <p>
