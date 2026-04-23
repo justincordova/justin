@@ -17,15 +17,18 @@ export function Skeleton({ className }: SkeletonProps) {
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="rounded-xl border border-edge bg-surface p-5">
-      <Skeleton className="mb-3 h-5 w-3/5" />
-      <Skeleton className="mb-2 h-4 w-full" />
-      <Skeleton className="mb-2 h-4 w-full" />
-      <Skeleton className="mb-4 h-4 w-2/3" />
-      <div className="flex gap-2">
-        <Skeleton className="h-5 w-14 rounded-md" />
-        <Skeleton className="h-5 w-16 rounded-md" />
-        <Skeleton className="h-5 w-12 rounded-md" />
+    <div className="overflow-hidden rounded-xl border border-edge bg-surface">
+      <Skeleton className="aspect-video w-full rounded-none rounded-t-xl" />
+      <div className="p-5">
+        <Skeleton className="mb-3 h-5 w-3/5" />
+        <Skeleton className="mb-2 h-4 w-full" />
+        <Skeleton className="mb-2 h-4 w-full" />
+        <Skeleton className="mb-4 h-4 w-2/3" />
+        <div className="flex gap-2">
+          <Skeleton className="h-5 w-14 rounded-md" />
+          <Skeleton className="h-5 w-16 rounded-md" />
+          <Skeleton className="h-5 w-12 rounded-md" />
+        </div>
       </div>
     </div>
   );
