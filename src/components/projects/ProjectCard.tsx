@@ -93,16 +93,16 @@ export default function ProjectCard({ repo }: ProjectCardProps) {
             </svg>
           </a>
         </div>
-        <div className="flex flex-1 flex-col p-5">
-          <h3 className="mb-1.5 font-sans text-base font-semibold text-content transition-colors group-hover:text-primary">
+        <div className="flex flex-1 flex-col p-2">
+          <h3 className="mb-0.5 font-sans text-sm font-semibold text-content transition-colors group-hover:text-primary">
             {repo.name}
           </h3>
-          <p className="mb-4 flex-1 line-clamp-3 text-sm leading-relaxed text-muted">
+          <p className="mb-2 flex-1 line-clamp-2 text-xs leading-relaxed text-muted">
             {repo.description || "No description available."}
           </p>
           {repo.topics.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {repo.topics.slice(0, 6).map((topic) => (
+            <div className="flex flex-wrap gap-1">
+              {repo.topics.slice(0, 3).map((topic) => (
                 <TopicBadge key={topic} topic={topic} />
               ))}
             </div>
