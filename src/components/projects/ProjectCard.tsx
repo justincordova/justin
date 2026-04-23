@@ -4,7 +4,13 @@ import { getTopicIconUrl } from "@/lib/topic-icons";
 import type { GitHubRepo } from "@/types/github";
 import ProjectGallery from "./ProjectGallery";
 
-const PROJECT_IMAGES: Record<string, string[]> = {
+const PROJECT_LOGOS: Record<string, string> = {
+  seshr: "/logos/seshr.png",
+  dotcor: "/logos/dotcor.png",
+  findu: "/logos/findu.png",
+};
+
+const PROJECT_GALLERY: Record<string, string[]> = {
   seshr: ["/demo/seshr1.png", "/demo/seshr2.png", "/demo/seshr3.png"],
   dotcor: ["/demo/dotcor1.png", "/demo/dotcor2.png", "/demo/dotcor3.png"],
 };
@@ -28,14 +34,16 @@ function TopicBadge({ topic }: { topic: string }) {
   );
 }
 
-function ProjectThumbnail({ name, images }: { name: string; images: string[] }) {
-  if (images.length > 0) {
+function ProjectThumbnail({ name }: { name: string }) {
+  const logo = PROJECT_LOGOS[name];
+
+  if (logo) {
     return (
-      <div className="overflow-hidden rounded-t-xl">
+      <div className="flex aspect-video items-center justify-center overflow-hidden rounded-t-xl bg-gradient-to-br from-surface-2 to-surface">
         <img
-          src={images[0]}
-          alt={`${name} preview`}
-          className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          src={logo}
+          alt={`${name} logo`}
+          className="h-3/5 w-3/5 object-contain transition-transform duration-300 group-hover:scale-110"
           loading="lazy"
         />
       </div>
@@ -53,19 +61,19 @@ function ProjectThumbnail({ name, images }: { name: string; images: string[] }) 
 
 export default function ProjectCard({ repo }: ProjectCardProps) {
   const [galleryOpen, setGalleryOpen] = useState(false);
-  const images = PROJECT_IMAGES[repo.name] ?? [];
+  const gallery = PROJECT_GALLERY[repo.name] ?? [];
 
   return (
     <>
       <button
         type="button"
-        onClick={() => images.length > 0 && setGalleryOpen(true)}
+        onClick={() => gallery.length > 0 && setGalleryOpen(true)}
         className={`group flex h-full w-full flex-col overflow-hidden rounded-xl border border-edge bg-surface text-left transition-all duration-200 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/5 ${
-          images.length > 0 ? "cursor-pointer hover:scale-105" : ""
+          gallery.length > 0 ? "cursor-pointer hover:scale-105" : ""
         }`}
       >
         <div className="relative">
-          <ProjectThumbnail name={repo.name} images={images} />
+          <ProjectThumbnail name={repo.name} />
           <a
             href={repo.html_url}
             target="_blank"
@@ -102,10 +110,10 @@ export default function ProjectCard({ repo }: ProjectCardProps) {
         </div>
       </button>
 
-      {images.length > 0 && (
+      {gallery.length > 0 && (
         <ProjectGallery
           name={repo.name}
-          images={images}
+          images={gallery}
           open={galleryOpen}
           onClose={() => setGalleryOpen(false)}
         />
