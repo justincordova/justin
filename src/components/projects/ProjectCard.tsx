@@ -39,11 +39,11 @@ function ProjectThumbnail({ name }: { name: string }) {
 
   if (logo) {
     return (
-      <div className="flex aspect-video items-center justify-center overflow-hidden rounded-t-xl bg-gradient-to-br from-surface-2 to-surface">
+      <div className="aspect-square overflow-hidden rounded-t-xl">
         <img
           src={logo}
           alt={`${name} logo`}
-          className="h-3/5 w-3/5 object-contain transition-transform duration-300 group-hover:scale-110"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
           loading="lazy"
         />
       </div>
@@ -51,7 +51,7 @@ function ProjectThumbnail({ name }: { name: string }) {
   }
 
   return (
-    <div className="flex aspect-video items-center justify-center rounded-t-xl bg-gradient-to-br from-surface-2 to-surface">
+    <div className="flex aspect-square items-center justify-center rounded-t-xl bg-gradient-to-br from-surface-2 to-surface">
       <span className="text-4xl font-light text-faint/40 select-none">
         {name.slice(0, 1).toUpperCase()}
       </span>
