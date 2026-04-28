@@ -18,6 +18,8 @@ const PROJECT_GALLERY: Record<string, string[]> = {
 
 interface ProjectCardProps {
   repo: GitHubRepo;
+  singleLineTags?: boolean;
+  className?: string;
 }
 
 function TopicBadge({ topic }: { topic: string }) {
@@ -35,7 +37,7 @@ function TopicBadge({ topic }: { topic: string }) {
   );
 }
 
-function ProjectThumbnail({ name }: { name: string }) {
+function ProjectLogo({ name }: { name: string }) {
   const logo = PROJECT_LOGOS[name];
 
   if (logo) {
@@ -43,22 +45,20 @@ function ProjectThumbnail({ name }: { name: string }) {
       <img
         src={logo}
         alt={`${name} logo`}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+        className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
         loading="lazy"
       />
     );
   }
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-surface-2/40">
-      <span className="text-2xl font-light text-faint/40 select-none">
-        {name.slice(0, 1).toUpperCase()}
-      </span>
-    </div>
+    <span className="text-xl font-light text-faint/50 select-none">
+      {name.slice(0, 1).toUpperCase()}
+    </span>
   );
 }
 
-export default function ProjectCard({ repo }: ProjectCardProps) {
+export default function ProjectCard({ repo, singleLineTags, className }: ProjectCardProps) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const gallery = PROJECT_GALLERY[repo.name] ?? [];
 
@@ -67,17 +67,16 @@ export default function ProjectCard({ repo }: ProjectCardProps) {
       <button
         type="button"
         onClick={() => gallery.length > 0 && setGalleryOpen(true)}
-        className={`group relative flex aspect-square w-full flex-col overflow-hidden rounded-xl border border-edge text-left transition-all duration-200 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/5 ${
+        className={`group relative flex w-full items-center gap-4 rounded-xl border border-edge bg-surface p-4 text-left transition-all duration-200 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/5 ${className ?? ""} ${
           gallery.length > 0 ? "cursor-pointer hover:scale-[1.02]" : ""
         }`}
       >
-        <ProjectThumbnail name={repo.name} />
         <a
           href={repo.html_url}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="absolute right-2 top-2 z-10 rounded-lg bg-surface-2/80 p-2 text-muted opacity-0 backdrop-blur-sm transition-all duration-200 hover:bg-surface-2 hover:text-content group-hover:opacity-100"
+          className="absolute right-3 top-3 text-muted opacity-0 transition-all duration-200 hover:text-content group-hover:opacity-100"
           aria-label="View on GitHub"
         >
           <svg
@@ -90,16 +89,23 @@ export default function ProjectCard({ repo }: ProjectCardProps) {
             <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
           </svg>
         </a>
-        <div className="relative z-10 mt-auto flex flex-col p-5 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
-          <h3 className="mb-1.5 font-sans text-base font-semibold text-white transition-colors group-hover:text-primary">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-surface-2">
+          <ProjectLogo name={repo.name} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="mb-1 font-sans text-base font-semibold text-content transition-colors group-hover:text-primary">
             {repo.name}
           </h3>
-          <p className="mb-4 flex-1 line-clamp-3 text-sm leading-relaxed text-white/70">
+          <p className="mb-2 line-clamp-2 text-sm leading-relaxed text-muted">
             {repo.description || "No description available."}
           </p>
           {repo.topics.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {repo.topics.slice(0, 6).map((topic) => (
+            <div
+              className={`flex flex-wrap gap-1.5${
+                singleLineTags ? " max-h-6 overflow-hidden" : ""
+              }`}
+            >
+              {repo.topics.slice(0, singleLineTags ? 6 : 10).map((topic) => (
                 <TopicBadge key={topic} topic={topic} />
               ))}
             </div>

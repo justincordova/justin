@@ -17,10 +17,10 @@ export function Skeleton({ className }: SkeletonProps) {
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-xl border border-edge bg-surface">
-      <Skeleton className="aspect-square w-full rounded-none" />
-      <div className="p-2.5">
-        <Skeleton className="mb-2 h-3 w-2/5" />
+    <div className="flex items-center gap-4 rounded-xl border border-edge bg-surface p-4">
+      <Skeleton className="h-14 w-14 shrink-0 rounded-lg" />
+      <div className="min-w-0 flex-1">
+        <Skeleton className="mb-2 h-4 w-2/5" />
         <Skeleton className="mb-1.5 h-3 w-full" />
         <Skeleton className="mb-2 h-3 w-3/4" />
         <div className="flex gap-1">
