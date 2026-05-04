@@ -51,7 +51,7 @@ function LinkedInIcon({ className, ...props }: LucideProps) {
 const navLinks = [
   { label: "justin", path: "/" },
   { label: "projects", path: "/projects" },
-  { label: "pics", path: "/pics" },
+  // { label: "pics", path: "/pics" },
 ];
 
 const socialLinks = [
