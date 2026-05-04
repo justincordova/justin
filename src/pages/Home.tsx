@@ -45,10 +45,6 @@ export default function Home() {
               projects and small CLI tools.
             </p>
             <p>
-              My go-to AI tool is <span className="text-accent">Claude</span> — I use it across all
-              my projects. I use <span className="text-accent">GLM</span> as a fallback.
-            </p>
-            <p>
               Outside of code, I play <span className="text-accent">racquetball</span> and{" "}
               <span className="text-accent">tennis</span>, hit the gym and run a few times a week. I
               also enjoy <span className="text-accent">photography</span> and I'm always down to
