@@ -40,7 +40,7 @@ export default function Projects() {
                 const stagger = levels[Math.min(i, levels.length - 1)];
                 return (
                   <div key={repo.name} className={`animate-fade-up h-full ${stagger}`}>
-                    <ProjectCard repo={repo} className="h-full" />
+                    <ProjectCard repo={repo} showLogo={false} className="h-full" />
                   </div>
                 );
               })}
