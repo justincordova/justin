@@ -8,6 +8,7 @@ const PROJECT_LOGOS: Record<string, string> = {
   seshr: "/logos/seshr.png",
   dotcor: "/logos/dotcor.png",
   findu: "/logos/findu.png",
+  rumilabs: "/logos/rumi.png",
 };
 
 const PROJECT_GALLERY: Record<string, string[]> = {

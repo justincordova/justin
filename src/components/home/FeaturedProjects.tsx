@@ -13,8 +13,8 @@ export default function FeaturedProjects() {
     <section className="animate-fade-up stagger-2 px-6 pt-16 pb-0">
       <div className="mx-auto max-w-container">
         {isLoading && (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {Array.from({ length: 4 }).map((_, i) => (
               <ProjectCardSkeleton key={i} />
             ))}
           </div>
@@ -23,7 +23,7 @@ export default function FeaturedProjects() {
         {isError && <ErrorMessage message="Failed to load projects." onRetry={() => refetch()} />}
 
         {repos && (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             {[...repos]
               .sort((a, b) => {
                 const order =
