@@ -23,7 +23,7 @@ export const CURATED_PROJECTS = [
   "file-downloader",
 ] as const;
 
-export const FEATURED_PROJECTS = ["findu", "dotcor", "seshr", "rumilabs"] as const;
+export const FEATURED_PROJECTS = ["rumilabs", "seshr", "dotcor", "findu"] as const;
 
 export async function fetchRepos(repoNames: string[]): Promise<GitHubRepo[]> {
   const res = await fetch(`/api/github/repos?names=${repoNames.join(",")}`);
