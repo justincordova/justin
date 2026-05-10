@@ -6,14 +6,13 @@ import ProjectGallery from "./ProjectGallery";
 
 const PROJECT_LOGOS: Record<string, string> = {
   seshr: "/logos/seshr.png",
-  dotcor: "/logos/dotcor.png",
   findu: "/logos/findu.png",
-  rumilabs: "/logos/rumi.png",
+  rumi: "/logos/rumi.png",
+  arcadeai: "/logos/arcadeai.png",
 };
 
 const PROJECT_GALLERY: Record<string, string[]> = {
   seshr: ["/demo/seshr1.png", "/demo/seshr2.png", "/demo/seshr3.png"],
-  dotcor: ["/demo/dotcor1.png", "/demo/dotcor2.png", "/demo/dotcor3.png"],
   findu: ["/demo/findu1.jpeg", "/demo/findu2.jpeg", "/demo/findu3.png", "/demo/findu4.png"],
 };
 
@@ -40,7 +39,7 @@ function TopicBadge({ topic }: { topic: string }) {
 }
 
 function ProjectLogo({ name }: { name: string }) {
-  const logo = PROJECT_LOGOS[name];
+  const logo = PROJECT_LOGOS[name.toLowerCase()];
 
   if (logo) {
     return (
@@ -60,7 +59,12 @@ function ProjectLogo({ name }: { name: string }) {
   );
 }
 
-export default function ProjectCard({ repo, singleLineTags, showLogo = true, className }: ProjectCardProps) {
+export default function ProjectCard({
+  repo,
+  singleLineTags,
+  showLogo = true,
+  className,
+}: ProjectCardProps) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const gallery = PROJECT_GALLERY[repo.name] ?? [];
 
