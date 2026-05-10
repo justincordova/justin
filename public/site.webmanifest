@@ -1,0 +1,13 @@
+{
+  "name": "Justin Cordova",
+  "short_name": "Justin",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#000000"
+}
