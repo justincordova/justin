@@ -31,11 +31,11 @@ export default function Hero() {
     <section className="flex items-center justify-center px-6 pt-6 pb-0">
       <div className="mx-auto flex max-w-container flex-col items-center gap-8 md:flex-row md:gap-16">
         <img
-          src="/avatar-placeholder.svg"
-          alt="Profile"
+          src="/headshot.jpg"
+          alt="Justin Cordova"
           width={256}
           height={256}
-          className="h-40 w-40 shrink-0 rounded-xl border border-edge transition-all duration-200 hover:shadow-lg hover:shadow-edge/50 md:h-48 md:w-48"
+          className="h-40 w-40 shrink-0 rounded-xl border border-edge transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-edge/50 md:h-48 md:w-48"
         />
         <div className="text-center md:text-left">
           <p className="animate-fade-up stagger-1 text-base text-muted">Hi there! I'm</p>
