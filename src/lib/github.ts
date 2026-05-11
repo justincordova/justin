@@ -26,7 +26,7 @@ export const CURATED_PROJECTS = [
 export const FEATURED_PROJECTS = ["rumi", "seshr", "arcadeai", "findu"] as const;
 
 export async function fetchRepos(repoNames: string[]): Promise<GitHubRepo[]> {
-  const res = await fetch(`/api/github/repos?names=${repoNames.join(",")}`);
+  const res = await fetch(`/api/github/repos?repos=${encodeURIComponent(repoNames.join(","))}`);
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   return res.json();
 }

@@ -20,12 +20,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const names = req.query.names;
-  if (!names || typeof names !== "string") {
-    return res.status(400).json({ error: "Missing 'names' query parameter" });
+  const param = req.query.repos ?? req.query.names;
+  if (!param || typeof param !== "string") {
+    return res.status(400).json({ error: "Missing 'repos' query parameter" });
   }
 
-  const repoNames = names.split(",").filter(Boolean);
+  const repoNames = param.split(",").filter(Boolean);
   if (repoNames.length === 0) {
     return res.status(400).json({ error: "No repo names provided" });
   }
