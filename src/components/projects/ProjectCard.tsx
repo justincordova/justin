@@ -11,6 +11,10 @@ const PROJECT_LOGOS: Record<string, string> = {
   arcadeai: "/logos/arcadeai.png",
 };
 
+const PROJECT_URLS: Record<string, string> = {
+  arcadeai: "https://arcadeai.fly.dev/",
+};
+
 const PROJECT_GALLERY: Record<string, string[]> = {
   seshr: ["/demo/seshr1.png", "/demo/seshr2.png", "/demo/seshr3.png"],
   findu: ["/demo/findu1.jpeg", "/demo/findu2.jpeg", "/demo/findu3.png", "/demo/findu4.png"],
@@ -67,14 +71,23 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const gallery = PROJECT_GALLERY[repo.name] ?? [];
+  const customUrl = PROJECT_URLS[repo.name.toLowerCase()];
+
+  const handleClick = () => {
+    if (customUrl) {
+      window.open(customUrl, "_blank", "noopener,noreferrer");
+    } else if (gallery.length > 0) {
+      setGalleryOpen(true);
+    }
+  };
 
   return (
     <>
       <button
         type="button"
-        onClick={() => gallery.length > 0 && setGalleryOpen(true)}
+        onClick={handleClick}
         className={`group relative flex w-full items-center gap-4 rounded-xl border border-edge bg-surface p-4 text-left transition-all duration-200 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/5 ${className ?? ""} ${
-          gallery.length > 0 ? "cursor-pointer hover:scale-[1.02]" : ""
+          customUrl || gallery.length > 0 ? "cursor-pointer hover:scale-[1.02]" : ""
         }`}
       >
         <a
