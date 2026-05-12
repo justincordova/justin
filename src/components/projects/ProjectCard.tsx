@@ -18,6 +18,7 @@ const PROJECT_URLS: Record<string, string> = {
 const PROJECT_GALLERY: Record<string, string[]> = {
   seshr: ["/demo/seshr1.png", "/demo/seshr2.png", "/demo/seshr3.png"],
   findu: ["/demo/findu1.jpeg", "/demo/findu2.jpeg", "/demo/findu3.png", "/demo/findu4.png"],
+  rumi: ["/demo/rumi1.png", "/demo/rumi2.png", "/demo/rumi3.png", "/demo/rumi4.png"],
 };
 
 interface ProjectCardProps {
