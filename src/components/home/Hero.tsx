@@ -39,7 +39,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-center justify-center px-6 pb-24 pt-[var(--nav-h)]"
+      className="relative flex min-h-[100svh] items-center justify-center px-6 pb-12 pt-[var(--nav-h)] md:pb-24"
     >
       <div
         className="mx-auto flex max-w-container flex-col items-center gap-8 md:flex-row md:gap-16"
