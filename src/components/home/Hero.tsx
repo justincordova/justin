@@ -30,11 +30,9 @@ const icons = [
 ];
 
 export default function Hero() {
-  // Fade content as user scrolls through the hero. 70vh feels right —
-  // fully faded by the time hero is mostly out of view, not instantly.
-  const progress = useScrollProgress(
-    typeof window !== "undefined" ? window.innerHeight * 0.7 : 600,
-  );
+  // Fade content as user scrolls through ~70% of the viewport.
+  // Hook reads viewport height internally so this stays correct on resize.
+  const progress = useScrollProgress(0.7);
   const opacity = 1 - progress * 0.7;
   const translateY = progress * -24;
 

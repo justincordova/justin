@@ -2,15 +2,21 @@ import { useEffect, useState } from "react";
 
 /**
  * Returns a value 0..1 representing how far the user has scrolled
- * through the first viewport-height of the page. 0 = top, 1 = scrolled
- * a full viewport (or beyond).
+ * through a given distance. 0 = top, 1 = scrolled past `distanceFactor`
+ * of viewport height (or beyond).
+ *
+ * `distanceFactor` is the multiplier applied to `window.innerHeight` — the
+ * hook reads the viewport height internally so it stays correct across
+ * resizes (orientation changes, mobile browser chrome show/hide, etc.).
  *
  * Respects `prefers-reduced-motion` by always returning 0.
  */
-export function useScrollProgress(distance = window.innerHeight): number {
+export function useScrollProgress(distanceFactor = 1): number {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
 
@@ -18,8 +24,8 @@ export function useScrollProgress(distance = window.innerHeight): number {
 
     const update = () => {
       raf = 0;
-      const scrollY = window.scrollY;
-      const ratio = Math.min(1, Math.max(0, scrollY / Math.max(1, distance)));
+      const distance = Math.max(1, window.innerHeight * distanceFactor);
+      const ratio = Math.min(1, Math.max(0, window.scrollY / distance));
       setProgress(ratio);
     };
 
@@ -30,12 +36,14 @@ export function useScrollProgress(distance = window.innerHeight): number {
 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (raf !== 0) cancelAnimationFrame(raf);
     };
-  }, [distance]);
+  }, [distanceFactor]);
 
   return progress;
 }
