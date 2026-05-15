@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { githubFetch, GITHUB_USERNAME, HttpBatch } from "../lib/github.js";
+import { GitHubRateLimitError, githubFetch, GITHUB_USERNAME, HttpBatch } from "../lib/github.js";
 import { logError } from "../lib/logger.js";
+import { getCache, setCache } from "../lib/memory-cache.js";
 
 interface SearchCommitsResponse {
   items: Array<{
@@ -27,12 +28,24 @@ interface CommitDetail {
   };
 }
 
+interface CommitActivity {
+  message: string;
+  repoName: string;
+  timestamp: string;
+  commitUrl: string;
+  additions: number;
+  deletions: number;
+}
+
+const CACHE_KEY_PREFIX = "commits:";
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   const limit = Math.min(Number(req.query.limit) || 5, 20);
+  const cacheKey = `${CACHE_KEY_PREFIX}${limit}`;
 
   try {
     const batch = new HttpBatch();
@@ -50,7 +63,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     batch.flush("GET /api/github/commits");
 
-    const commits = data.items.map((item, i) => {
+    const commits: CommitActivity[] = data.items.map((item, i) => {
       const detail = details[i].status === "fulfilled" ? details[i].value : null;
       return {
         message: item.commit.message,
@@ -62,9 +75,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       };
     });
 
+    setCache(cacheKey, commits);
+
+    const anyRateLimited = details.some(
+      (r) => r.status === "rejected" && r.reason instanceof GitHubRateLimitError,
+    );
+    if (anyRateLimited) {
+      res.setHeader("X-Data-Partial", "true");
+    }
+
     res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
     return res.status(200).json(commits);
   } catch (error) {
+    if (error instanceof GitHubRateLimitError) {
+      const cached = getCache<CommitActivity[]>(cacheKey);
+      if (cached) {
+        res.setHeader("Cache-Control", "no-store");
+        res.setHeader("X-Data-Stale", "true");
+        res.setHeader("X-Data-Age-Ms", String(cached.ageMs));
+        return res.status(200).json(cached.value);
+      }
+      return res
+        .status(503)
+        .json({ error: "rate_limited", message: "GitHub API rate limit exceeded" });
+    }
+
     logError("Failed to fetch commits", error);
     return res.status(500).json({ error: "Failed to fetch commits" });
   }

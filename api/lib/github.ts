@@ -26,6 +26,42 @@ export class HttpBatch {
   }
 }
 
+/**
+ * Error thrown when GitHub API responds with a 403 + remaining=0 (primary
+ * rate limit) or a 429 (secondary/abuse rate limit). Callers can catch this
+ * specifically to serve cached data or surface a friendlier error.
+ */
+export class GitHubRateLimitError extends Error {
+  readonly status: number;
+  readonly resetAt: Date | null;
+
+  constructor(status: number, resetAt: Date | null) {
+    super(
+      `GitHub API rate limit exceeded${resetAt ? ` (resets at ${resetAt.toISOString()})` : ""}`,
+    );
+    this.name = "GitHubRateLimitError";
+    this.status = status;
+    this.resetAt = resetAt;
+  }
+}
+
+function parseResetAt(res: Response): Date | null {
+  const reset = res.headers.get("x-ratelimit-reset");
+  if (!reset) return null;
+  const seconds = Number(reset);
+  if (!Number.isFinite(seconds)) return null;
+  return new Date(seconds * 1000);
+}
+
+function isRateLimited(res: Response): boolean {
+  if (res.status === 429) return true;
+  if (res.status === 403) {
+    const remaining = res.headers.get("x-ratelimit-remaining");
+    if (remaining === "0") return true;
+  }
+  return false;
+}
+
 export async function githubFetch<T>(
   endpoint: string,
   batch?: HttpBatch,
@@ -51,6 +87,16 @@ export async function githubFetch<T>(
   }
 
   if (!res.ok) {
+    if (isRateLimited(res)) {
+      const resetAt = parseResetAt(res);
+      log.warn("GitHub rate limit hit", {
+        status: res.status,
+        endpoint,
+        resetAt: resetAt?.toISOString() ?? null,
+      });
+      throw new GitHubRateLimitError(res.status, resetAt);
+    }
+
     log.error("GitHub API error", {
       status: res.status,
       statusText: res.statusText,
