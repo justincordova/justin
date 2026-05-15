@@ -171,8 +171,11 @@ export default function Navigation() {
         </div>
 
         {mobileOpen && (
-          <div id="mobile-menu" className="animate-fade-in px-6 py-4 sm:hidden">
-            <div className="flex flex-col gap-3">
+          <div
+            id="mobile-menu"
+            className="animate-fade-in border-b border-edge/40 bg-bg px-6 py-4 sm:hidden"
+          >
+            <div className="mx-auto flex max-w-container flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
