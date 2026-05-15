@@ -23,13 +23,16 @@ export default function Pics() {
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && selectedImage) {
-        setSelectedImage(null);
-      }
+      if (e.key === "Escape") setSelectedImage(null);
     };
-
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  // Reset loading state when lightbox closes so a canceled load doesn't
+  // leave the next open stuck in a "loading" state.
+  useEffect(() => {
+    if (selectedImage === null) setImageLoading(false);
   }, [selectedImage]);
 
   useBodyScrollLock(selectedImage !== null);
@@ -77,6 +80,7 @@ export default function Pics() {
             </button>
             {imageLoading && <Loader2 className="absolute h-12 w-12 animate-spin text-primary" />}
             <img
+              key={selectedImage}
               src={selectedImage}
               alt={`Enlarged view - Photo ${imageUrls.indexOf(selectedImage) + 1}`}
               onLoad={() => setImageLoading(false)}
