@@ -17,6 +17,7 @@ function PageTransition({ children }: { children: React.ReactNode }) {
       const timeout = setTimeout(() => {
         setDisplayLocation(location);
         setTransitioning(false);
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       }, 120);
       return () => clearTimeout(timeout);
     }
