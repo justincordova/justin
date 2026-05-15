@@ -5,8 +5,10 @@
   --font-sans: "Outfit", system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
 
+  /* Default (dark) palette. Light-mode overrides live below under
+     :root[data-theme="light"]. */
   --color-primary: #977ed4;
-  --color-secondary: #b8aee0;
+  --color-secondary: #cdc4ec;
   --color-accent: #cdc4ec;
   --color-bg: #161617;
   --color-surface: #1e1e20;
@@ -101,19 +103,6 @@
 }
 
 @layer base {
-  :root {
-    --color-primary: #977ed4;
-    --color-secondary: #cdc4ec;
-    --color-accent: #cdc4ec;
-    --color-bg: #161617;
-    --color-surface: #1e1e20;
-    --color-surface-2: #2a2a2d;
-    --color-edge: #2e2e32;
-    --color-content: #e4e4e7;
-    --color-muted: #a1a1aa;
-    --color-faint: #71717a;
-  }
-
   :root[data-theme="light"] {
     --color-primary: #977ed4;
     --color-secondary: #51387a;
