@@ -21,6 +21,7 @@ const PROJECT_GALLERY: Record<string, string[]> = {
 
 interface ProjectRowProps {
   repo: GitHubRepo;
+  featured?: boolean;
 }
 
 function ProjectLogo({ name }: { name: string }) {
@@ -51,7 +52,7 @@ function ProjectLogo({ name }: { name: string }) {
   );
 }
 
-export default function ProjectRow({ repo }: ProjectRowProps) {
+export default function ProjectRow({ repo, featured }: ProjectRowProps) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const gallery = PROJECT_GALLERY[repo.name] ?? [];
   const customUrl = PROJECT_URLS[repo.name.toLowerCase()];
@@ -80,6 +81,15 @@ export default function ProjectRow({ repo }: ProjectRowProps) {
         <div className="min-w-0 flex-1">
           <h3 className="font-sans text-base font-medium text-content transition-colors duration-150 group-hover:text-primary">
             {repo.name}
+            {featured && (
+              <span
+                className="ml-1.5 align-middle text-xs text-faint/60"
+                title="Featured"
+                aria-hidden="true"
+              >
+                ★
+              </span>
+            )}
           </h3>
           <p className="mt-0.5 truncate text-sm text-muted">
             {repo.description || "No description available."}
