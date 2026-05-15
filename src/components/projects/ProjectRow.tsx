@@ -76,22 +76,30 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
 
   const topics = repo.topics.slice(0, 4);
 
+  // Snappy expo-out curve — front-loads motion so the row "snaps" to its
+  // hover state. Pairs with longer durations than ease-out would feel right at.
+  const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+
   const content = (
     <>
-      {/* Leading accent bar — scales in on hover for interactive rows */}
+      {/* Leading accent bar — slides in from the left edge */}
       <span
         aria-hidden="true"
-        className="absolute left-0 top-1/2 h-8 w-px -translate-y-1/2 origin-center scale-y-0 bg-primary/60 transition-transform duration-200 ease-out group-hover:scale-y-100"
+        className="pointer-events-none absolute left-0 top-1/2 h-10 w-[2px] -translate-y-1/2 -translate-x-2 rounded-full bg-primary opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
+        style={{
+          transitionDuration: "350ms",
+          transitionTimingFunction: EASE,
+        }}
       />
 
       <ProjectLogo name={repo.name} />
 
       <div className="min-w-0 flex-1">
-        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-200 group-hover:text-primary">
+        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-[250ms] ease-out group-hover:text-primary">
           <span className="truncate">{repo.name}</span>
           {featured && (
             <span
-              className="shrink-0 text-xs text-faint/60 transition-colors duration-200 group-hover:text-primary/70"
+              className="shrink-0 text-xs text-faint/60"
               title="Featured"
               aria-hidden="true"
             >
@@ -117,33 +125,30 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
             </svg>
           </a>
         </h3>
-        <p className="mt-0.5 truncate text-sm text-muted transition-colors duration-200 group-hover:text-content">
+        <p
+          className="mt-0.5 truncate text-sm text-muted transition-colors duration-[250ms] ease-out group-hover:text-content"
+          style={{ transitionDelay: "60ms" }}
+        >
           {repo.description || "No description available."}
         </p>
         {topics.length > 0 && (
           <p
-            className="mt-1.5 truncate text-xs text-faint transition-colors duration-200 group-hover:text-muted"
-            style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
+            className="mt-1.5 truncate text-xs text-faint transition-colors duration-[250ms] ease-out group-hover:text-muted"
+            style={{
+              fontFamily: "'Geist Mono', ui-monospace, monospace",
+              transitionDelay: "80ms",
+            }}
           >
             {topics.join(" · ")}
           </p>
         )}
       </div>
 
-      {/* Trailing arrow — fades in for interactive rows */}
-      {isInteractive && (
-        <span
-          aria-hidden="true"
-          className="shrink-0 -translate-x-1 text-base text-faint opacity-0 transition-all duration-200 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-primary"
-        >
-          →
-        </span>
-      )}
     </>
   );
 
   const baseClass =
-    "animate-fade-up group relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left transition-[transform,background-color] duration-200 ease-out last:border-b-0";
+    "animate-fade-up group relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left last:border-b-0";
 
   if (isInteractive) {
     return (
@@ -151,8 +156,13 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
         <button
           type="button"
           onClick={handleRowClick}
-          style={{ animationDelay }}
-          className={`${baseClass} hover:translate-x-1.5 hover:bg-surface/30`}
+          style={{
+            animationDelay,
+            transitionProperty: "background-color",
+            transitionDuration: "250ms",
+            transitionTimingFunction: "ease-out",
+          }}
+          className={`${baseClass} hover:bg-surface/30`}
         >
           {content}
         </button>
@@ -169,7 +179,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
     );
   }
 
-  // Non-interactive row — no nested button needed
+  // Non-interactive row — no hover motion, no nested button needed
   return (
     <div style={{ animationDelay }} className={baseClass}>
       {content}
