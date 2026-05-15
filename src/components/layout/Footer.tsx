@@ -31,16 +31,20 @@ function LatestCommit() {
       href={latest.commitUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex max-w-full items-center gap-2 truncate text-[11px] text-faint transition-colors hover:text-muted"
+      className="group inline-flex max-w-full items-center gap-2 truncate text-[11px] text-muted transition-colors hover:text-content"
       style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
     >
-      <span className="uppercase tracking-[0.15em] text-faint/60">last commit</span>
+      <span
+        aria-hidden="true"
+        className="animate-pulse-soft inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+      />
+      <span className="uppercase tracking-[0.15em] text-faint">last commit</span>
       <span className="text-faint/60">·</span>
-      <span className="truncate text-faint group-hover:text-muted">{message}</span>
+      <span className="truncate text-muted group-hover:text-content">{message}</span>
       <span className="text-faint/60">·</span>
-      <span>{latest.repoName}</span>
+      <span className="text-faint">{latest.repoName}</span>
       <span className="text-faint/60">·</span>
-      <span>{timeAgo(latest.timestamp)}</span>
+      <span className="text-faint">{timeAgo(latest.timestamp)}</span>
     </a>
   );
 }
