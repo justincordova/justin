@@ -4,10 +4,11 @@ import ProjectRow from "@/components/projects/ProjectRow";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import { ProjectRowSkeleton } from "@/components/shared/SkeletonLoader";
 import { useGitHubProjects } from "@/hooks/useGitHubProjects";
-import { FEATURED_PROJECTS } from "@/lib/github";
+import { ApiError, FEATURED_PROJECTS } from "@/lib/github";
 
 export default function FeaturedProjects() {
-  const { data: repos, isLoading, isError, refetch } = useGitHubProjects(FEATURED_PROJECTS);
+  const { data: repos, isLoading, isError, error, refetch } = useGitHubProjects(FEATURED_PROJECTS);
+  const rateLimited = error instanceof ApiError && error.isRateLimited;
 
   return (
     <section className="animate-fade-up stagger-2 px-6">
@@ -30,7 +31,15 @@ export default function FeaturedProjects() {
 
           {isError && (
             <div className="py-5">
-              <ErrorMessage message="Failed to load projects." onRetry={() => refetch()} />
+              <ErrorMessage
+                tone={rateLimited ? "info" : "error"}
+                message={
+                  rateLimited
+                    ? "GitHub is rate-limiting us right now. Try again in a minute."
+                    : "Failed to load projects."
+                }
+                onRetry={() => refetch()}
+              />
             </div>
           )}
 

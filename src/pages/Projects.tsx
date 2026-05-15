@@ -3,7 +3,7 @@ import ProjectRow from "@/components/projects/ProjectRow";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import { ProjectRowSkeleton } from "@/components/shared/SkeletonLoader";
 import { useGitHubProjects } from "@/hooks/useGitHubProjects";
-import { CURATED_PROJECTS, FEATURED_PROJECTS } from "@/lib/github";
+import { ApiError, CURATED_PROJECTS, FEATURED_PROJECTS } from "@/lib/github";
 import type { GitHubRepo } from "@/types/github";
 
 const FEATURED_SET = new Set<string>(FEATURED_PROJECTS.map((name) => name.toLowerCase()));
@@ -40,7 +40,8 @@ function getYearRange(repos: GitHubRepo[]): { min: number; max: number } | null 
 }
 
 export default function Projects() {
-  const { data: repos, isLoading, isError, refetch } = useGitHubProjects(CURATED_PROJECTS);
+  const { data: repos, isLoading, isError, error, refetch } = useGitHubProjects(CURATED_PROJECTS);
+  const rateLimited = error instanceof ApiError && error.isRateLimited;
 
   const grouped = useMemo(() => (repos ? groupByYear(repos) : []), [repos]);
   const yearRange = useMemo(() => (repos ? getYearRange(repos) : null), [repos]);
@@ -82,7 +83,15 @@ export default function Projects() {
         )}
 
         {isError && (
-          <ErrorMessage message="Failed to load projects." onRetry={() => refetch()} />
+          <ErrorMessage
+            tone={rateLimited ? "info" : "error"}
+            message={
+              rateLimited
+                ? "GitHub is rate-limiting us right now. Try again in a minute."
+                : "Failed to load projects."
+            }
+            onRetry={() => refetch()}
+          />
         )}
 
         {repos && (
