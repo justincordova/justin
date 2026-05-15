@@ -28,7 +28,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const param = req.query.repos ?? req.query.names;
+  const param = req.query.repos;
   if (!param || typeof param !== "string") {
     return res.status(400).json({ error: "Missing 'repos' query parameter" });
   }
