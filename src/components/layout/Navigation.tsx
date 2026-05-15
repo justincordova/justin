@@ -97,8 +97,8 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-bg/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-container items-center justify-between px-6 py-4">
+      <nav className="sticky top-0 z-50 h-16 bg-bg/80 backdrop-blur-sm">
+        <div className="mx-auto flex h-full max-w-container items-center justify-between px-6">
           <div className="hidden items-center gap-6 sm:flex">
             {navLinks.map((link) => (
               <Link
