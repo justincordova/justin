@@ -57,7 +57,7 @@ export default function Hero() {
           alt="Justin Cordova"
           width={256}
           height={256}
-          className="h-40 w-40 shrink-0 rounded-xl border border-edge transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-edge/50 md:h-48 md:w-48"
+          className="h-40 w-40 shrink-0 rounded-xl border border-edge transition-transform duration-300 ease-out hover:scale-[1.02] md:h-48 md:w-48"
         />
         <div className="text-center md:text-left">
           <p className="animate-fade-up stagger-1 text-base text-muted">Hi there! I'm</p>
@@ -109,7 +109,7 @@ export default function Hero() {
                 </svg>
                 {/* Tooltip */}
                 <span
-                  className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-surface-2 px-2 py-1 text-xs text-content opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+                  className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded bg-surface-2 px-2 py-1 text-xs text-content opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0 group-hover:opacity-100"
                   style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
                 >
                   {icon.name}
