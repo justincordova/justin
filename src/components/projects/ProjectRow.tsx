@@ -24,6 +24,8 @@ const PROJECT_GALLERY: Record<string, string[]> = {
 interface ProjectRowProps {
   repo: GitHubRepo;
   featured?: boolean;
+  /** Index used to stagger fade-in on mount. */
+  index?: number;
 }
 
 const OCTOCAT_PATH =
@@ -57,11 +59,12 @@ function ProjectLogo({ name }: { name: string }) {
   );
 }
 
-export default function ProjectRow({ repo, featured }: ProjectRowProps) {
+export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProps) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const gallery = PROJECT_GALLERY[repo.name] ?? [];
   const customUrl = PROJECT_URLS[repo.name.toLowerCase()];
   const isInteractive = Boolean(customUrl) || gallery.length > 0;
+  const animationDelay = `${Math.min(index, 12) * 40}ms`;
 
   const handleRowClick = () => {
     if (customUrl) {
@@ -140,7 +143,7 @@ export default function ProjectRow({ repo, featured }: ProjectRowProps) {
   );
 
   const baseClass =
-    "group relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left transition-[transform,background-color] duration-200 ease-out last:border-b-0";
+    "animate-fade-up group relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left transition-[transform,background-color] duration-200 ease-out last:border-b-0";
 
   if (isInteractive) {
     return (
@@ -148,6 +151,7 @@ export default function ProjectRow({ repo, featured }: ProjectRowProps) {
         <button
           type="button"
           onClick={handleRowClick}
+          style={{ animationDelay }}
           className={`${baseClass} hover:translate-x-1.5 hover:bg-surface/30`}
         >
           {content}
@@ -166,5 +170,9 @@ export default function ProjectRow({ repo, featured }: ProjectRowProps) {
   }
 
   // Non-interactive row — no nested button needed
-  return <div className={baseClass}>{content}</div>;
+  return (
+    <div style={{ animationDelay }} className={baseClass}>
+      {content}
+    </div>
+  );
 }

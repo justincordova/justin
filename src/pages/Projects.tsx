@@ -86,29 +86,36 @@ export default function Projects() {
         )}
 
         {repos && (
-          <div className="animate-fade-up stagger-2">
-            {grouped.map(([year, group], groupIndex) => (
-              <section key={year} className={groupIndex === 0 ? "" : "mt-12"}>
-                <div className="mb-2 flex items-center gap-4">
-                  <span
-                    className="text-xs tracking-[0.15em] text-faint/60"
-                    style={{ fontFamily: MONO_FONT }}
-                  >
-                    {year}
-                  </span>
-                  <div className="h-px flex-1 bg-edge/30" />
-                </div>
-                <div>
-                  {group.map((repo) => (
-                    <ProjectRow
-                      key={repo.name}
-                      repo={repo}
-                      featured={FEATURED_SET.has(repo.name.toLowerCase())}
-                    />
-                  ))}
-                </div>
-              </section>
-            ))}
+          <div>
+            {grouped.map(([year, group], groupIndex) => {
+              // Cumulative index across all groups so stagger is continuous
+              const offset = grouped
+                .slice(0, groupIndex)
+                .reduce((acc, [, g]) => acc + g.length, 0);
+              return (
+                <section key={year} className={groupIndex === 0 ? "" : "mt-12"}>
+                  <div className="mb-2 flex items-center gap-4">
+                    <span
+                      className="text-xs tracking-[0.15em] text-faint/60"
+                      style={{ fontFamily: MONO_FONT }}
+                    >
+                      {year}
+                    </span>
+                    <div className="h-px flex-1 bg-edge/30" />
+                  </div>
+                  <div>
+                    {group.map((repo, i) => (
+                      <ProjectRow
+                        key={repo.name}
+                        repo={repo}
+                        featured={FEATURED_SET.has(repo.name.toLowerCase())}
+                        index={offset + i}
+                      />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         )}
       </div>

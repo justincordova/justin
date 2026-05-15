@@ -42,8 +42,8 @@ export default function FeaturedProjects() {
                     FEATURED_PROJECTS.indexOf(a.name as (typeof FEATURED_PROJECTS)[number]) -
                     FEATURED_PROJECTS.indexOf(b.name as (typeof FEATURED_PROJECTS)[number]),
                 )
-                .map((repo) => (
-                  <ProjectRow key={repo.name} repo={repo} />
+                .map((repo, i) => (
+                  <ProjectRow key={repo.name} repo={repo} index={i} />
                 ))}
             </div>
           )}
