@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useGitHubCommits } from "@/hooks/useGitHubCommits";
 
 function timeAgo(dateString: string): string {
@@ -22,6 +23,16 @@ function timeAgo(dateString: string): string {
 function LatestCommit() {
   const { data: commits } = useGitHubCommits(1);
   const latest = commits?.[0];
+
+  // Force a re-render every minute so the relative time stays accurate
+  // without waiting on the next TanStack Query refetch (5min staleTime).
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    if (!latest) return;
+    const id = setInterval(() => setTick((t) => t + 1), 60_000);
+    return () => clearInterval(id);
+  }, [latest]);
+
   if (!latest) return null;
 
   const message = latest.message.split("\n")[0];
