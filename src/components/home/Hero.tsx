@@ -13,6 +13,7 @@ import {
 } from "simple-icons";
 import HeroScrollHint from "@/components/home/HeroScrollHint";
 import LocationWidget from "@/components/home/LocationWidget";
+import { useScrollProgress } from "@/hooks/useScrollFade";
 
 const icons = [
   { name: "TypeScript", path: siTypescript.path, color: `#${siTypescript.hex}` },
@@ -29,13 +30,28 @@ const icons = [
 ];
 
 export default function Hero() {
+  // Fade content as user scrolls through the hero. 70vh feels right —
+  // fully faded by the time hero is mostly out of view, not instantly.
+  const progress = useScrollProgress(
+    typeof window !== "undefined" ? window.innerHeight * 0.7 : 600,
+  );
+  const opacity = 1 - progress * 0.7;
+  const translateY = progress * -24;
+
   return (
     <section
       id="hero"
       className="relative flex min-h-[100svh] items-center justify-center px-6"
       style={{ marginTop: "calc(var(--nav-h) * -1)" }}
     >
-      <div className="mx-auto flex max-w-container flex-col items-center gap-8 md:flex-row md:gap-16">
+      <div
+        className="mx-auto flex max-w-container flex-col items-center gap-8 md:flex-row md:gap-16"
+        style={{
+          opacity,
+          transform: `translate3d(0, ${translateY}px, 0)`,
+          willChange: "opacity, transform",
+        }}
+      >
         <img
           src="/headshot.jpg"
           alt="Justin Cordova"
