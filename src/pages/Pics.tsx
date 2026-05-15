@@ -1,6 +1,7 @@
 import { Loader2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import FocusLock from "react-focus-lock";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 const imageModules = import.meta.glob<{ default: string }>("../assets/pics/*.{jpg,JPG,jpeg,JPEG}", {
   eager: false,
@@ -31,17 +32,7 @@ export default function Pics() {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [selectedImage]);
 
-  useEffect(() => {
-    if (selectedImage) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedImage]);
+  useBodyScrollLock(selectedImage !== null);
 
   return (
     <div className="px-6 py-10">

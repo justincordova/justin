@@ -1,6 +1,7 @@
 import { Download, X } from "lucide-react";
 import { useEffect } from "react";
 import FocusLock from "react-focus-lock";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 interface ResumeModalProps {
   open: boolean;
@@ -8,16 +9,7 @@ interface ResumeModalProps {
 }
 
 export default function ResumeModal({ open, onClose }: ResumeModalProps) {
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  useBodyScrollLock(open);
 
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {

@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import FocusLock from "react-focus-lock";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 interface ProjectGalleryProps {
   name: string;
@@ -12,6 +13,7 @@ interface ProjectGalleryProps {
 
 export default function ProjectGallery({ name, images, open, onClose }: ProjectGalleryProps) {
   const [index, setIndex] = useState(0);
+  useBodyScrollLock(open);
 
   const prev = useCallback(
     () => setIndex((i) => (i - 1 + images.length) % images.length),
@@ -20,15 +22,7 @@ export default function ProjectGallery({ name, images, open, onClose }: ProjectG
   const next = useCallback(() => setIndex((i) => (i + 1) % images.length), [images.length]);
 
   useEffect(() => {
-    if (open) {
-      setIndex(0);
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (open) setIndex(0);
   }, [open]);
 
   useEffect(() => {
