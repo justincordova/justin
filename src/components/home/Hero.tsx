@@ -11,6 +11,7 @@ import {
   siSharp,
   siTypescript,
 } from "simple-icons";
+import HeroScrollHint from "@/components/home/HeroScrollHint";
 
 const icons = [
   { name: "TypeScript", path: siTypescript.path, color: `#${siTypescript.hex}` },
@@ -28,7 +29,11 @@ const icons = [
 
 export default function Hero() {
   return (
-    <section className="flex items-center justify-center px-6 pt-6 pb-0">
+    <section
+      id="hero"
+      className="relative flex min-h-[100svh] items-center justify-center px-6"
+      style={{ paddingTop: "var(--nav-h)" }}
+    >
       <div className="mx-auto flex max-w-container flex-col items-center gap-8 md:flex-row md:gap-16">
         <img
           src="/headshot.jpg"
@@ -86,7 +91,8 @@ export default function Hero() {
                   <path d={icon.path} />
                 </svg>
                 {/* Tooltip */}
-                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-surface-2 px-2 py-1 text-xs text-content opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+                <span
+                  className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-surface-2 px-2 py-1 text-xs text-content opacity-0 transition-opacity duration-150 group-hover:opacity-100"
                   style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
                 >
                   {icon.name}
@@ -96,6 +102,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
+      <HeroScrollHint />
     </section>
   );
 }
