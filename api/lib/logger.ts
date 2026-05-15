@@ -26,25 +26,33 @@ winston.addColors({
 
 const SENSITIVE_KEYS = new Set(["password", "token", "authorization", "secret", "apikey"]);
 
-const redactInPlace = (obj: Record<string, unknown>): void => {
-  for (const key of Object.keys(obj)) {
-    if (SENSITIVE_KEYS.has(key.toLowerCase())) {
-      obj[key] = "[REDACTED]";
-    } else if (Array.isArray(obj[key])) {
-      for (const item of obj[key] as unknown[]) {
-        if (item && typeof item === "object") {
-          redactInPlace(item as Record<string, unknown>);
-        }
-      }
-    } else if (obj[key] && typeof obj[key] === "object") {
-      redactInPlace(obj[key] as Record<string, unknown>);
-    }
+// Clones the object (deep over plain objects/arrays) while replacing
+// values under sensitive keys. We don't mutate the input because the
+// same object can flow through other winston formatters or escape into
+// downstream code — mutating would permanently overwrite caller data.
+const redactClone = (value: unknown): unknown => {
+  if (Array.isArray(value)) {
+    return value.map((v) => redactClone(v));
   }
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      out[k] = SENSITIVE_KEYS.has(k.toLowerCase()) ? "[REDACTED]" : redactClone(v);
+    }
+    return out;
+  }
+  return value;
 };
 
 const redact = winston.format((info) => {
-  redactInPlace(info as unknown as Record<string, unknown>);
-  return info;
+  // info itself is a winston object with Symbol-keyed metadata — return a
+  // new info-shaped object with redacted enumerable props plus the original
+  // symbol props preserved.
+  const redacted = redactClone(info) as Record<string, unknown>;
+  for (const sym of Object.getOwnPropertySymbols(info)) {
+    redacted[sym as unknown as string] = (info as Record<string | symbol, unknown>)[sym];
+  }
+  return redacted as typeof info;
 });
 
 const consoleFormat = winston.format.combine(
