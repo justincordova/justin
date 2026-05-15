@@ -76,7 +76,7 @@ export default function Hero() {
               href="https://pureittech.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-4 transition-opacity hover:opacity-80"
+              className="whitespace-nowrap underline underline-offset-4 transition-opacity hover:opacity-80"
             >
               Pure Technology Inc.
             </a>
