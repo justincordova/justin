@@ -61,8 +61,11 @@ function ProjectLogo({ name }: { name: string }) {
 
 export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProps) {
   const [galleryOpen, setGalleryOpen] = useState(false);
-  const gallery = PROJECT_GALLERY[repo.name] ?? [];
-  const customUrl = PROJECT_URLS[repo.name.toLowerCase()];
+  // CURATED_PROJECTS contains mixed-case names (e.g. "JobDaemon", "Min-OSS").
+  // Lookups are always lowercased so callers don't have to remember case.
+  const key = repo.name.toLowerCase();
+  const gallery = PROJECT_GALLERY[key] ?? [];
+  const customUrl = PROJECT_URLS[key];
   const isInteractive = Boolean(customUrl) || gallery.length > 0;
   const animationDelay = `${Math.min(index, 12) * 40}ms`;
 
