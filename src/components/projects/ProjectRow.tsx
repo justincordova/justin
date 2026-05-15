@@ -75,14 +75,20 @@ export default function ProjectRow({ repo, featured }: ProjectRowProps) {
 
   const content = (
     <>
+      {/* Leading accent bar — scales in on hover for interactive rows */}
+      <span
+        aria-hidden="true"
+        className="absolute left-0 top-1/2 h-8 w-px -translate-y-1/2 origin-center scale-y-0 bg-primary/60 transition-transform duration-200 ease-out group-hover:scale-y-100"
+      />
+
       <ProjectLogo name={repo.name} />
 
       <div className="min-w-0 flex-1">
-        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-150 group-hover:text-primary">
+        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-200 group-hover:text-primary">
           <span className="truncate">{repo.name}</span>
           {featured && (
             <span
-              className="shrink-0 text-xs text-faint/60"
+              className="shrink-0 text-xs text-faint/60 transition-colors duration-200 group-hover:text-primary/70"
               title="Featured"
               aria-hidden="true"
             >
@@ -95,11 +101,11 @@ export default function ProjectRow({ repo, featured }: ProjectRowProps) {
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             aria-label={`${repo.name} on GitHub`}
-            className="shrink-0 text-faint transition-colors duration-150 hover:text-content"
+            className="shrink-0 text-faint/70 transition-colors duration-200 hover:text-content"
           >
             <svg
               viewBox="0 0 24 24"
-              className="h-3.5 w-3.5"
+              className="h-4 w-4"
               fill="currentColor"
               role="img"
               aria-label="GitHub"
@@ -108,23 +114,33 @@ export default function ProjectRow({ repo, featured }: ProjectRowProps) {
             </svg>
           </a>
         </h3>
-        <p className="mt-0.5 truncate text-sm text-muted">
+        <p className="mt-0.5 truncate text-sm text-muted transition-colors duration-200 group-hover:text-content">
           {repo.description || "No description available."}
         </p>
         {topics.length > 0 && (
           <p
-            className="mt-1.5 truncate text-xs text-faint"
+            className="mt-1.5 truncate text-xs text-faint transition-colors duration-200 group-hover:text-muted"
             style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
           >
             {topics.join(" · ")}
           </p>
         )}
       </div>
+
+      {/* Trailing arrow — fades in for interactive rows */}
+      {isInteractive && (
+        <span
+          aria-hidden="true"
+          className="shrink-0 -translate-x-1 text-base text-faint opacity-0 transition-all duration-200 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-primary"
+        >
+          →
+        </span>
+      )}
     </>
   );
 
   const baseClass =
-    "group flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left transition-colors duration-150 last:border-b-0";
+    "group relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left transition-[transform,background-color] duration-200 ease-out last:border-b-0";
 
   if (isInteractive) {
     return (
@@ -132,7 +148,7 @@ export default function ProjectRow({ repo, featured }: ProjectRowProps) {
         <button
           type="button"
           onClick={handleRowClick}
-          className={`${baseClass} hover:bg-surface/30`}
+          className={`${baseClass} hover:translate-x-1.5 hover:bg-surface/30`}
         >
           {content}
         </button>
