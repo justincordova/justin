@@ -1,13 +1,15 @@
-import { MapPin, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 function getEasternTime() {
-  return new Date().toLocaleString("en-US", {
-    timeZone: "America/New_York",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
+  return new Date()
+    .toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    })
+    .toLowerCase();
 }
 
 function getEasternHour(): number {
@@ -39,22 +41,15 @@ export default function LocationWidget() {
   }, []);
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-edge bg-surface min-w-0">
-      <div className="border-b border-edge/50 px-4 py-3">
-        <h2 className="font-sans text-sm font-semibold text-content">Currently Based In</h2>
-      </div>
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 p-5 text-center">
-        <MapPin className="h-5 w-5 text-primary" />
-        <p className="text-sm font-medium text-content">Stewartsville, NJ</p>
-        <div className="flex items-center gap-2 rounded-md bg-bg px-3 py-1.5">
-          {isDaytime ? (
-            <Sun className="h-4 w-4 text-secondary" />
-          ) : (
-            <Moon className="h-4 w-4 text-primary" />
-          )}
-          <span className="font-mono text-xs text-muted">{time} ET</span>
-        </div>
-      </div>
-    </div>
+    <p className="flex items-center justify-center gap-2 text-xs text-muted">
+      <span>based in stewartsville, nj</span>
+      <span className="text-faint">·</span>
+      {isDaytime ? (
+        <Sun className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
+      ) : (
+        <Moon className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
+      )}
+      <span style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}>{time} et</span>
+    </p>
   );
 }

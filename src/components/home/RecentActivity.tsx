@@ -1,6 +1,5 @@
-import { ExternalLink, GitCommit } from "lucide-react";
 import ErrorMessage from "@/components/shared/ErrorMessage";
-import { CommitItemSkeleton } from "@/components/shared/SkeletonLoader";
+import { CommitRowSkeleton } from "@/components/shared/SkeletonLoader";
 import { useGitHubCommits } from "@/hooks/useGitHubCommits";
 
 function timeAgo(dateString: string): string {
@@ -31,62 +30,76 @@ export default function RecentActivity() {
   const { data: commits, isLoading, isError, refetch } = useGitHubCommits(3);
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-edge bg-surface min-w-0">
-      <div className="px-4 py-3">
-        <h2 className="font-sans text-sm font-semibold text-content">Recent Commits</h2>
-      </div>
+    <section className="px-6">
+      <div className="mx-auto max-w-container">
+        <p
+          className="mb-6 text-[11px] uppercase tracking-[0.15em] text-faint/60"
+          style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
+        >
+          Recent
+        </p>
 
-      <div className="min-w-0 overflow-y-auto">
         {isLoading && (
-          <div>
+          <div className="flex flex-col gap-5">
             {Array.from({ length: 3 }).map((_, i) => (
-              <CommitItemSkeleton key={i} />
+              <CommitRowSkeleton key={i} />
             ))}
           </div>
         )}
 
         {isError && (
-          <div className="p-4">
-            <ErrorMessage message="Failed to load recent activity." onRetry={() => refetch()} />
+          <ErrorMessage message="Failed to load recent activity." onRetry={() => refetch()} />
+        )}
+
+        {commits && commits.length > 0 && (
+          <div className="flex flex-col gap-5">
+            {commits.map((commit, i) => {
+              const hasDelta = commit.additions > 0 || commit.deletions > 0;
+              return (
+                <a
+                  key={`${commit.commitUrl}-${i}`}
+                  href={commit.commitUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block min-w-0"
+                >
+                  <p className="truncate text-sm text-content transition-colors duration-150 group-hover:text-primary">
+                    {commit.message.split("\n")[0]}
+                  </p>
+                  <p
+                    className="mt-1 truncate text-xs text-faint"
+                    style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
+                  >
+                    <span>{commit.repoName}</span>
+                    <span> · </span>
+                    <span>{timeAgo(commit.timestamp)}</span>
+                    {hasDelta && (
+                      <>
+                        <span> · </span>
+                        {commit.additions > 0 && (
+                          <span className="text-emerald-500/70">
+                            +{formatDelta(commit.additions)}
+                          </span>
+                        )}
+                        {commit.additions > 0 && commit.deletions > 0 && <span> </span>}
+                        {commit.deletions > 0 && (
+                          <span className="text-red-400/70">
+                            -{formatDelta(commit.deletions)}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </p>
+                </a>
+              );
+            })}
           </div>
         )}
 
-        {commits &&
-          commits.length > 0 &&
-          commits.map((commit, i) => (
-            <a
-              key={`${commit.commitUrl}-${i}`}
-              href={commit.commitUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex max-w-full items-start gap-3 px-4 py-3 transition-colors hover:bg-surface-2/30"
-            >
-              <GitCommit className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm text-content">{commit.message.split("\n")[0]}</p>
-                <div className="mt-0.5 flex items-center gap-2 overflow-hidden text-xs">
-                  <span className="shrink-0 font-mono text-primary">{commit.repoName}</span>
-                  <span className="shrink-0 text-faint">{timeAgo(commit.timestamp)}</span>
-                  {(commit.additions > 0 || commit.deletions > 0) && (
-                    <span className="flex items-center gap-1 font-mono">
-                      {commit.additions > 0 && (
-                        <span className="text-emerald-500">+{formatDelta(commit.additions)}</span>
-                      )}
-                      {commit.deletions > 0 && (
-                        <span className="text-red-400">-{formatDelta(commit.deletions)}</span>
-                      )}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-faint opacity-0 transition-opacity group-hover:opacity-100" />
-            </a>
-          ))}
-
         {commits && commits.length === 0 && (
-          <p className="px-4 py-3 text-sm text-faint">No recent commits.</p>
+          <p className="text-sm text-faint">No recent commits.</p>
         )}
       </div>
-    </div>
+    </section>
   );
 }

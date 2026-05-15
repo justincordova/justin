@@ -11,17 +11,22 @@ export default function Home() {
     <div>
       <Hero />
 
-      <div id="content">
-        <FeaturedProjects />
+      <div id="content" className="pt-24 md:pt-32">
+        <div className="mx-auto max-w-container px-6">
+          <div className="h-px bg-edge/30" />
+        </div>
 
-        <section className="px-6 pt-8 pb-0">
-          <div className="mx-auto max-w-container">
-            <div className="grid items-stretch gap-6 lg:grid-cols-[1fr_280px]">
-              <RecentActivity />
-              <LocationWidget />
-            </div>
-          </div>
-        </section>
+        <div className="pt-12">
+          <FeaturedProjects />
+        </div>
+
+        <div className="mt-6 px-6">
+          <LocationWidget />
+        </div>
+
+        <div className="mt-16 md:mt-20">
+          <RecentActivity />
+        </div>
       </div>
     </div>
   );
