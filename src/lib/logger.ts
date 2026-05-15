@@ -25,7 +25,10 @@ function redactProperties(obj: Record<string, unknown>): Record<string, unknown>
 }
 
 function formatTimestamp(): string {
-  return new Date().toISOString().replace("T", " ").slice(0, 19);
+  // ISO 8601 in UTC, displayed as "YYYY-MM-DD HH:mm:ssZ" so the trailing
+  // Z makes the timezone explicit (was being sliced off, leaving a string
+  // that looked like local time but was actually UTC).
+  return `${new Date().toISOString().replace("T", " ").slice(0, 19)}Z`;
 }
 
 const consoleSink = getConsoleSink({
