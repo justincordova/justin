@@ -103,7 +103,7 @@ export default function Hero() {
             </a>
           </p>
 
-          <div className="animate-fade-up stagger-6 mt-5 flex items-center justify-center gap-3 md:justify-start">
+          <div className="animate-fade-up stagger-6 mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start">
             {icons.map((icon) => (
               <div key={icon.name} className="group relative">
                 <svg
