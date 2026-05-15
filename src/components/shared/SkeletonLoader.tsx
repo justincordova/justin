@@ -32,6 +32,19 @@ export function ProjectCardSkeleton() {
   );
 }
 
+export function ProjectRowSkeleton() {
+  return (
+    <div className="flex items-center gap-5 border-b border-edge/40 px-2 py-5 last:border-b-0">
+      <Skeleton className="h-7 w-7 shrink-0 rounded-full" />
+      <div className="min-w-0 flex-1">
+        <Skeleton className="h-4 w-1/4" />
+        <Skeleton className="mt-1.5 h-3 w-3/4" />
+        <Skeleton className="mt-1.5 h-3 w-2/5" />
+      </div>
+    </div>
+  );
+}
+
 export function CommitItemSkeleton() {
   return (
     <div className="border-b border-edge/50 px-4 py-3 last:border-b-0">

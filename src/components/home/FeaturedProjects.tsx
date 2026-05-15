@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router";
-import ProjectCard from "@/components/projects/ProjectCard";
+import ProjectRow from "@/components/projects/ProjectRow";
 import ErrorMessage from "@/components/shared/ErrorMessage";
-import { ProjectCardSkeleton } from "@/components/shared/SkeletonLoader";
+import { ProjectRowSkeleton } from "@/components/shared/SkeletonLoader";
 import { useGitHubProjects } from "@/hooks/useGitHubProjects";
 import { FEATURED_PROJECTS } from "@/lib/github";
 
@@ -10,34 +10,46 @@ export default function FeaturedProjects() {
   const { data: repos, isLoading, isError, refetch } = useGitHubProjects(FEATURED_PROJECTS);
 
   return (
-    <section className="animate-fade-up stagger-2 px-6 pt-16 pb-0">
+    <section className="animate-fade-up stagger-2 px-6">
       <div className="mx-auto max-w-container">
-        {isLoading && (
-          <div className="grid gap-3 sm:grid-cols-2">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <ProjectCardSkeleton key={i} />
-            ))}
-          </div>
-        )}
+        <p
+          className="mb-6 text-[11px] uppercase tracking-[0.15em] text-faint/60"
+          style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
+        >
+          Featured
+        </p>
 
-        {isError && <ErrorMessage message="Failed to load projects." onRetry={() => refetch()} />}
-
-        {repos && (
-          <div className="grid gap-3 sm:grid-cols-2">
-            {[...repos]
-              .sort((a, b) => {
-                const order =
-                  FEATURED_PROJECTS.indexOf(a.name as (typeof FEATURED_PROJECTS)[number]) -
-                  FEATURED_PROJECTS.indexOf(b.name as (typeof FEATURED_PROJECTS)[number]);
-                return order;
-              })
-              .map((repo) => (
-                <ProjectCard key={repo.name} repo={repo} singleLineTags />
+        <div className="border-t border-edge/40">
+          {isLoading && (
+            <div>
+              {Array.from({ length: 4 }).map((_, i) => (
+                <ProjectRowSkeleton key={i} />
               ))}
-          </div>
-        )}
+            </div>
+          )}
 
-        <div className="mt-4 text-center">
+          {isError && (
+            <div className="py-5">
+              <ErrorMessage message="Failed to load projects." onRetry={() => refetch()} />
+            </div>
+          )}
+
+          {repos && (
+            <div>
+              {[...repos]
+                .sort(
+                  (a, b) =>
+                    FEATURED_PROJECTS.indexOf(a.name as (typeof FEATURED_PROJECTS)[number]) -
+                    FEATURED_PROJECTS.indexOf(b.name as (typeof FEATURED_PROJECTS)[number]),
+                )
+                .map((repo) => (
+                  <ProjectRow key={repo.name} repo={repo} />
+                ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 text-center">
           <Link
             to="/projects"
             className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-content"
