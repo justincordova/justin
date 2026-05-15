@@ -52,13 +52,17 @@ export default function Projects() {
       <div className="mx-auto max-w-container">
         {/* Header */}
         {repos && (
-          <div className="animate-fade-up stagger-1 mb-12 flex items-baseline justify-between gap-4">
-            <p
-              className="text-[11px] uppercase tracking-[0.15em] text-faint/60"
-              style={{ fontFamily: MONO_FONT }}
+          <header className="animate-fade-up stagger-1 mb-12 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <h1
+              className="tracking-tight text-content"
+              style={{
+                fontFamily: "'Outfit', sans-serif",
+                fontWeight: 500,
+                fontSize: "clamp(1.5rem, 3vw, 1.875rem)",
+              }}
             >
               Projects
-            </p>
+            </h1>
             {yearRange && (
               <p
                 className="truncate text-xs text-faint"
@@ -71,7 +75,7 @@ export default function Projects() {
                   : `${yearRange.min} – ${yearRange.max}`}
               </p>
             )}
-          </div>
+          </header>
         )}
 
         {isLoading && (
