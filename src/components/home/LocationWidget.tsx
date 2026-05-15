@@ -40,16 +40,25 @@ export default function LocationWidget() {
     return () => clearInterval(interval);
   }, []);
 
+  const Icon = isDaytime ? Sun : Moon;
+  const monoFont = "'Geist Mono', ui-monospace, monospace";
+
   return (
-    <p className="flex items-center justify-center gap-2 text-xs text-muted">
-      <span>based in stewartsville, nj</span>
-      <span className="text-faint">·</span>
-      {isDaytime ? (
-        <Sun className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
-      ) : (
-        <Moon className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
-      )}
-      <span style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}>{time} et</span>
-    </p>
+    <>
+      {/* Desktop: full form */}
+      <div className="hidden items-center gap-2 text-xs text-muted md:flex">
+        <span>based in stewartsville, nj</span>
+        <span className="text-faint">·</span>
+        <Icon className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
+        <span style={{ fontFamily: monoFont }}>{time} et</span>
+      </div>
+      {/* Mobile: compact form */}
+      <div className="flex items-center gap-1.5 text-[11px] text-muted md:hidden">
+        <span>stewartsville</span>
+        <span className="text-faint">·</span>
+        <Icon className="h-3 w-3 text-muted" aria-hidden="true" />
+        <span style={{ fontFamily: monoFont }}>{time} et</span>
+      </div>
+    </>
   );
 }

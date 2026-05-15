@@ -12,6 +12,7 @@ import {
   siTypescript,
 } from "simple-icons";
 import HeroScrollHint from "@/components/home/HeroScrollHint";
+import LocationWidget from "@/components/home/LocationWidget";
 
 const icons = [
   { name: "TypeScript", path: siTypescript.path, color: `#${siTypescript.hex}` },
@@ -32,7 +33,7 @@ export default function Hero() {
     <section
       id="hero"
       className="relative flex min-h-[100svh] items-center justify-center px-6"
-      style={{ paddingTop: "var(--nav-h)" }}
+      style={{ marginTop: "calc(var(--nav-h) * -1)" }}
     >
       <div className="mx-auto flex max-w-container flex-col items-center gap-8 md:flex-row md:gap-16">
         <img
@@ -99,6 +100,10 @@ export default function Hero() {
                 </span>
               </div>
             ))}
+          </div>
+
+          <div className="animate-fade-up stagger-6 mt-5 flex justify-center md:justify-start">
+            <LocationWidget />
           </div>
         </div>
       </div>

@@ -57,11 +57,4 @@ export function CommitItemSkeleton() {
   );
 }
 
-export function CommitRowSkeleton() {
-  return (
-    <div className="min-w-0">
-      <Skeleton className="h-4 w-4/5" />
-      <Skeleton className="mt-1 h-3 w-2/5" />
-    </div>
-  );
-}
+

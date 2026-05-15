@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 
 /**
- * One-way spacebar shortcut: when the user is within the hero section,
- * pressing space smooth-scrolls to the #content section. Anywhere else
- * on the page, native browser behavior (page-down) is preserved.
+ * Bidirectional spacebar toggle:
+ * - Press space while on the hero → smooth-scroll to #content
+ * - Press space while on section 2 → smooth-scroll back to #hero
+ *
+ * Skips inputs/contenteditable and respects modifier keys (Shift+Space etc.).
  */
 export function useSpaceScrollToHero() {
   useEffect(() => {
@@ -29,13 +31,13 @@ export function useSpaceScrollToHero() {
       if (!hero || !content) return;
 
       const withinHero = window.scrollY < hero.offsetHeight - 100;
-      if (!withinHero) return;
+      const destination = withinHero ? content : hero;
 
       event.preventDefault();
       const prefersReducedMotion =
         typeof window.matchMedia === "function" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      content.scrollIntoView({
+      destination.scrollIntoView({
         behavior: prefersReducedMotion ? "auto" : "smooth",
         block: "start",
       });
