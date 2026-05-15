@@ -5,6 +5,7 @@ export const CURATED_PROJECTS = [
   "findu",
   "rumi",
   "arcadeai",
+  "dotcor",
   "JobDaemon",
   "student-depression-prediction",
   "Min-OSS",

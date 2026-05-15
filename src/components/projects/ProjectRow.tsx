@@ -7,6 +7,7 @@ const PROJECT_LOGOS: Record<string, string> = {
   findu: "/logos/findu.png",
   rumi: "/logos/rumi.png",
   arcadeai: "/logos/arcadeai.png",
+  dotcor: "/logos/dotcor.png",
 };
 
 const PROJECT_URLS: Record<string, string> = {
@@ -17,6 +18,7 @@ const PROJECT_GALLERY: Record<string, string[]> = {
   seshr: ["/demo/seshr1.png", "/demo/seshr2.png", "/demo/seshr3.png"],
   findu: ["/demo/findu1.jpeg", "/demo/findu2.jpeg", "/demo/findu3.png", "/demo/findu4.png"],
   rumi: ["/demo/rumi1.png", "/demo/rumi2.png", "/demo/rumi3.png", "/demo/rumi4.png"],
+  dotcor: ["/demo/dotcor1.png", "/demo/dotcor2.png", "/demo/dotcor3.png"],
 };
 
 interface ProjectRowProps {
