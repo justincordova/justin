@@ -94,14 +94,17 @@ export default function Projects() {
                 .reduce((acc, [, g]) => acc + g.length, 0);
               return (
                 <section key={year} className={groupIndex === 0 ? "" : "mt-12"}>
-                  <div className="mb-2 flex items-center gap-4">
+                  <div
+                    className="sticky z-10 mb-2 flex items-center gap-4 bg-bg/80 py-2 backdrop-blur-sm"
+                    style={{ top: "var(--nav-h)" }}
+                  >
                     <span
-                      className="text-xs tracking-[0.15em] text-faint/60"
+                      className="text-xs tracking-[0.15em] text-muted"
                       style={{ fontFamily: MONO_FONT }}
                     >
                       {year}
                     </span>
-                    <div className="h-px flex-1 bg-edge/30" />
+                    <div className="h-px flex-1 bg-edge/40" />
                   </div>
                   <div>
                     {group.map((repo, i) => (
