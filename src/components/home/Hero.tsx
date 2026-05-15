@@ -60,13 +60,23 @@ export default function Hero() {
           <p className="animate-fade-up stagger-1 text-base text-muted">Hi there! I'm</p>
           <h1
             className="animate-fade-up stagger-2 tracking-tight text-primary"
-            style={{ fontFamily: "'Outfit', sans-serif", fontSize: "40px", fontWeight: 650 }}
+            style={{
+              fontFamily: "'Outfit', sans-serif",
+              fontSize: "clamp(1.75rem, 7vw, 2.5rem)",
+              fontWeight: 650,
+              lineHeight: 1.1,
+            }}
           >
             Justin Cordova
           </h1>
           <p
             className="animate-fade-up stagger-3 tracking-tight text-secondary"
-            style={{ fontFamily: "'Outfit', sans-serif", fontSize: "40px", fontWeight: 650 }}
+            style={{
+              fontFamily: "'Outfit', sans-serif",
+              fontSize: "clamp(1.75rem, 7vw, 2.5rem)",
+              fontWeight: 650,
+              lineHeight: 1.1,
+            }}
           >
             I make things on the internet.
           </p>
