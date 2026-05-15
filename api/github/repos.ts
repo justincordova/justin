@@ -3,6 +3,11 @@ import { GitHubRateLimitError, githubFetch, GITHUB_USERNAME, HttpBatch } from ".
 import { logError } from "../lib/logger.js";
 import { getCache, setCache } from "../lib/memory-cache.js";
 
+// All upstream calls in this handler go through Promise.allSettled, so a
+// rate-limit on any individual repo fetch is reflected in the rejected
+// results — never thrown out of the try block. The catch only fires on
+// bugs inside our own code (cache, headers, JSON serialization).
+
 interface GitHubRepoResponse {
   name: string;
   full_name: string;
@@ -86,20 +91,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
     return res.status(200).json(repos);
   } catch (error) {
-    // Top-level rate limit (the whole request failed before allSettled)
-    // shouldn't actually happen since we use allSettled, but handle for safety.
-    if (error instanceof GitHubRateLimitError) {
-      const cached = getCache<GitHubRepoResponse[]>(cacheKey);
-      if (cached) {
-        res.setHeader("Cache-Control", "no-store");
-        res.setHeader("X-Data-Stale", "true");
-        return res.status(200).json(cached.value);
-      }
-      return res
-        .status(503)
-        .json({ error: "rate_limited", message: "GitHub API rate limit exceeded" });
-    }
-
     logError("Failed to fetch repos", error);
     return res.status(500).json({ error: "Failed to fetch repos" });
   }
