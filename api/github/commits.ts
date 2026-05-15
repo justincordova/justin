@@ -63,6 +63,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     batch.flush("GET /api/github/commits");
 
+    const anyRateLimited = details.some(
+      (r) => r.status === "rejected" && r.reason instanceof GitHubRateLimitError,
+    );
+
     const commits: CommitActivity[] = data.items.map((item, i) => {
       const detail = details[i].status === "fulfilled" ? details[i].value : null;
       return {
@@ -75,12 +79,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       };
     });
 
-    setCache(cacheKey, commits);
-
-    const anyRateLimited = details.some(
-      (r) => r.status === "rejected" && r.reason instanceof GitHubRateLimitError,
-    );
-    if (anyRateLimited) {
+    // Only cache when every detail fetch succeeded. Caching partial data
+    // would poison the fallback cache with zero-stat entries that look
+    // legitimate on subsequent rate-limited requests.
+    if (!anyRateLimited) {
+      setCache(cacheKey, commits);
+    } else {
       res.setHeader("X-Data-Partial", "true");
     }
 
