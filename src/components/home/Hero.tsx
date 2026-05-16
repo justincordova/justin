@@ -29,6 +29,14 @@ const icons = [
   { name: "MySQL", path: siMysql.path, color: `#${siMysql.hex}` },
 ];
 
+// Shared style for the two large hero lines so the scale lives in one place.
+const HERO_DISPLAY_STYLE: React.CSSProperties = {
+  fontFamily: "'Outfit', sans-serif",
+  fontSize: "clamp(1.75rem, 7vw, 2.5rem)",
+  fontWeight: 650,
+  lineHeight: 1.1,
+};
+
 export default function Hero() {
   // Fade content as user scrolls through ~70% of the viewport.
   // Hook reads viewport height internally so this stays correct on resize.
@@ -60,23 +68,13 @@ export default function Hero() {
           <p className="animate-fade-up stagger-1 text-base text-muted">Hi there! I'm</p>
           <h1
             className="animate-fade-up stagger-2 tracking-tight text-primary"
-            style={{
-              fontFamily: "'Outfit', sans-serif",
-              fontSize: "clamp(1.75rem, 7vw, 2.5rem)",
-              fontWeight: 650,
-              lineHeight: 1.1,
-            }}
+            style={HERO_DISPLAY_STYLE}
           >
             Justin Cordova
           </h1>
           <p
             className="animate-fade-up stagger-3 tracking-tight text-secondary"
-            style={{
-              fontFamily: "'Outfit', sans-serif",
-              fontSize: "clamp(1.75rem, 7vw, 2.5rem)",
-              fontWeight: 650,
-              lineHeight: 1.1,
-            }}
+            style={HERO_DISPLAY_STYLE}
           >
             I make things on the internet.
           </p>
