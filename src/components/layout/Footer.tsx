@@ -23,15 +23,20 @@ function timeAgo(dateString: string): string {
 function LatestCommit() {
   const { data: commits } = useGitHubCommits(1);
   const latest = commits?.[0];
+  const timestamp = latest?.timestamp;
 
   // Force a re-render every minute so the relative time stays accurate
   // without waiting on the next TanStack Query refetch (5min staleTime).
+  // Stops ticking once the commit is older than an hour — at that point
+  // timeAgo returns the same value (Nh / Nd / ...) regardless of the tick.
   const [, setTick] = useState(0);
   useEffect(() => {
-    if (!latest) return;
+    if (!timestamp) return;
+    const ageMs = Date.now() - new Date(timestamp).getTime();
+    if (ageMs > 60 * 60 * 1000) return;
     const id = setInterval(() => setTick((t) => t + 1), 60_000);
     return () => clearInterval(id);
-  }, [latest]);
+  }, [timestamp]);
 
   if (!latest) return null;
 
