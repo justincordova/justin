@@ -15,7 +15,7 @@ export default function HeroScrollHint() {
     };
 
     const onScroll = () => {
-      if (frame) return;
+      if (frame !== 0) return;
       frame = window.requestAnimationFrame(update);
     };
 
@@ -23,7 +23,7 @@ export default function HeroScrollHint() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      if (frame !== 0) window.cancelAnimationFrame(frame);
     };
   }, []);
 
