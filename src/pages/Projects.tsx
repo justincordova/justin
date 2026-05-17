@@ -3,6 +3,7 @@ import ProjectRow from "@/components/projects/ProjectRow";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import { ProjectRowSkeleton } from "@/components/shared/SkeletonLoader";
 import { useGitHubProjects } from "@/hooks/useGitHubProjects";
+import { useSpacePageScroll } from "@/hooks/useSpacePageScroll";
 import { ApiError, CURATED_PROJECTS, FEATURED_PROJECTS } from "@/lib/github";
 import type { GitHubRepo } from "@/types/github";
 
@@ -40,6 +41,8 @@ function getYearRange(repos: GitHubRepo[]): { min: number; max: number } | null 
 }
 
 export default function Projects() {
+  useSpacePageScroll();
+
   const { data: repos, isLoading, isError, error, refetch } = useGitHubProjects(CURATED_PROJECTS);
   const rateLimited = error instanceof ApiError && error.isRateLimited;
 
