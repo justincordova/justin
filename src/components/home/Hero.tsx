@@ -101,6 +101,10 @@ export default function Hero() {
               NJIT
             </a>
           </p>
+          <p className="animate-fade-up stagger-5 mt-3 max-w-md text-sm text-muted">
+            Building full-stack apps — C#, .NET, TypeScript, React, Go, and
+            always exploring what's next.
+          </p>
 
           <div className="animate-fade-up stagger-6 mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start">
             {icons.map((icon) => (
