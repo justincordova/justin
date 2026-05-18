@@ -67,10 +67,7 @@ export default function Projects() {
               Projects
             </h1>
             {yearRange && (
-              <p
-                className="truncate text-xs text-faint"
-                style={{ fontFamily: MONO_FONT }}
-              >
+              <p className="truncate text-xs text-faint" style={{ fontFamily: MONO_FONT }}>
                 {totalCount} project{totalCount === 1 ? "" : "s"}
                 {" · "}
                 {yearRange.min === yearRange.max
@@ -105,9 +102,7 @@ export default function Projects() {
           <div>
             {grouped.map(([year, group], groupIndex) => {
               // Cumulative index across all groups so stagger is continuous
-              const offset = grouped
-                .slice(0, groupIndex)
-                .reduce((acc, [, g]) => acc + g.length, 0);
+              const offset = grouped.slice(0, groupIndex).reduce((acc, [, g]) => acc + g.length, 0);
               return (
                 <section key={year} className={groupIndex === 0 ? "" : "mt-12"}>
                   <div

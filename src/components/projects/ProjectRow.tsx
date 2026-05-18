@@ -101,11 +101,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
         <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-[250ms] ease-out group-hover:text-primary">
           <span className="truncate">{repo.name}</span>
           {featured && (
-            <span
-              className="shrink-0 text-xs text-faint/60"
-              title="Featured"
-              aria-hidden="true"
-            >
+            <span className="shrink-0 text-xs text-faint/60" title="Featured" aria-hidden="true">
               ★
             </span>
           )}
@@ -146,7 +142,6 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
           </p>
         )}
       </div>
-
     </>
   );
 
