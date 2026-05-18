@@ -125,12 +125,6 @@
     min-height: 100vh;
   }
 
-  h1,
-  h2,
-  h3 {
-    @apply font-serif font-normal;
-  }
-
   ::selection {
     background-color: color-mix(in srgb, var(--color-primary, #977ed4) 30%, transparent);
     color: var(--color-content, #e4e4e7);
