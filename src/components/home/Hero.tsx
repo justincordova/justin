@@ -77,7 +77,7 @@ export default function Hero() {
             className="animate-fade-up stagger-3 tracking-tight text-secondary"
             style={HERO_DISPLAY_STYLE}
           >
-            I make things on the internet.
+            Making the internet slightly better.
           </p>
           <p className="animate-fade-up stagger-4 mt-2 text-base text-content">
             Software Developer Intern @{" "}

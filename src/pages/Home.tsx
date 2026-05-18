@@ -14,6 +14,20 @@ export default function Home() {
           <div className="h-px bg-edge/30" />
         </div>
 
+        <section className="animate-fade-up stagger-2 mx-auto max-w-container px-6 pt-12">
+          <p
+            className="mb-4 text-[11px] uppercase tracking-[0.15em] text-faint/60"
+            style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
+          >
+            About
+          </p>
+          <p className="max-w-xl text-sm leading-relaxed text-muted">
+            I build full-stack applications — from C# and .NET backends to React
+            and TypeScript frontends. Always exploring new tools and looking for
+            the next thing to ship.
+          </p>
+        </section>
+
         <div className="pt-12">
           <FeaturedProjects />
         </div>
