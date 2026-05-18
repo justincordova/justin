@@ -102,7 +102,7 @@ export default function Hero() {
             </a>
           </p>
           <p className="animate-fade-up stagger-5 mt-3 max-w-md text-sm text-muted">
-            Building full-stack apps with C#, .NET, TypeScript, React, Go.
+            Building full-stack apps with TypeScript, React, C#, .NET, Go.
             <br />
             AI-native developer.
           </p>
