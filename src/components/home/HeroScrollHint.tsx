@@ -35,7 +35,7 @@ export default function HeroScrollHint() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     content.scrollIntoView({
       behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "start",
+      block: "center",
     });
   };
 
