@@ -2,12 +2,14 @@ import { useEffect, useRef } from "react";
 
 export function useSpaceScrollToHero() {
   const inHero = useRef(true);
+  const isProgrammaticScroll = useRef(false);
 
   useEffect(() => {
     let scrollRaf = 0;
 
     const syncOnScroll = () => {
       scrollRaf = 0;
+      if (isProgrammaticScroll.current) return;
       if (window.scrollY < 50) {
         inHero.current = true;
       }
@@ -50,16 +52,21 @@ export function useSpaceScrollToHero() {
       event.preventDefault();
 
       const destination = inHero.current ? content : hero;
-      const block = inHero.current ? "center" : "start";
       inHero.current = !inHero.current;
 
       const prefersReducedMotion =
         typeof window.matchMedia === "function" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      isProgrammaticScroll.current = true;
       destination.scrollIntoView({
         behavior: prefersReducedMotion ? "auto" : "smooth",
-        block,
+        block: "start",
       });
+
+      setTimeout(() => {
+        isProgrammaticScroll.current = false;
+      }, 800);
     };
 
     window.addEventListener("keydown", handler);
