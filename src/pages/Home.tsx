@@ -9,7 +9,10 @@ export default function Home() {
     <div>
       <Hero />
 
-      <div id="content" className="flex min-h-[100svh] flex-col justify-center">
+      <div
+        id="content"
+        className="flex min-h-[calc(100svh-7rem)] flex-col justify-center"
+      >
         <div className="mx-auto w-full max-w-container px-6">
           <div className="h-px bg-edge/30" />
         </div>
