@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
+import { imagetools } from "vite-imagetools";
 import path from "path";
 import apiDevPlugin from "./api/dev";
 
@@ -22,7 +23,16 @@ export default defineConfig(({ mode }) => {
       host: "::",
       port: 3000,
     },
-    plugins: [react(), apiDevPlugin()],
+    plugins: [
+      react(),
+      apiDevPlugin(),
+      imagetools({
+        // The default include pattern only matches lowercase extensions, but
+        // our photo assets are .JPG straight from the camera. Broaden it so
+        // both cases run through sharp.
+        include: /^[^?]+\.(avif|gif|heif|jpeg|jpg|png|tiff|webp|JPG|JPEG|PNG)\?.*$/,
+      }),
+    ],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),

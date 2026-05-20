@@ -6,30 +6,45 @@ import { useSpacePageScroll } from "@/hooks/useSpacePageScroll";
 
 const MONO_FONT = "'Geist Mono', ui-monospace, monospace";
 
-const imageModules = import.meta.glob<{ default: string }>("../assets/pics/*.{jpg,JPG,jpeg,JPEG}", {
-  eager: false,
-  query: "?url",
+// Image variants generated at build time via vite-imagetools:
+//   - thumb: small WebP + JPEG, sized for the grid (max width 800, accounts for 2x DPR on phones)
+//   - full:  larger WebP + JPEG, sized for the lightbox (max width 1920)
+// `as=picture` returns `{ img: { src, w, h }, sources: { webp, jpg } }` so we
+// can drop it straight into a <picture> element with proper srcset fallbacks.
+type PictureSource = {
+  img: { src: string; w: number; h: number };
+  sources: Record<string, string>;
+};
+
+const thumbModules = import.meta.glob<PictureSource>("../assets/pics/*.{jpg,JPG,jpeg,JPEG}", {
+  eager: true,
+  query: { w: "400;800", format: "webp;jpg", as: "picture" },
+  import: "default",
 });
 
-const imagePaths = Object.keys(imageModules).sort();
+const fullModules = import.meta.glob<PictureSource>("../assets/pics/*.{jpg,JPG,jpeg,JPEG}", {
+  eager: true,
+  query: { w: "1200;1920", format: "webp;jpg", as: "picture" },
+  import: "default",
+});
+
+const imagePaths = Object.keys(thumbModules).sort();
+
+// Build the in-memory variant tables once at module load. Since the globs are
+// `eager: true`, this is synchronous — no useEffect/loading dance needed.
+const thumbs = imagePaths.map((p) => thumbModules[p]);
+const fulls = imagePaths.map((p) => fullModules[p]);
 
 export default function Pics() {
   // Note: useSpacePageScroll handles its own input-target guards so it won't
   // fire while a user is typing.
   useSpacePageScroll();
 
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [imageLoading, setImageLoading] = useState(false);
 
-  useEffect(() => {
-    Promise.all(imagePaths.map((path) => imageModules[path]())).then((modules) =>
-      setImageUrls(modules.map((m) => m.default)),
-    );
-  }, []);
-
-  const total = imageUrls.length;
-  const selectedImage = selectedIndex !== null ? imageUrls[selectedIndex] : null;
+  const total = imagePaths.length;
+  const selectedFull = selectedIndex !== null ? fulls[selectedIndex] : null;
 
   const close = useCallback(() => setSelectedIndex(null), []);
 
@@ -101,9 +116,11 @@ export default function Pics() {
         </header>
 
         {/* CSS columns masonry — respects each image's natural aspect ratio,
-            no JS measurement required. break-inside avoids splits mid-figure. */}
+            no JS measurement required. break-inside avoids splits mid-figure.
+            <picture> emits WebP with a JPEG fallback; explicit width/height
+            on <img> prevents layout shift as each photo loads. */}
         <div className="animate-fade-up stagger-2 columns-2 gap-3 lg:columns-3 [&>figure]:mb-3">
-          {imageUrls.map((url, index) => (
+          {thumbs.map((thumb, index) => (
             <figure key={imagePaths[index]} className="group break-inside-avoid">
               <button
                 type="button"
@@ -111,12 +128,20 @@ export default function Pics() {
                 aria-label={`Open photo ${index + 1} of ${total}`}
                 className="block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-all duration-300 hover:border-edge/80 hover:shadow-lg hover:shadow-black/20"
               >
-                <img
-                  src={url}
-                  alt={`Photo ${index + 1} of ${total}`}
-                  loading="lazy"
-                  className="block w-full transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                />
+                <picture>
+                  {thumb.sources.webp && <source srcSet={thumb.sources.webp} type="image/webp" />}
+                  <img
+                    src={thumb.img.src}
+                    srcSet={thumb.sources.jpg}
+                    width={thumb.img.w}
+                    height={thumb.img.h}
+                    alt={`Photo ${index + 1} of ${total}`}
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1024px) 350px, 50vw"
+                    className="block w-full transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                  />
+                </picture>
               </button>
               <figcaption
                 className="mt-1.5 px-0.5 text-[10px] tracking-[0.15em] text-faint/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -129,7 +154,7 @@ export default function Pics() {
         </div>
       </div>
 
-      {selectedImage !== null && selectedIndex !== null && (
+      {selectedFull !== null && selectedIndex !== null && (
         <FocusLock returnFocus>
           <div
             role="dialog"
@@ -184,14 +209,22 @@ export default function Pics() {
             )}
 
             {imageLoading && <Loader2 className="absolute h-12 w-12 animate-spin text-primary" />}
-            <img
-              key={selectedImage}
-              src={selectedImage}
-              alt={`Enlarged view - Photo ${selectedIndex + 1} of ${total}`}
-              onLoad={() => setImageLoading(false)}
-              onClick={(e) => e.stopPropagation()}
-              className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? "opacity-0" : "animate-zoom-in"}`}
-            />
+            <picture key={selectedFull.img.src}>
+              {selectedFull.sources.webp && (
+                <source srcSet={selectedFull.sources.webp} type="image/webp" />
+              )}
+              <img
+                src={selectedFull.img.src}
+                srcSet={selectedFull.sources.jpg}
+                width={selectedFull.img.w}
+                height={selectedFull.img.h}
+                alt={`Enlarged view - Photo ${selectedIndex + 1} of ${total}`}
+                onLoad={() => setImageLoading(false)}
+                onClick={(e) => e.stopPropagation()}
+                sizes="90vw"
+                className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? "opacity-0" : "animate-zoom-in"}`}
+              />
+            </picture>
           </div>
         </FocusLock>
       )}
