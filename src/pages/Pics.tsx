@@ -1,102 +1,30 @@
-import { ChevronLeft, ChevronRight, Loader2, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import FocusLock from "react-focus-lock";
-import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router";
 import { useSpacePageScroll } from "@/hooks/useSpacePageScroll";
+import { getAlbumCover, getAlbumPhotos } from "@/lib/album-images";
+import { ALBUMS } from "@/lib/albums";
 
 const MONO_FONT = "'Geist Mono', ui-monospace, monospace";
-
-// Image variants generated at build time via vite-imagetools:
-//   - thumb: small WebP + JPEG, sized for the grid (max width 800, accounts for 2x DPR on phones)
-//   - full:  larger WebP + JPEG, sized for the lightbox (max width 1920)
-// `as=picture` returns `{ img: { src, w, h }, sources: { webp, jpg } }` so we
-// can drop it straight into a <picture> element with proper srcset fallbacks.
-type PictureSource = {
-  img: { src: string; w: number; h: number };
-  sources: Record<string, string>;
-};
-
-const thumbModules = import.meta.glob<PictureSource>("../assets/pics/*.{jpg,JPG,jpeg,JPEG}", {
-  eager: true,
-  query: { w: "400;800", format: "webp;jpg", as: "picture" },
-  import: "default",
-});
-
-const fullModules = import.meta.glob<PictureSource>("../assets/pics/*.{jpg,JPG,jpeg,JPEG}", {
-  eager: true,
-  query: { w: "1200;1920", format: "webp;jpg", as: "picture" },
-  import: "default",
-});
-
-const imagePaths = Object.keys(thumbModules).sort();
-
-// Build the in-memory variant tables once at module load. Since the globs are
-// `eager: true`, this is synchronous — no useEffect/loading dance needed.
-const thumbs = imagePaths.map((p) => thumbModules[p]);
-const fulls = imagePaths.map((p) => fullModules[p]);
 
 export default function Pics() {
   // Note: useSpacePageScroll handles its own input-target guards so it won't
   // fire while a user is typing.
   useSpacePageScroll();
 
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [imageLoading, setImageLoading] = useState(false);
+  // Filter out albums whose photos are missing from disk (defensive — keeps
+  // the page from rendering broken cards if albums.ts gets out of sync).
+  const albums = ALBUMS.map((meta) => ({
+    meta,
+    cover: getAlbumCover(meta.slug, meta.cover),
+    count: getAlbumPhotos(meta.slug).length,
+  })).filter((a) => a.cover !== null && a.count > 0);
 
-  const total = imagePaths.length;
-  const selectedFull = selectedIndex !== null ? fulls[selectedIndex] : null;
-
-  const close = useCallback(() => setSelectedIndex(null), []);
-
-  const goPrev = useCallback(() => {
-    setSelectedIndex((i) => {
-      if (i === null || total === 0) return i;
-      return (i - 1 + total) % total;
-    });
-    setImageLoading(true);
-  }, [total]);
-
-  const goNext = useCallback(() => {
-    setSelectedIndex((i) => {
-      if (i === null || total === 0) return i;
-      return (i + 1) % total;
-    });
-    setImageLoading(true);
-  }, [total]);
-
-  useEffect(() => {
-    if (selectedIndex === null) return;
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        goPrev();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        goNext();
-      }
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [selectedIndex, close, goPrev, goNext]);
-
-  // Reset loading state when lightbox closes so a canceled load doesn't
-  // leave the next open stuck in a "loading" state.
-  useEffect(() => {
-    if (selectedIndex === null) setImageLoading(false);
-  }, [selectedIndex]);
-
-  useBodyScrollLock(selectedIndex !== null);
-
-  const open = (index: number) => {
-    setImageLoading(true);
-    setSelectedIndex(index);
-  };
+  const totalPhotos = albums.reduce((sum, a) => sum + a.count, 0);
 
   return (
     <div className="px-6 py-16 md:py-20">
       <div className="mx-auto max-w-container">
-        {/* Header — mirrors Projects page typography for cross-page consistency */}
+        {/* Header — same shape as Projects page for cross-page consistency */}
         <header className="animate-fade-up stagger-1 mb-12 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <h1
             className="tracking-tight text-content"
@@ -108,126 +36,121 @@ export default function Pics() {
           >
             Pics
           </h1>
-          {total > 0 && (
+          {albums.length > 0 && (
             <p className="truncate text-xs text-faint" style={{ fontFamily: MONO_FONT }}>
-              {total} photo{total === 1 ? "" : "s"}
+              {albums.length} album{albums.length === 1 ? "" : "s"} · {totalPhotos} photo
+              {totalPhotos === 1 ? "" : "s"}
             </p>
           )}
         </header>
 
-        {/* CSS columns masonry — respects each image's natural aspect ratio,
-            no JS measurement required. break-inside avoids splits mid-figure.
-            <picture> emits WebP with a JPEG fallback; explicit width/height
-            on <img> prevents layout shift as each photo loads. */}
-        <div className="animate-fade-up stagger-2 columns-2 gap-3 lg:columns-3 [&>figure]:mb-3">
-          {thumbs.map((thumb, index) => (
-            <figure key={imagePaths[index]} className="group break-inside-avoid">
-              <button
-                type="button"
-                onClick={() => open(index)}
-                aria-label={`Open photo ${index + 1} of ${total}`}
-                className="block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-all duration-300 hover:border-edge/80 hover:shadow-lg hover:shadow-black/20"
+        {albums.length === 0 ? (
+          <p className="text-sm text-muted">No albums yet.</p>
+        ) : (
+          // Single column on mobile, two on tablet+, three on desktop. With
+          // one album today the card sits comfortably wide; adding more later
+          // just fills the grid out naturally.
+          <div className="animate-fade-up stagger-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {albums.map((album, index) => (
+              <AlbumCard
+                key={album.meta.slug}
+                slug={album.meta.slug}
+                title={album.meta.title}
+                date={album.meta.date}
+                location={album.meta.location}
+                count={album.count}
+                cover={album.cover!}
+                index={index}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+type CoverPhoto = NonNullable<ReturnType<typeof getAlbumCover>>;
+
+function AlbumCard({
+  slug,
+  title,
+  date,
+  location,
+  count,
+  cover,
+  index,
+}: {
+  slug: string;
+  title: string;
+  date: string;
+  location?: string;
+  count: number;
+  cover: CoverPhoto;
+  index: number;
+}) {
+  return (
+    <Link
+      to={`/pics/${slug}`}
+      className="group block animate-fade-up"
+      style={{ animationDelay: `${Math.min(index, 6) * 60}ms` }}
+      aria-label={`Open album: ${title}`}
+    >
+      {/* Cover — fixed 4:3 frame so cards align in the grid regardless of
+          the underlying photo's aspect ratio. The interior <picture> scales
+          to fill via object-cover. */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-all duration-300 group-hover:border-edge/80 group-hover:shadow-lg group-hover:shadow-black/20">
+        <picture>
+          {cover.thumb.sources.webp && (
+            <source srcSet={cover.thumb.sources.webp} type="image/webp" />
+          )}
+          <img
+            src={cover.thumb.img.src}
+            srcSet={cover.thumb.sources.jpg}
+            alt={`${title} cover`}
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          />
+        </picture>
+
+        {/* Bottom gradient + label — ensures the title is readable over any
+            photo without needing to know its luminance. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4">
+          <div className="flex items-end justify-between gap-3">
+            <div className="min-w-0">
+              <h2
+                className="truncate font-medium text-white"
+                style={{
+                  fontFamily: "'Outfit', sans-serif",
+                  fontSize: "1.0625rem",
+                }}
               >
-                <picture>
-                  {thumb.sources.webp && <source srcSet={thumb.sources.webp} type="image/webp" />}
-                  <img
-                    src={thumb.img.src}
-                    srcSet={thumb.sources.jpg}
-                    width={thumb.img.w}
-                    height={thumb.img.h}
-                    alt={`Photo ${index + 1} of ${total}`}
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 1024px) 350px, 50vw"
-                    className="block w-full transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                  />
-                </picture>
-              </button>
-              <figcaption
-                className="mt-1.5 px-0.5 text-[10px] tracking-[0.15em] text-faint/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                {title}
+              </h2>
+              <p
+                className="mt-0.5 truncate text-[11px] tracking-[0.1em] text-white/70"
                 style={{ fontFamily: MONO_FONT }}
               >
-                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-              </figcaption>
-            </figure>
-          ))}
+                {date} · {count} photo{count === 1 ? "" : "s"}
+              </p>
+            </div>
+            <ArrowUpRight
+              className="h-4 w-4 shrink-0 text-white/70 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white"
+              aria-hidden="true"
+            />
+          </div>
         </div>
       </div>
 
-      {selectedFull !== null && selectedIndex !== null && (
-        <FocusLock returnFocus>
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Image lightbox"
-            className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/85 p-4"
-            onClick={close}
-          >
-            {/* Counter — top-left, mono, intentionally understated */}
-            <span
-              className="pointer-events-none absolute left-4 top-4 z-10 text-xs tracking-[0.2em] text-white/70"
-              style={{ fontFamily: MONO_FONT }}
-              aria-live="polite"
-            >
-              {String(selectedIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-            </span>
-
-            <button
-              type="button"
-              onClick={close}
-              aria-label="Close lightbox"
-              className="absolute right-3 top-3 z-10 rounded-full bg-surface p-2 text-content transition-colors hover:bg-surface-2"
-            >
-              <X className="h-5 w-5" aria-hidden="true" />
-            </button>
-
-            {total > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    goPrev();
-                  }}
-                  aria-label="Previous photo"
-                  className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-surface/90 p-2 text-content transition-colors hover:bg-surface-2 sm:left-6"
-                >
-                  <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    goNext();
-                  }}
-                  aria-label="Next photo"
-                  className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-surface/90 p-2 text-content transition-colors hover:bg-surface-2 sm:right-6"
-                >
-                  <ChevronRight className="h-5 w-5" aria-hidden="true" />
-                </button>
-              </>
-            )}
-
-            {imageLoading && <Loader2 className="absolute h-12 w-12 animate-spin text-primary" />}
-            <picture key={selectedFull.img.src}>
-              {selectedFull.sources.webp && (
-                <source srcSet={selectedFull.sources.webp} type="image/webp" />
-              )}
-              <img
-                src={selectedFull.img.src}
-                srcSet={selectedFull.sources.jpg}
-                width={selectedFull.img.w}
-                height={selectedFull.img.h}
-                alt={`Enlarged view - Photo ${selectedIndex + 1} of ${total}`}
-                onLoad={() => setImageLoading(false)}
-                onClick={(e) => e.stopPropagation()}
-                sizes="90vw"
-                className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? "opacity-0" : "animate-zoom-in"}`}
-              />
-            </picture>
-          </div>
-        </FocusLock>
+      {/* Below-card meta line for location — kept outside the gradient so
+          it doesn't compete with the title overlay. */}
+      {location && (
+        <p className="mt-2 truncate px-0.5 text-xs text-faint" style={{ fontFamily: MONO_FONT }}>
+          {location}
+        </p>
       )}
-    </div>
+    </Link>
   );
 }
