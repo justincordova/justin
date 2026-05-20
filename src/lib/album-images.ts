@@ -67,13 +67,3 @@ const byAlbum: Map<string, AlbumPhoto[]> = (() => {
 export function getAlbumPhotos(slug: string): AlbumPhoto[] {
   return byAlbum.get(slug) ?? [];
 }
-
-export function getAlbumCover(slug: string, coverFilename?: string): AlbumPhoto | null {
-  const photos = byAlbum.get(slug) ?? [];
-  if (photos.length === 0) return null;
-  if (coverFilename) {
-    const match = photos.find((p) => p.filename === coverFilename);
-    if (match) return match;
-  }
-  return photos[0];
-}

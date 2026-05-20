@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import Footer from "@/components/layout/Footer";
 import Navigation from "@/components/layout/Navigation";
-import Album from "@/pages/Album";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 import Pics from "@/pages/Pics";
@@ -44,7 +43,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/pics" element={<Pics />} />
-          <Route path="/pics/:slug" element={<Album />} />
           <Route path="*" element={<NotFound />} />
         </PageTransition>
       </main>
