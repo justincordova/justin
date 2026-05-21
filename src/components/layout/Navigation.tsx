@@ -91,8 +91,7 @@ export default function Navigation() {
   const currentIndex = pageRoutes.indexOf(location.pathname);
   // Cycle: home → projects → photos → home. When the current path isn't one
   // of these (e.g. /404), default to home as the next target.
-  const nextRoute =
-    pageRoutes[currentIndex === -1 ? 0 : (currentIndex + 1) % pageRoutes.length];
+  const nextRoute = pageRoutes[currentIndex === -1 ? 0 : (currentIndex + 1) % pageRoutes.length];
 
   const handleToggle = () => {
     navigate(nextRoute);
