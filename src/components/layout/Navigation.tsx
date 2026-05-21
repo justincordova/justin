@@ -89,10 +89,13 @@ export default function Navigation() {
 
   const pageRoutes = ["/", "/projects", "/photos"];
   const currentIndex = pageRoutes.indexOf(location.pathname);
+  // Cycle: home → projects → photos → home. When the current path isn't one
+  // of these (e.g. /404), default to home as the next target.
+  const nextRoute =
+    pageRoutes[currentIndex === -1 ? 0 : (currentIndex + 1) % pageRoutes.length];
 
   const handleToggle = () => {
-    const nextIndex = (currentIndex + 1) % pageRoutes.length;
-    navigate(pageRoutes[nextIndex]);
+    navigate(nextRoute);
   };
 
   return (
@@ -123,9 +126,10 @@ export default function Navigation() {
           <button
             type="button"
             onClick={handleToggle}
+            aria-label={`Current page: ${pathDisplay}. Go to next page.`}
             className="group absolute left-1/2 -translate-x-1/2 cursor-pointer px-6 py-2"
           >
-            <span className="block select-none font-mono text-sm tracking-wide opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+            <span className="block select-none font-mono text-sm tracking-wide opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0">
               <span className="text-primary">~</span>
               <span className="text-muted">{pathDisplay.slice(1)}</span>
             </span>
