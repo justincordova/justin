@@ -41,24 +41,20 @@ export default function LocationWidget() {
   }, []);
 
   const Icon = isDaytime ? Sun : Moon;
-  const monoFont = "'Geist Mono', ui-monospace, monospace";
 
+  // Single responsive node — the "based in " prefix and the rest of the city
+  // name only appear on md+ viewports. Avoids rendering two parallel widgets
+  // (and two parallel intervals worth of accessible duplication).
   return (
-    <>
-      {/* Desktop: full form */}
-      <div className="hidden items-center gap-2 text-xs text-muted md:flex">
-        <span>based in stewartsville, nj</span>
-        <span className="text-faint">·</span>
-        <Icon className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
-        <span style={{ fontFamily: monoFont }}>{time} et</span>
-      </div>
-      {/* Mobile: compact form */}
-      <div className="flex items-center gap-1.5 text-[11px] text-muted md:hidden">
-        <span>stewartsville</span>
-        <span className="text-faint">·</span>
-        <Icon className="h-3 w-3 text-muted" aria-hidden="true" />
-        <span style={{ fontFamily: monoFont }}>{time} et</span>
-      </div>
-    </>
+    <div className="flex items-center gap-1.5 text-[11px] text-muted md:gap-2 md:text-xs">
+      <span>
+        <span className="hidden md:inline">based in </span>
+        stewartsville
+        <span className="hidden md:inline">, nj</span>
+      </span>
+      <span className="text-faint">·</span>
+      <Icon className="h-3 w-3 text-muted md:h-3.5 md:w-3.5" aria-hidden="true" />
+      <span className="font-mono">{time} et</span>
+    </div>
   );
 }

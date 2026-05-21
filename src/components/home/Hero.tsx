@@ -30,8 +30,8 @@ const icons = [
 ];
 
 // Shared style for the two large hero lines so the scale lives in one place.
+// Font family comes from the `font-sans` class on each consumer.
 const HERO_DISPLAY_STYLE: React.CSSProperties = {
-  fontFamily: "'Outfit', sans-serif",
   fontSize: "clamp(1.75rem, 7vw, 2.5rem)",
   fontWeight: 650,
   lineHeight: 1.1,
@@ -68,13 +68,13 @@ export default function Hero() {
         <div className="text-center md:text-left">
           <p className="animate-fade-up stagger-1 text-base text-muted">Hi there! I'm</p>
           <h1
-            className="animate-fade-up stagger-2 tracking-tight text-primary"
+            className="animate-fade-up stagger-2 font-sans tracking-tight text-primary"
             style={HERO_DISPLAY_STYLE}
           >
             Justin Cordova
           </h1>
           <p
-            className="animate-fade-up stagger-3 tracking-tight text-secondary"
+            className="animate-fade-up stagger-3 font-sans tracking-tight text-secondary"
             style={HERO_DISPLAY_STYLE}
           >
             Making the internet slightly better.
@@ -119,10 +119,7 @@ export default function Hero() {
                   <path d={icon.path} />
                 </svg>
                 {/* Tooltip */}
-                <span
-                  className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded bg-surface-2 px-2 py-1 text-xs text-content opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0 group-hover:opacity-100"
-                  style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
-                >
+                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded bg-surface-2 px-2 py-1 font-mono text-xs text-content opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0 group-hover:opacity-100">
                   {icon.name}
                 </span>
               </div>

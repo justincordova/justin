@@ -47,8 +47,7 @@ function LatestCommit() {
       href={latest.commitUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex max-w-full items-center gap-2 truncate text-[11px] text-muted transition-colors hover:text-content"
-      style={{ fontFamily: "'Geist Mono', ui-monospace, monospace" }}
+      className="group inline-flex max-w-full items-center gap-2 truncate font-mono text-[11px] text-muted transition-colors hover:text-content"
     >
       <span
         aria-hidden="true"

@@ -132,11 +132,8 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
         </p>
         {topics.length > 0 && (
           <p
-            className="mt-1.5 truncate text-xs text-faint transition-colors duration-[250ms] ease-out group-hover:text-muted"
-            style={{
-              fontFamily: "'Geist Mono', ui-monospace, monospace",
-              transitionDelay: "80ms",
-            }}
+            className="mt-1.5 truncate font-mono text-xs text-faint transition-colors duration-[250ms] ease-out group-hover:text-muted"
+            style={{ transitionDelay: "80ms" }}
           >
             {topics.join(" · ")}
           </p>

@@ -5,8 +5,6 @@ import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { type AlbumPhoto, getAlbumPhotos } from "@/lib/album-images";
 import { ALBUMS, type AlbumMeta } from "@/lib/albums";
 
-const MONO_FONT = "'Geist Mono', ui-monospace, monospace";
-
 type Section = {
   meta: AlbumMeta;
   photos: AlbumPhoto[];
@@ -89,9 +87,8 @@ export default function Photos() {
         {/* Header — same shape as Projects page for cross-page consistency */}
         <header className="animate-fade-up stagger-1 mb-12 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <h1
-            className="tracking-tight text-content"
+            className="font-sans tracking-tight text-content"
             style={{
-              fontFamily: "'Outfit', sans-serif",
               fontWeight: 500,
               fontSize: "clamp(1.5rem, 3vw, 1.875rem)",
             }}
@@ -99,7 +96,7 @@ export default function Photos() {
             Photos
           </h1>
           {total > 0 && (
-            <p className="truncate text-xs text-faint" style={{ fontFamily: MONO_FONT }}>
+            <p className="truncate font-mono text-xs text-faint">
               {total} photo{total === 1 ? "" : "s"}
             </p>
           )}
@@ -119,19 +116,15 @@ export default function Photos() {
                 style={{ top: "var(--nav-h)" }}
               >
                 <h2
-                  className="tracking-tight text-content"
+                  className="font-sans tracking-tight text-content"
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
                     fontWeight: 500,
                     fontSize: "1.125rem",
                   }}
                 >
                   {section.meta.title}
                 </h2>
-                <span
-                  className="text-xs tracking-[0.15em] text-muted"
-                  style={{ fontFamily: MONO_FONT }}
-                >
+                <span className="font-mono text-xs tracking-[0.15em] text-muted">
                   {section.meta.date}
                   {section.meta.location ? ` · ${section.meta.location}` : ""}
                   {" · "}
@@ -178,8 +171,7 @@ export default function Photos() {
                         // Visible but understated on touch (no hover state to
                         // discover) and keyboard focus. On pointer devices it
                         // brightens to full opacity on hover/focus.
-                        className="mt-1.5 px-0.5 text-[10px] tracking-[0.15em] text-faint/60 transition-opacity duration-300 sm:opacity-40 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
-                        style={{ fontFamily: MONO_FONT }}
+                        className="mt-1.5 px-0.5 font-mono text-[10px] tracking-[0.15em] text-faint/60 transition-opacity duration-300 sm:opacity-40 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
                       >
                         {String(i + 1).padStart(2, "0")} /{" "}
                         {String(section.photos.length).padStart(2, "0")}
@@ -204,8 +196,7 @@ export default function Photos() {
           >
             {/* Counter — top-left, mono, intentionally understated */}
             <span
-              className="pointer-events-none absolute left-4 top-4 z-10 text-xs tracking-[0.2em] text-white/70"
-              style={{ fontFamily: MONO_FONT }}
+              className="pointer-events-none absolute left-4 top-4 z-10 font-mono text-xs tracking-[0.2em] text-white/70"
               aria-live="polite"
             >
               {String(selectedIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}

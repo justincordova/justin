@@ -15,23 +15,17 @@ export type PictureSource = {
   sources: Record<string, string>;
 };
 
-const thumbModules = import.meta.glob<PictureSource>(
-  "../assets/photos/*/*.{jpg,JPG,jpeg,JPEG}",
-  {
-    eager: true,
-    query: { w: "400;800", format: "webp;jpg", as: "picture" },
-    import: "default",
-  },
-);
+const thumbModules = import.meta.glob<PictureSource>("../assets/photos/*/*.{jpg,JPG,jpeg,JPEG}", {
+  eager: true,
+  query: { w: "400;800", format: "webp;jpg", as: "picture" },
+  import: "default",
+});
 
-const fullModules = import.meta.glob<PictureSource>(
-  "../assets/photos/*/*.{jpg,JPG,jpeg,JPEG}",
-  {
-    eager: true,
-    query: { w: "1200;1920", format: "webp;jpg", as: "picture" },
-    import: "default",
-  },
-);
+const fullModules = import.meta.glob<PictureSource>("../assets/photos/*/*.{jpg,JPG,jpeg,JPEG}", {
+  eager: true,
+  query: { w: "1200;1920", format: "webp;jpg", as: "picture" },
+  import: "default",
+});
 
 export type AlbumPhoto = {
   /** Absolute glob path, used as a stable React key. */

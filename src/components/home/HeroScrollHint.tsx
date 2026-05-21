@@ -44,8 +44,8 @@ export default function HeroScrollHint() {
       type="button"
       onClick={handleClick}
       aria-label="Scroll to content"
-      style={{ opacity, fontFamily: "'Geist Mono', ui-monospace, monospace" }}
-      className="group absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-faint transition-colors duration-150 hover:text-muted motion-reduce:transition-none md:flex"
+      style={{ opacity }}
+      className="group absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-faint transition-colors duration-150 hover:text-muted motion-reduce:transition-none md:flex"
     >
       <span className="text-[10px] uppercase tracking-[0.15em]">Press space</span>
       <ChevronDown

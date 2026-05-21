@@ -7,7 +7,6 @@ import { ApiError, CURATED_PROJECTS, FEATURED_PROJECTS } from "@/lib/github";
 import type { GitHubRepo } from "@/types/github";
 
 const FEATURED_SET = new Set<string>(FEATURED_PROJECTS.map((name) => name.toLowerCase()));
-const MONO_FONT = "'Geist Mono', ui-monospace, monospace";
 
 function groupByYear(repos: GitHubRepo[]): Array<[number, GitHubRepo[]]> {
   const groups = new Map<number, GitHubRepo[]>();
@@ -54,9 +53,8 @@ export default function Projects() {
         {repos && (
           <header className="animate-fade-up stagger-1 mb-12 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
             <h1
-              className="tracking-tight text-content"
+              className="font-sans tracking-tight text-content"
               style={{
-                fontFamily: "'Outfit', sans-serif",
                 fontWeight: 500,
                 fontSize: "clamp(1.5rem, 3vw, 1.875rem)",
               }}
@@ -64,7 +62,7 @@ export default function Projects() {
               Projects
             </h1>
             {yearRange && (
-              <p className="truncate text-xs text-faint" style={{ fontFamily: MONO_FONT }}>
+              <p className="truncate font-mono text-xs text-faint">
                 {totalCount} project{totalCount === 1 ? "" : "s"}
                 {" · "}
                 {yearRange.min === yearRange.max
@@ -106,12 +104,7 @@ export default function Projects() {
                     className="sticky z-10 mb-2 flex items-center gap-4 bg-bg/95 py-2 backdrop-blur-sm"
                     style={{ top: "var(--nav-h)" }}
                   >
-                    <span
-                      className="text-xs tracking-[0.15em] text-muted"
-                      style={{ fontFamily: MONO_FONT }}
-                    >
-                      {year}
-                    </span>
+                    <span className="font-mono text-xs tracking-[0.15em] text-muted">{year}</span>
                     <div className="h-px flex-1 bg-edge/40" />
                   </div>
                   <div>

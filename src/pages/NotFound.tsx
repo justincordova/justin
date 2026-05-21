@@ -4,9 +4,7 @@ import { Link } from "react-router";
 export default function NotFound() {
   return (
     <div className="flex min-h-[60svh] flex-col items-center justify-center gap-4 px-6 text-center">
-      <p className="text-6xl font-light text-faint" style={{ fontFamily: "'Outfit', sans-serif" }}>
-        404
-      </p>
+      <p className="font-sans text-6xl font-light text-faint">404</p>
       <p className="text-sm text-muted">Page not found.</p>
       <Link
         to="/"
