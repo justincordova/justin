@@ -109,17 +109,33 @@ export default function Hero() {
 
           <div className="animate-fade-up stagger-6 mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start">
             {icons.map((icon) => (
-              <div key={icon.name} className="group relative">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-5 w-5 opacity-40 transition-all duration-200 group-hover:opacity-100 group-hover:scale-110"
-                  style={{ fill: icon.color }}
+              <div key={icon.name} className="group relative flex flex-col items-center gap-0.5">
+                {/* Non-actionable; the tabindex/title-via-aria-label gives
+                    screen-reader and keyboard users a way to read the name. */}
+                <span
+                  role="img"
                   aria-label={icon.name}
+                  tabIndex={0}
+                  className="inline-flex outline-none focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
-                  <path d={icon.path} />
-                </svg>
-                {/* Tooltip */}
-                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded bg-surface-2 px-2 py-1 font-mono text-xs text-content opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0 group-hover:opacity-100">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-5 w-5 opacity-40 transition-all duration-200 group-hover:scale-110 group-hover:opacity-100 group-focus-within:opacity-100"
+                    style={{ fill: icon.color }}
+                    aria-hidden="true"
+                  >
+                    <path d={icon.path} />
+                  </svg>
+                </span>
+                {/* Desktop tooltip — appears on hover/focus */}
+                <span
+                  className="pointer-events-none absolute -top-8 left-1/2 hidden -translate-x-1/2 translate-y-1 whitespace-nowrap rounded bg-surface-2 px-2 py-1 font-mono text-xs text-content opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0 group-hover:opacity-100 group-focus-within:-translate-y-0 group-focus-within:opacity-100 md:block"
+                >
+                  {icon.name}
+                </span>
+                {/* Mobile persistent label — visible by default below the
+                    icon since there's no hover state to surface it. */}
+                <span className="font-mono text-[9px] tracking-wide text-faint/70 md:hidden">
                   {icon.name}
                 </span>
               </div>
