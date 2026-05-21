@@ -190,23 +190,30 @@ export default function Photos() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Image lightbox"
+            aria-label={`Photo ${selectedIndex + 1} of ${total}`}
             className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/85 p-4"
             onClick={close}
           >
-            {/* Counter — top-left, mono, intentionally understated */}
+            {/* Counter — top-left, mono, intentionally understated. Marked
+                aria-hidden because the dialog's own aria-label already
+                announces the position; a live region here would spam SR
+                users on every prev/next press. */}
             <span
+              aria-hidden="true"
               className="pointer-events-none absolute left-4 top-4 z-10 font-mono text-xs tracking-[0.2em] text-white/70"
-              aria-live="polite"
             >
               {String(selectedIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
             </span>
 
+            {/* All lightbox controls share these classes: large enough
+                touch targets (44x44), white focus ring that stays visible
+                over any photo, custom outline override since the global
+                purple outline disappears against dark images. */}
             <button
               type="button"
               onClick={close}
               aria-label="Close lightbox"
-              className="absolute right-3 top-3 z-10 rounded-full bg-surface p-2 text-content transition-colors hover:bg-surface-2"
+              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
@@ -220,7 +227,7 @@ export default function Photos() {
                     goPrev();
                   }}
                   aria-label="Previous photo"
-                  className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-surface/90 p-2 text-content transition-colors hover:bg-surface-2 sm:left-6"
+                  className="absolute left-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80 sm:left-6"
                 >
                   <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -231,7 +238,7 @@ export default function Photos() {
                     goNext();
                   }}
                   aria-label="Next photo"
-                  className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-surface/90 p-2 text-content transition-colors hover:bg-surface-2 sm:right-6"
+                  className="absolute right-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80 sm:right-6"
                 >
                   <ChevronRight className="h-5 w-5" aria-hidden="true" />
                 </button>
