@@ -56,7 +56,7 @@ export default function ProjectGallery({ name, images, open, onClose }: ProjectG
             <button
               type="button"
               onClick={onClose}
-              className="rounded-md p-1.5 text-muted transition-colors hover:bg-surface-2 hover:text-red-400"
+              className="rounded-md p-1.5 text-muted transition-colors hover:bg-surface-2 hover:text-content"
               aria-label="Close"
             >
               <X className="h-4 w-4" />

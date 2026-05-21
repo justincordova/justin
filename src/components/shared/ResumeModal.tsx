@@ -50,7 +50,7 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-md p-1.5 text-muted transition-colors hover:bg-surface hover:text-red-400"
+                className="rounded-md p-1.5 text-muted transition-colors hover:bg-surface hover:text-content"
                 aria-label="Close"
               >
                 <X className="h-4 w-4" />
