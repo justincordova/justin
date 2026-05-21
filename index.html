@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <!-- theme-color is updated at runtime to match the active theme; this
+         value is the dark-mode default so the mobile browser chrome doesn't
+         flash white before the script runs. -->
+    <meta name="theme-color" content="#161617" id="theme-color" />
 
     <title>Justin Cordova</title>
     <meta name="description" content="Justin Cordova is a software developer and CS student at NJIT. Building POS systems at Pure Technology Inc with C#, .NET, TypeScript, React, Node.js, Go, and more." />
@@ -58,7 +63,22 @@
     </script>
 
     <script>
-      (function(){var t=localStorage.getItem("theme")||"dark";document.documentElement.setAttribute("data-theme",t)})();
+      // Resolve theme before paint to avoid FOUC. Order of precedence:
+      //   1. Explicit user choice persisted to localStorage
+      //   2. OS preference via prefers-color-scheme
+      //   3. Dark as final fallback
+      (function () {
+        var stored = localStorage.getItem("theme");
+        var theme =
+          stored === "light" || stored === "dark"
+            ? stored
+            : window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        var meta = document.getElementById("theme-color");
+        if (meta) meta.setAttribute("content", theme === "light" ? "#ffffff" : "#161617");
+      })();
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
