@@ -38,7 +38,10 @@ function LatestCommit() {
     return () => clearInterval(id);
   }, [timestamp]);
 
-  if (!latest) return null;
+  // Reserve vertical space even when the commit hasn't loaded yet so the
+  // footer doesn't visibly shift on cold-start renders. 14px ≈ the rendered
+  // line height of the [11px] mono line below.
+  if (!latest) return <div aria-hidden="true" className="h-[14px]" />;
 
   const message = latest.message.split("\n")[0];
 
