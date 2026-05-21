@@ -153,7 +153,11 @@ export default function Photos() {
                         type="button"
                         onClick={() => open(flatIndex)}
                         aria-label={`Open photo ${flatIndex + 1} of ${total}`}
-                        className="block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-all duration-300 hover:border-edge/80 hover:shadow-lg hover:shadow-black/20"
+                        // focus-visible mirrors hover so keyboard navigation
+                        // makes the focused thumbnail obviously distinguishable
+                        // from its neighbors (border shift alone isn't enough
+                        // in dark mode).
+                        className="block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-all duration-300 hover:border-edge/80 hover:shadow-lg hover:shadow-black/20 focus-visible:border-edge/80 focus-visible:shadow-lg focus-visible:shadow-black/20"
                       >
                         <picture>
                           {photo.thumb.sources.webp && (
