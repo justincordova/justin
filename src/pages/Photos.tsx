@@ -15,7 +15,7 @@ type Section = {
   offset: number;
 };
 
-export default function Pics() {
+export default function Photos() {
   // Note: useSpacePageScroll handles its own input-target guards so it won't
   // fire while a user is typing.
   useSpacePageScroll();
@@ -101,7 +101,7 @@ export default function Pics() {
               fontSize: "clamp(1.5rem, 3vw, 1.875rem)",
             }}
           >
-            Pics
+            Photos
           </h1>
           {total > 0 && (
             <p className="truncate text-xs text-faint" style={{ fontFamily: MONO_FONT }}>

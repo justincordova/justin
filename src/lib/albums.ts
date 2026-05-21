@@ -1,14 +1,14 @@
 /**
  * Album registry.
  *
- * Each album renders as a section on the /pics page with its photos in a
+ * Each album renders as a section on the /photos page with its photos in a
  * masonry grid underneath the section header.
  *
  * To add a new album:
  *   1. Drop the photos into `src/assets/pics/<slug>/`
  *   2. Add an entry below — slug must match the folder name
  *
- * Order in this array controls display order on /pics (top → bottom).
+ * Order in this array controls display order on /photos (top → bottom).
  */
 export type AlbumMeta = {
   slug: string;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import Footer from "@/components/layout/Footer";
 import Navigation from "@/components/layout/Navigation";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
-import Pics from "@/pages/Pics";
+import Photos from "@/pages/Photos";
 import Projects from "@/pages/Projects";
 
 function PageTransition({ children }: { children: React.ReactNode }) {
@@ -42,7 +42,10 @@ export default function App() {
         <PageTransition>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/pics" element={<Pics />} />
+          <Route path="/photos" element={<Photos />} />
+          {/* Legacy URL — page was previously called /pics. Preserve any
+              external links by redirecting to the new path. */}
+          <Route path="/pics" element={<Navigate to="/photos" replace />} />
           <Route path="*" element={<NotFound />} />
         </PageTransition>
       </main>

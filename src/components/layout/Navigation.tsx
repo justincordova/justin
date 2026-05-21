@@ -51,7 +51,7 @@ function LinkedInIcon({ className, ...props }: LucideProps) {
 const navLinks = [
   { label: "justin", path: "/" },
   { label: "projects", path: "/projects" },
-  { label: "pics", path: "/pics" },
+  { label: "photos", path: "/photos" },
 ];
 
 const socialLinks = [
@@ -87,7 +87,7 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
 
-  const pageRoutes = ["/", "/projects", "/pics"];
+  const pageRoutes = ["/", "/projects", "/photos"];
   const currentIndex = pageRoutes.indexOf(location.pathname);
 
   const handleToggle = () => {
