@@ -142,6 +142,11 @@ export default function Photos() {
               <div className="columns-2 gap-3 lg:columns-3 [&>figure]:mb-3">
                 {section.photos.map((photo, i) => {
                   const flatIndex = section.offset + i;
+                  // First 6 photos of the first section are likely above the
+                  // fold on most viewports — load them eagerly to avoid the
+                  // empty-canvas wait on initial paint. Everything else stays
+                  // lazy.
+                  const aboveFold = sectionIndex === 0 && i < 6;
                   return (
                     <figure key={photo.path} className="group break-inside-avoid">
                       <button
@@ -160,7 +165,7 @@ export default function Photos() {
                             width={photo.thumb.img.w}
                             height={photo.thumb.img.h}
                             alt={`${section.meta.title} - photo ${i + 1} of ${section.photos.length}`}
-                            loading="lazy"
+                            loading={aboveFold ? "eager" : "lazy"}
                             decoding="async"
                             sizes="(min-width: 1024px) 350px, 50vw"
                             className="block w-full transition-transform duration-300 ease-out group-hover:scale-[1.02]"
