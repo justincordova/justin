@@ -5,7 +5,7 @@
  * masonry grid underneath the section header.
  *
  * To add a new album:
- *   1. Drop the photos into `src/assets/pics/<slug>/`
+ *   1. Drop the photos into `src/assets/photos/<slug>/`
  *   2. Add an entry below — slug must match the folder name
  *
  * Order in this array controls display order on /photos (top → bottom).

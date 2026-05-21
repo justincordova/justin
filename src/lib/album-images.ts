@@ -2,7 +2,7 @@
  * Build-time discovery of all album photos.
  *
  * vite-imagetools requires static glob strings, so we glob every photo under
- * src/assets/pics/<album>/ once and partition by directory. Per album, we
+ * src/assets/photos/<album>/ once and partition by directory. Per album, we
  * generate two variant sets:
  *   - thumb: ≤800w WebP+JPEG for grid display
  *   - full:  ≤1920w WebP+JPEG for the lightbox
@@ -15,17 +15,23 @@ export type PictureSource = {
   sources: Record<string, string>;
 };
 
-const thumbModules = import.meta.glob<PictureSource>("../assets/pics/*/*.{jpg,JPG,jpeg,JPEG}", {
-  eager: true,
-  query: { w: "400;800", format: "webp;jpg", as: "picture" },
-  import: "default",
-});
+const thumbModules = import.meta.glob<PictureSource>(
+  "../assets/photos/*/*.{jpg,JPG,jpeg,JPEG}",
+  {
+    eager: true,
+    query: { w: "400;800", format: "webp;jpg", as: "picture" },
+    import: "default",
+  },
+);
 
-const fullModules = import.meta.glob<PictureSource>("../assets/pics/*/*.{jpg,JPG,jpeg,JPEG}", {
-  eager: true,
-  query: { w: "1200;1920", format: "webp;jpg", as: "picture" },
-  import: "default",
-});
+const fullModules = import.meta.glob<PictureSource>(
+  "../assets/photos/*/*.{jpg,JPG,jpeg,JPEG}",
+  {
+    eager: true,
+    query: { w: "1200;1920", format: "webp;jpg", as: "picture" },
+    import: "default",
+  },
+);
 
 export type AlbumPhoto = {
   /** Absolute glob path, used as a stable React key. */
@@ -38,10 +44,10 @@ export type AlbumPhoto = {
 
 /**
  * Pull the album slug out of a glob path like
- *   "../assets/pics/california-2025/DSC05864.JPG"
+ *   "../assets/photos/california-2025/DSC05864.JPG"
  */
 function pathToAlbum(path: string): { slug: string; filename: string } | null {
-  const m = path.match(/\/assets\/pics\/([^/]+)\/([^/]+)$/);
+  const m = path.match(/\/assets\/photos\/([^/]+)\/([^/]+)$/);
   if (!m) return null;
   return { slug: m[1], filename: m[2] };
 }
