@@ -7,6 +7,10 @@ import NotFound from "@/pages/NotFound";
 import Photos from "@/pages/Photos";
 import Projects from "@/pages/Projects";
 
+// Length of the fade in/out between routes. Must match the Tailwind duration
+// class below so the timeout fires after the fade-out actually finishes.
+const PAGE_FADE_MS = 150;
+
 function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
@@ -16,10 +20,12 @@ function PageTransition({ children }: { children: React.ReactNode }) {
     if (location.pathname !== displayLocation.pathname) {
       setTransitioning(true);
       const timeout = setTimeout(() => {
+        // Scroll first so the new page mounts at the top, not at the previous
+        // page's scroll position (which causes a visible jump on slow nets).
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
         setDisplayLocation(location);
         setTransitioning(false);
-        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-      }, 120);
+      }, PAGE_FADE_MS);
       return () => clearTimeout(timeout);
     }
   }, [location, displayLocation]);
@@ -27,7 +33,7 @@ function PageTransition({ children }: { children: React.ReactNode }) {
   return (
     <div
       key={displayLocation.pathname}
-      className={`transition-opacity duration-120 ${transitioning ? "opacity-0" : "opacity-100"}`}
+      className={`transition-opacity duration-150 ${transitioning ? "opacity-0" : "opacity-100"}`}
     >
       <Routes location={displayLocation}>{children}</Routes>
     </div>
