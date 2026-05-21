@@ -120,6 +120,13 @@
     scroll-behavior: smooth;
   }
 
+  /* Anchor jumps and programmatic scrollIntoView land below the sticky nav
+     rather than under it. Applies to every heading globally so any future
+     anchored section gets the right offset for free. */
+  :where(h1, h2, h3, h4, h5, h6, section, [id]) {
+    scroll-margin-top: calc(var(--nav-h) + 1rem);
+  }
+
   body {
     @apply bg-bg text-content font-sans antialiased;
     min-height: 100vh;

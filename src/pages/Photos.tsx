@@ -116,9 +116,11 @@ export default function Photos() {
           sections.map((section, sectionIndex) => (
             <section key={section.meta.slug} className={sectionIndex === 0 ? "" : "mt-16"}>
               {/* Sticky section header — mirrors the year groupings on the
-                  Projects page so the page feels of-a-piece. */}
+                  Projects page so the page feels of-a-piece. Uses a near-opaque
+                  background instead of /80 so the title doesn't visually merge
+                  with the photos passing behind it on scroll. */}
               <div
-                className="sticky z-10 mb-4 flex items-baseline gap-4 bg-bg/80 py-2 backdrop-blur-sm"
+                className="sticky z-10 mb-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 bg-bg/95 py-2 backdrop-blur-sm"
                 style={{ top: "var(--nav-h)" }}
               >
                 <h2
@@ -132,7 +134,7 @@ export default function Photos() {
                   {section.meta.title}
                 </h2>
                 <span
-                  className="shrink-0 text-xs tracking-[0.15em] text-muted"
+                  className="text-xs tracking-[0.15em] text-muted"
                   style={{ fontFamily: MONO_FONT }}
                 >
                   {section.meta.date}
@@ -140,7 +142,8 @@ export default function Photos() {
                   {" · "}
                   {section.photos.length} photo{section.photos.length === 1 ? "" : "s"}
                 </span>
-                <div className="h-px flex-1 self-center bg-edge/40" />
+                {/* Spacer line only shows when content fits on a single row */}
+                <div className="hidden h-px flex-1 self-center bg-edge/40 sm:block" />
               </div>
 
               {/* CSS columns masonry — respects each image's natural aspect

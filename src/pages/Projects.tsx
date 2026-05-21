@@ -106,7 +106,7 @@ export default function Projects() {
               return (
                 <section key={year} className={groupIndex === 0 ? "" : "mt-12"}>
                   <div
-                    className="sticky z-10 mb-2 flex items-center gap-4 bg-bg/80 py-2 backdrop-blur-sm"
+                    className="sticky z-10 mb-2 flex items-center gap-4 bg-bg/95 py-2 backdrop-blur-sm"
                     style={{ top: "var(--nav-h)" }}
                   >
                     <span
