@@ -90,7 +90,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
         aria-hidden="true"
         className="pointer-events-none absolute left-0 top-1/2 h-10 w-[2px] -translate-y-1/2 -translate-x-2 rounded-full bg-primary opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
         style={{
-          transitionDuration: "350ms",
+          transitionDuration: "300ms",
           transitionTimingFunction: EASE,
         }}
       />
@@ -98,7 +98,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
       <ProjectLogo name={repo.name} />
 
       <div className="min-w-0 flex-1">
-        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-[250ms] ease-out group-hover:text-primary">
+        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-200 ease-out group-hover:text-primary">
           <span className="truncate">{repo.name}</span>
           {featured && (
             <span className="shrink-0 text-xs text-faint/60" title="Featured" aria-hidden="true">
@@ -125,14 +125,14 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
           </a>
         </h3>
         <p
-          className="mt-0.5 truncate text-sm text-muted transition-colors duration-[250ms] ease-out group-hover:text-content"
+          className="mt-0.5 truncate text-sm text-muted transition-colors duration-200 ease-out group-hover:text-content"
           style={{ transitionDelay: "60ms" }}
         >
           {repo.description || "No description available."}
         </p>
         {topics.length > 0 && (
           <p
-            className="mt-1.5 truncate font-mono text-xs text-faint transition-colors duration-[250ms] ease-out group-hover:text-muted"
+            className="mt-1.5 truncate font-mono text-xs text-faint transition-colors duration-200 ease-out group-hover:text-muted"
             style={{ transitionDelay: "80ms" }}
           >
             {topics.join(" · ")}

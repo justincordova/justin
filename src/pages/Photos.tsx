@@ -163,7 +163,7 @@ export default function Photos() {
                             loading="lazy"
                             decoding="async"
                             sizes="(min-width: 1024px) 350px, 50vw"
-                            className="block w-full transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                            className="block w-full transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                           />
                         </picture>
                       </button>
