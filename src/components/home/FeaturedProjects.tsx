@@ -11,7 +11,7 @@ export default function FeaturedProjects() {
   const rateLimited = error instanceof ApiError && error.isRateLimited;
 
   return (
-    <section className="animate-fade-up stagger-2 px-6">
+    <section className="px-6">
       <div className="mx-auto max-w-container">
         <p
           className="mb-6 text-[11px] uppercase tracking-[0.15em] text-faint/60"
