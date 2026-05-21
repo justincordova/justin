@@ -45,9 +45,11 @@ export default function HeroScrollHint() {
       onClick={handleClick}
       aria-label="Scroll to content"
       style={{ opacity }}
-      className="group absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-faint transition-colors duration-150 hover:text-muted motion-reduce:transition-none md:flex"
+      className="group absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 font-mono text-faint transition-colors duration-150 hover:text-muted motion-reduce:transition-none"
     >
-      <span className="text-[10px] uppercase tracking-[0.15em]">Press space</span>
+      {/* "Press space" only renders on viewports that actually have a
+          spacebar. On touch the chevron alone is a sufficient cue. */}
+      <span className="hidden text-[10px] uppercase tracking-[0.15em] md:inline">Press space</span>
       <ChevronDown
         className="h-3.5 w-3.5 animate-bounce-soft motion-reduce:animate-none"
         aria-hidden="true"
