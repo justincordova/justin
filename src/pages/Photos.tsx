@@ -180,7 +180,10 @@ export default function Photos() {
                         </picture>
                       </button>
                       <figcaption
-                        className="mt-1.5 px-0.5 text-[10px] tracking-[0.15em] text-faint/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        // Visible but understated on touch (no hover state to
+                        // discover) and keyboard focus. On pointer devices it
+                        // brightens to full opacity on hover/focus.
+                        className="mt-1.5 px-0.5 text-[10px] tracking-[0.15em] text-faint/60 transition-opacity duration-300 sm:opacity-40 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
                         style={{ fontFamily: MONO_FONT }}
                       >
                         {String(i + 1).padStart(2, "0")} /{" "}
