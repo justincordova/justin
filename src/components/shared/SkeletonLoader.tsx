@@ -16,9 +16,11 @@ export function Skeleton({ className }: SkeletonProps) {
 }
 
 export function ProjectRowSkeleton() {
+  // Mirrors ProjectRow's actual structure: square 28px logo (most real logos
+  // are square images, not circular avatars), title row, description, topics.
   return (
     <div className="flex items-center gap-5 border-b border-edge/40 px-2 py-5 last:border-b-0">
-      <Skeleton className="h-7 w-7 shrink-0 rounded-full" />
+      <Skeleton className="h-7 w-7 shrink-0 rounded-md" />
       <div className="min-w-0 flex-1">
         <Skeleton className="h-4 w-1/4" />
         <Skeleton className="mt-1.5 h-3 w-3/4" />
