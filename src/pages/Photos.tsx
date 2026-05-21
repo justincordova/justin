@@ -2,7 +2,6 @@ import { ChevronLeft, ChevronRight, Loader2, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import FocusLock from "react-focus-lock";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
-import { useSpacePageScroll } from "@/hooks/useSpacePageScroll";
 import { type AlbumPhoto, getAlbumPhotos } from "@/lib/album-images";
 import { ALBUMS, type AlbumMeta } from "@/lib/albums";
 
@@ -16,10 +15,6 @@ type Section = {
 };
 
 export default function Photos() {
-  // Note: useSpacePageScroll handles its own input-target guards so it won't
-  // fire while a user is typing.
-  useSpacePageScroll();
-
   // Flatten albums into one ordered list of photos plus an index of sections.
   // The lightbox steps through the flat list so prev/next traverses sections
   // naturally; sections themselves are just visual groupings.
