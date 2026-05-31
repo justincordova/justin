@@ -7,10 +7,10 @@ interface SearchCommitsResponse {
   items: Array<{
     sha: string;
     html_url: string;
-    commit: {
-      message: string;
-      author: {
-        date: string;
+    commit?: {
+      message?: string;
+      author?: {
+        date?: string;
       };
     };
     repository: {
@@ -55,8 +55,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       batch,
     );
 
+    // Guard against a malformed upstream body. The happy path always returns
+    // an `items` array; defending here keeps a degraded GitHub response from
+    // throwing inside the map below and collapsing into a generic 500.
+    const items = Array.isArray(data.items)
+      ? data.items.filter((item) => item?.repository?.full_name && item.sha)
+      : [];
+
     const details = await Promise.allSettled(
-      data.items.map((item) =>
+      items.map((item) =>
         githubFetch<CommitDetail>(`/repos/${item.repository.full_name}/commits/${item.sha}`, batch),
       ),
     );
@@ -67,15 +74,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       (r) => r.status === "rejected" && r.reason instanceof GitHubRateLimitError,
     );
 
-    const commits: CommitActivity[] = data.items.map((item, i) => {
-      const detail = details[i].status === "fulfilled" ? details[i].value : null;
+    const commits: CommitActivity[] = items.map((item, i) => {
+      const result = details[i];
+      const detail = result?.status === "fulfilled" ? result.value : null;
       return {
-        message: item.commit.message,
+        message: item.commit?.message ?? "",
         repoName: item.repository.name,
-        timestamp: item.commit.author.date,
+        timestamp: item.commit?.author?.date ?? new Date(0).toISOString(),
         commitUrl: item.html_url,
-        additions: detail?.stats.additions ?? 0,
-        deletions: detail?.stats.deletions ?? 0,
+        additions: detail?.stats?.additions ?? 0,
+        deletions: detail?.stats?.deletions ?? 0,
       };
     });
 
