@@ -28,6 +28,8 @@ export function useSpaceScrollToHero() {
   }, []);
 
   useEffect(() => {
+    let resetTimer: ReturnType<typeof setTimeout> | undefined;
+
     const handler = (event: KeyboardEvent) => {
       if (event.key !== " " && event.code !== "Space") return;
       if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
@@ -64,12 +66,19 @@ export function useSpaceScrollToHero() {
         block: "start",
       });
 
-      setTimeout(() => {
+      // Clear any pending reset so rapid presses don't let an earlier timer
+      // flip the suppression flag back on mid-scroll. Tracked so it can also
+      // be cancelled on unmount.
+      if (resetTimer) clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
         isProgrammaticScroll.current = false;
       }, 800);
     };
 
     window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
+    return () => {
+      window.removeEventListener("keydown", handler);
+      if (resetTimer) clearTimeout(resetTimer);
+    };
   }, []);
 }
