@@ -1,6 +1,6 @@
 import type { LucideProps } from "lucide-react";
 import { FileText, Mail, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 
 import ThemeSelector from "@/components/layout/ThemeSelector";
@@ -86,6 +86,20 @@ export default function Navigation() {
   const pathDisplay = getPathDisplay(location.pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+
+  // Close the mobile menu when the viewport grows past the `sm` breakpoint.
+  // The menu is hidden by `sm:hidden` at that width, so leaving it "open"
+  // leaves stale state (and a wrong aria-expanded) that would re-reveal the
+  // menu if the user shrinks back without ever interacting with it.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const mq = window.matchMedia("(min-width: 640px)");
+    const handle = () => {
+      if (mq.matches) setMobileOpen(false);
+    };
+    mq.addEventListener("change", handle);
+    return () => mq.removeEventListener("change", handle);
+  }, [mobileOpen]);
 
   const pageRoutes = ["/", "/projects", "/photos"];
   const currentIndex = pageRoutes.indexOf(location.pathname);
