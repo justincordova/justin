@@ -41,7 +41,7 @@ export default function apiDevPlugin(): Plugin {
 
       server.middlewares.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
         const url = req.url ?? "";
-        const route = routes.find((r) => url === r.pattern || url.startsWith(r.pattern + "?"));
+        const route = routes.find((r) => url === r.pattern || url.startsWith(`${r.pattern}?`));
         if (!route) return next();
 
         const vercelReq = req as unknown as VercelRequest;
@@ -58,7 +58,17 @@ export default function apiDevPlugin(): Plugin {
           return vercelRes;
         };
 
-        route.handler(vercelReq, vercelRes);
+        // Handlers are async; if one rejects (a throw outside its own try,
+        // or a failed serialization), swallow it here so it doesn't become
+        // an unhandled rejection that hangs the request with no response.
+        Promise.resolve(route.handler(vercelReq, vercelRes)).catch((err) => {
+          console.error("[api-dev] handler error:", err);
+          if (!res.headersSent) {
+            res.statusCode = 500;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify({ error: "Internal error" }));
+          }
+        });
       });
     },
   };
