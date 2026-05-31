@@ -93,8 +93,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .json({ error: "rate_limited", message: "GitHub API rate limit exceeded" });
     }
 
-    // Cache the latest good result for future fallback use.
-    if (repos.length > 0) {
+    // Cache the latest good result for future fallback use — but only when
+    // every repo resolved. Caching a partial set under the full-list key
+    // would poison the fallback: a later fully-rate-limited request would
+    // serve the subset as if it were the complete result.
+    if (repos.length > 0 && !anyRateLimited) {
       setCache(cacheKey, repos);
     }
 
