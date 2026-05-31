@@ -44,7 +44,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const limit = Math.min(Number(req.query.limit) || 5, 20);
+  // Clamp to a positive integer in [1, 20]. Number() can yield negatives,
+  // fractions, or NaN from arbitrary query input; an unclamped value would
+  // produce a malformed per_page (e.g. -3, 2.5) in the GitHub request.
+  const parsed = Math.floor(Number(req.query.limit));
+  const limit = Number.isFinite(parsed) ? Math.min(Math.max(parsed, 1), 20) : 5;
   const cacheKey = `${CACHE_KEY_PREFIX}${limit}`;
 
   try {
