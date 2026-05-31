@@ -23,6 +23,14 @@ interface GitHubRepoResponse {
 
 const CACHE_KEY_PREFIX = "repos:";
 
+// GitHub repo names allow alphanumerics, hyphen, underscore, and dot. We
+// validate against this grammar before interpolating each name into the
+// GitHub API path. Without it, a crafted value (e.g. "../../zen" or
+// "foo?per_page=100") could traverse to arbitrary GitHub endpoints —
+// requests that carry the server's GITHUB_TOKEN (a confused-deputy/SSRF).
+const VALID_REPO_NAME = /^[A-Za-z0-9._-]+$/;
+const MAX_REPOS = 50;
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -36,6 +44,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const repoNames = param.split(",").filter(Boolean);
   if (repoNames.length === 0) {
     return res.status(400).json({ error: "No repo names provided" });
+  }
+
+  if (repoNames.length > MAX_REPOS) {
+    return res.status(400).json({ error: "Too many repo names" });
+  }
+
+  if (!repoNames.every((name) => VALID_REPO_NAME.test(name))) {
+    return res.status(400).json({ error: "Invalid repo name" });
   }
 
   const cacheKey = CACHE_KEY_PREFIX + repoNames.slice().sort().join(",");
