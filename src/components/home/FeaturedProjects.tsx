@@ -6,6 +6,15 @@ import { ProjectRowSkeleton } from "@/components/shared/SkeletonLoader";
 import { useGitHubProjects } from "@/hooks/useGitHubProjects";
 import { ApiError, FEATURED_PROJECTS } from "@/lib/github";
 
+// GitHub returns each repo's canonical stored casing in `name`, which may not
+// match the lowercase FEATURED_PROJECTS entries. Compare case-insensitively
+// and sink any unmatched repo to the end (instead of -1, which would float it
+// to the front and silently break the curated order).
+function featuredOrder(name: string): number {
+  const i = FEATURED_PROJECTS.findIndex((p) => p.toLowerCase() === name.toLowerCase());
+  return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+}
+
 export default function FeaturedProjects() {
   const { data: repos, isLoading, isError, error, refetch } = useGitHubProjects(FEATURED_PROJECTS);
   const rateLimited = error instanceof ApiError && error.isRateLimited;
@@ -43,11 +52,7 @@ export default function FeaturedProjects() {
           {repos && (
             <div>
               {[...repos]
-                .sort(
-                  (a, b) =>
-                    FEATURED_PROJECTS.indexOf(a.name as (typeof FEATURED_PROJECTS)[number]) -
-                    FEATURED_PROJECTS.indexOf(b.name as (typeof FEATURED_PROJECTS)[number]),
-                )
+                .sort((a, b) => featuredOrder(a.name) - featuredOrder(b.name))
                 .map((repo, i) => (
                   <ProjectRow key={repo.name} repo={repo} index={i} />
                 ))}
