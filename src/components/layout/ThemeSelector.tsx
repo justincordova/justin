@@ -1,6 +1,6 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { applyTheme, getStoredTheme, type Theme } from "@/lib/theme";
+import { applyTheme, getStoredTheme, THEME_CHANGE_EVENT, type Theme } from "@/lib/theme";
 
 export default function ThemeSelector() {
   const [current, setCurrent] = useState<Theme>(getStoredTheme);
@@ -9,9 +9,20 @@ export default function ThemeSelector() {
     applyTheme(getStoredTheme());
   }, []);
 
+  // Stay in sync with any other ThemeSelector instance (Navigation mounts a
+  // desktop and a mobile one at the same time) so the hidden instance never
+  // holds stale state.
+  useEffect(() => {
+    const sync = (e: Event) => {
+      const next = (e as CustomEvent<Theme>).detail;
+      setCurrent(next === "light" || next === "dark" ? next : getStoredTheme());
+    };
+    window.addEventListener(THEME_CHANGE_EVENT, sync);
+    return () => window.removeEventListener(THEME_CHANGE_EVENT, sync);
+  }, []);
+
   function toggle() {
     const next: Theme = current === "dark" ? "light" : "dark";
-    setCurrent(next);
     applyTheme(next);
   }
 

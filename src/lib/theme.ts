@@ -5,6 +5,15 @@ const THEME_COLORS: Record<Theme, string> = {
   light: "#ffffff",
 };
 
+/**
+ * Event dispatched on the window whenever the theme changes. Lets every
+ * mounted ThemeSelector stay in sync — Navigation renders one for desktop
+ * and one for mobile simultaneously, so a toggle on either must update the
+ * other (otherwise the hidden one keeps stale state and breaks after a
+ * cross-breakpoint resize).
+ */
+export const THEME_CHANGE_EVENT = "themechange";
+
 export function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("theme", theme);
@@ -12,6 +21,7 @@ export function applyTheme(theme: Theme) {
   // sync with the active theme so it doesn't flash the other color on toggle.
   const meta = document.getElementById("theme-color");
   if (meta) meta.setAttribute("content", THEME_COLORS[theme]);
+  window.dispatchEvent(new CustomEvent<Theme>(THEME_CHANGE_EVENT, { detail: theme }));
 }
 
 /**
