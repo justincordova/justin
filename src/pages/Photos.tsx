@@ -81,6 +81,15 @@ export default function Photos() {
     setSelectedIndex(index);
   };
 
+  // Ref callback that clears the loading state if the image is already
+  // decoded by the time it mounts. The <picture> remounts on every nav
+  // (key=src), and for a cached image the load can complete before React
+  // attaches onLoad — without this the spinner hangs and the image stays
+  // at opacity-0 (invisible) forever.
+  const handleImageRef = useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete) setImageLoading(false);
+  }, []);
+
   return (
     <div className="px-6 py-16 md:py-20">
       <div className="mx-auto max-w-container">
@@ -260,12 +269,14 @@ export default function Photos() {
                 <source srcSet={selectedPhoto.full.sources.webp} type="image/webp" />
               )}
               <img
+                ref={handleImageRef}
                 src={selectedPhoto.full.img.src}
                 srcSet={selectedPhoto.full.sources.jpg}
                 width={selectedPhoto.full.img.w}
                 height={selectedPhoto.full.img.h}
                 alt={`Enlarged view - photo ${selectedIndex + 1} of ${total}`}
                 onLoad={() => setImageLoading(false)}
+                onError={() => setImageLoading(false)}
                 onClick={(e) => e.stopPropagation()}
                 sizes="90vw"
                 className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? "opacity-0" : "animate-zoom-in"}`}
