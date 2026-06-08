@@ -146,21 +146,38 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
     "animate-fade-up group relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left last:border-b-0";
 
   if (isInteractive) {
+    // The row content includes a nested GitHub <a href>. A <button> may not
+    // contain interactive descendants (invalid HTML — browsers reparent the
+    // DOM, breaking focus order), so the clickable container is a div with
+    // explicit button semantics and keyboard activation instead.
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleRowClick();
+      }
+    };
+
     return (
       <>
-        <button
-          type="button"
+        {/* biome-ignore lint/a11y/useSemanticElements: a native <button> can't
+            contain the nested GitHub <a href>; a role=button div is the valid
+            container for interactive descendants. */}
+        <div
+          role="button"
+          tabIndex={0}
           onClick={handleRowClick}
+          onKeyDown={handleKeyDown}
           style={{
             animationDelay,
             transitionProperty: "background-color",
             transitionDuration: "250ms",
             transitionTimingFunction: "ease-out",
           }}
-          className={`${baseClass} hover:bg-surface/30`}
+          className={`${baseClass} cursor-pointer hover:bg-surface/30`}
         >
           {content}
-        </button>
+        </div>
 
         {gallery.length > 0 && (
           <ProjectGallery
