@@ -4,7 +4,7 @@ import ProjectRow from "@/components/projects/ProjectRow";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import { ProjectRowSkeleton } from "@/components/shared/SkeletonLoader";
 import { useGitHubProjects } from "@/hooks/useGitHubProjects";
-import { ApiError, FEATURED_PROJECTS } from "@/lib/github";
+import { ApiError, FEATURED_PROJECTS, PROJECTS_ERROR_COPY } from "@/lib/github";
 
 // GitHub returns each repo's canonical stored casing in `name`, which may not
 // match the lowercase FEATURED_PROJECTS entries. Compare case-insensitively
@@ -40,9 +40,7 @@ export default function FeaturedProjects() {
               <ErrorMessage
                 tone={rateLimited ? "info" : "error"}
                 message={
-                  rateLimited
-                    ? "GitHub is rate-limiting us right now. Try again in a minute."
-                    : "Failed to load projects."
+                  rateLimited ? PROJECTS_ERROR_COPY.rateLimited : PROJECTS_ERROR_COPY.generic
                 }
                 onRetry={() => refetch()}
               />

@@ -26,6 +26,13 @@ export const CURATED_PROJECTS = [
 
 export const FEATURED_PROJECTS = ["rumi", "seshr", "arcadeai", "findu"] as const;
 
+/** User-facing copy for the project-loading error states (shared by the home
+ *  and projects views so the wording stays in sync). */
+export const PROJECTS_ERROR_COPY = {
+  rateLimited: "GitHub is rate-limiting us right now. Try again in a minute.",
+  generic: "Failed to load projects.",
+} as const;
+
 /**
  * Thrown by fetch helpers when the API responds with a non-ok status.
  * Carries the HTTP status and an optional error code so callers (hooks,
