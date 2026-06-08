@@ -93,6 +93,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .json({ error: "rate_limited", message: "GitHub API rate limit exceeded" });
     }
 
+    // Every fetch failed for a non-rate-limit reason (all 404/500/network).
+    // Returning 200 with [] here would look like "no repos" to the client —
+    // React Query treats it as success and never retries, so the user sees an
+    // empty list instead of an error state. Surface a 502 so the failure is
+    // visible and retryable.
+    if (allFailed) {
+      const firstRejection = results.find(
+        (r): r is PromiseRejectedResult => r.status === "rejected",
+      );
+      logError("All repo fetches failed", firstRejection?.reason);
+      return res.status(502).json({ error: "upstream_error", message: "Failed to fetch repos" });
+    }
+
     // Cache the latest good result for future fallback use — but only when
     // every repo resolved. Caching a partial set under the full-list key
     // would poison the fallback: a later fully-rate-limited request would
