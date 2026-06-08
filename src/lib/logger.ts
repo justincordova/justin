@@ -92,10 +92,6 @@ export async function initLogger(): Promise<void> {
   });
 }
 
-export function childLogger(service: string) {
-  return getLogger(["justin-portfolio", service]);
-}
-
 export function logError(message: string, error?: unknown, meta?: Record<string, unknown>) {
   const logger = getLogger(["justin-portfolio"]);
   if (error instanceof Error) {
@@ -109,9 +105,4 @@ export function logError(message: string, error?: unknown, meta?: Record<string,
   } else {
     logger.error(message, meta);
   }
-}
-
-export function logHttp(method: string, url: string, status?: number, duration?: number) {
-  const logger = getLogger(["justin-portfolio", "http"]);
-  logger.info(`${method} ${url}`, { status, duration });
 }
