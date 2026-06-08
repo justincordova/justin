@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
   // exposes VITE_* vars to the client bundle and does not populate
   // process.env at all. Vercel handles this natively in production.
   const env = loadEnv(mode, process.cwd(), "");
-  for (const key of ["GITHUB_TOKEN", "GITHUB_USERNAME"]) {
+  for (const key of ["GITHUB_TOKEN"]) {
     if (env[key] && !process.env[key]) {
       process.env[key] = env[key];
     }
