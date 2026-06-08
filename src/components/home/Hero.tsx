@@ -13,7 +13,7 @@ import {
 } from "simple-icons";
 import HeroScrollHint from "@/components/home/HeroScrollHint";
 import LocationWidget from "@/components/home/LocationWidget";
-import { useScrollProgress } from "@/hooks/useScrollFade";
+import { useScrollProgress } from "@/hooks/useScrollProgress";
 
 const icons = [
   { name: "TypeScript", path: siTypescript.path, color: `#${siTypescript.hex}` },
