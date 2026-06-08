@@ -36,19 +36,18 @@ export default function Photos() {
 
   const close = useCallback(() => setSelectedIndex(null), []);
 
+  // With 0 or 1 photos there's nowhere to navigate. Bail before flipping
+  // imageLoading on — a no-op index change wouldn't remount the <picture>
+  // (keyed by src), so onLoad never refires and the spinner would hang.
   const goPrev = useCallback(() => {
-    setSelectedIndex((i) => {
-      if (i === null || total === 0) return i;
-      return (i - 1 + total) % total;
-    });
+    if (total <= 1) return;
+    setSelectedIndex((i) => (i === null ? i : (i - 1 + total) % total));
     setImageLoading(true);
   }, [total]);
 
   const goNext = useCallback(() => {
-    setSelectedIndex((i) => {
-      if (i === null || total === 0) return i;
-      return (i + 1) % total;
-    });
+    if (total <= 1) return;
+    setSelectedIndex((i) => (i === null ? i : (i + 1) % total));
     setImageLoading(true);
   }, [total]);
 
