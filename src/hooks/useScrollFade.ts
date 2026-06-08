@@ -17,9 +17,7 @@ export function useScrollProgress(distanceFactor = 1): number {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
-
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0;
 
     const update = () => {
@@ -34,11 +32,30 @@ export function useScrollProgress(distanceFactor = 1): number {
       raf = requestAnimationFrame(update);
     };
 
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    // Subscribe/unsubscribe based on the live motion preference so toggling
+    // the OS setting mid-session takes effect without a remount. When reduced
+    // motion is on, progress is pinned to 0 (no fade).
+    const apply = () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf !== 0) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      if (motionQuery.matches) {
+        setProgress(0);
+        return;
+      }
+      update();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+    };
+
+    apply();
+    motionQuery.addEventListener("change", apply);
 
     return () => {
+      motionQuery.removeEventListener("change", apply);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (raf !== 0) cancelAnimationFrame(raf);
