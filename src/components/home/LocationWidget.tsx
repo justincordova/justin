@@ -19,7 +19,9 @@ function getEasternHour(): number {
     hour12: false,
   });
   const parsed = parseInt(hour, 10);
-  return Number.isNaN(parsed) ? 12 : parsed;
+  // Some ICU builds format midnight as "24" with hour12:false; normalize so
+  // 24 maps to 0 (otherwise midnight would be misclassified as night-edge).
+  return Number.isNaN(parsed) ? 12 : parsed % 24;
 }
 
 export default function LocationWidget() {
