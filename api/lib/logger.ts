@@ -30,14 +30,21 @@ const SENSITIVE_KEYS = new Set(["password", "token", "authorization", "secret", 
 // values under sensitive keys. We don't mutate the input because the
 // same object can flow through other winston formatters or escape into
 // downstream code — mutating would permanently overwrite caller data.
-const redactClone = (value: unknown): unknown => {
+const redactClone = (value: unknown, seen: WeakSet<object> = new WeakSet()): unknown => {
   if (Array.isArray(value)) {
-    return value.map((v) => redactClone(v));
+    if (seen.has(value)) return "[Circular]";
+    seen.add(value);
+    return value.map((v) => redactClone(v, seen));
   }
   if (value && typeof value === "object") {
+    // Guard against cyclic objects (e.g. Error.cause chains, socket refs on
+    // network errors) so logging a self-referential value can't blow the
+    // stack inside this formatter.
+    if (seen.has(value)) return "[Circular]";
+    seen.add(value);
     const out: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      out[k] = SENSITIVE_KEYS.has(k.toLowerCase()) ? "[REDACTED]" : redactClone(v);
+      out[k] = SENSITIVE_KEYS.has(k.toLowerCase()) ? "[REDACTED]" : redactClone(v, seen);
     }
     return out;
   }

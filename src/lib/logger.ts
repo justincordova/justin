@@ -6,17 +6,26 @@ const LOG_LEVEL = IS_DEV ? "debug" : "info";
 
 const SENSITIVE_KEYS = new Set(["password", "token", "authorization", "secret", "apikey"]);
 
-function redactProperties(obj: Record<string, unknown>): Record<string, unknown> {
+function redactProperties(
+  obj: Record<string, unknown>,
+  seen: WeakSet<object> = new WeakSet(),
+): Record<string, unknown> {
+  // Guard against cyclic objects so a self-referential logged value can't
+  // recurse infinitely and crash the sink formatter.
+  if (seen.has(obj)) return {};
+  seen.add(obj);
   const redacted: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(obj)) {
     if (SENSITIVE_KEYS.has(key.toLowerCase())) {
       redacted[key] = "[REDACTED]";
     } else if (Array.isArray(value)) {
       redacted[key] = value.map((item) =>
-        item && typeof item === "object" ? redactProperties(item as Record<string, unknown>) : item,
+        item && typeof item === "object"
+          ? redactProperties(item as Record<string, unknown>, seen)
+          : item,
       );
     } else if (value && typeof value === "object") {
-      redacted[key] = redactProperties(value as Record<string, unknown>);
+      redacted[key] = redactProperties(value as Record<string, unknown>, seen);
     } else {
       redacted[key] = value;
     }
