@@ -24,7 +24,7 @@ export const CURATED_PROJECTS = [
   "file-downloader",
 ] as const;
 
-export const FEATURED_PROJECTS = ["rumi", "seshr", "arcadeai", "findu"] as const;
+export const FEATURED_PROJECTS = ["arcadeai", "rumi", "seshr", "findu"] as const;
 
 /** User-facing copy for the project-loading error states (shared by the home
  *  and projects views so the wording stays in sync). */
