@@ -29,7 +29,7 @@ export default function FeaturedProjects() {
         <div className="border-t border-edge/40">
           {isLoading && (
             <div>
-              {Array.from({ length: 4 }).map((_, i) => (
+              {Array.from({ length: FEATURED_PROJECTS.length }).map((_, i) => (
                 <ProjectRowSkeleton key={i} />
               ))}
             </div>
