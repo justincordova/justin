@@ -1,7 +1,6 @@
 import type { CommitActivity, GitHubRepo } from "@/types/github";
 
 export const CURATED_PROJECTS = [
-  "vivarium",
   "seshr",
   "findu",
   "rumi",
@@ -25,7 +24,7 @@ export const CURATED_PROJECTS = [
   "file-downloader",
 ] as const;
 
-export const FEATURED_PROJECTS = ["vivarium", "arcadeai", "rumi", "seshr", "findu"] as const;
+export const FEATURED_PROJECTS = ["arcadeai", "rumi", "seshr", "findu"] as const;
 
 /** User-facing copy for the project-loading error states (shared by the home
  *  and projects views so the wording stays in sync). */
