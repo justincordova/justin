@@ -48,7 +48,7 @@ export default function LocationWidget() {
   // name only appear on md+ viewports. Avoids rendering two parallel widgets
   // (and two parallel intervals worth of accessible duplication).
   return (
-    <div className="flex items-center gap-1.5 text-[11px] text-muted md:gap-2 md:text-xs">
+    <div className="flex items-center gap-1.5 text-[0.6875rem] text-muted md:gap-2 md:text-xs">
       <span>
         <span className="hidden md:inline">based in </span>
         stewartsville

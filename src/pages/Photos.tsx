@@ -179,7 +179,7 @@ export default function Photos() {
                             alt={`${section.meta.title} - photo ${i + 1} of ${section.photos.length}`}
                             loading={aboveFold ? "eager" : "lazy"}
                             decoding="async"
-                            sizes="(min-width: 1024px) 350px, 50vw"
+                            sizes="(min-width: 1600px) 480px, (min-width: 1024px) 350px, 50vw"
                             className="block w-full transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                           />
                         </picture>
@@ -188,7 +188,7 @@ export default function Photos() {
                         // Visible but understated on touch (no hover state to
                         // discover) and keyboard focus. On pointer devices it
                         // brightens to full opacity on hover/focus.
-                        className="mt-1.5 px-0.5 font-mono text-[10px] tracking-[0.15em] text-faint/60 transition-opacity duration-300 sm:opacity-40 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
+                        className="mt-1.5 px-0.5 font-mono text-[0.625rem] tracking-[0.15em] text-faint/60 transition-opacity duration-300 sm:opacity-40 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
                       >
                         {String(i + 1).padStart(2, "0")} /{" "}
                         {String(section.photos.length).padStart(2, "0")}

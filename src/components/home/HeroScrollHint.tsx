@@ -49,7 +49,9 @@ export default function HeroScrollHint() {
     >
       {/* "Press space" only renders on viewports that actually have a
           spacebar. On touch the chevron alone is a sufficient cue. */}
-      <span className="hidden text-[10px] uppercase tracking-[0.15em] md:inline">Press space</span>
+      <span className="hidden text-[0.625rem] uppercase tracking-[0.15em] md:inline">
+        Press space
+      </span>
       <ChevronDown
         className="h-3.5 w-3.5 animate-bounce-soft motion-reduce:animate-none"
         aria-hidden="true"

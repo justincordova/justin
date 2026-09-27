@@ -22,7 +22,7 @@ export default function FeaturedProjects() {
   return (
     <section className="px-6">
       <div className="mx-auto max-w-container">
-        <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-faint/60">
+        <p className="mb-6 font-mono text-[0.6875rem] uppercase tracking-[0.15em] text-faint/60">
           Featured
         </p>
 

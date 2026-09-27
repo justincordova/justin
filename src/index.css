@@ -18,7 +18,7 @@
   --color-faint: #71717a;
 
   --max-width-container: 1100px;
-  --nav-h: 64px;
+  --nav-h: 4rem;
 
   --animate-fade-up: fade-up 0.5s ease-out both;
   --animate-fade-in: fade-in 0.3s ease-out both;
@@ -109,6 +109,16 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  @media (min-width: 1600px) {
+    html {
+      font-size: clamp(16px, 0.9vw, 18px);
+    }
+
+    :root {
+      --max-width-container: clamp(1100px, 70vw, 1440px);
+    }
   }
 
   /* Anchor jumps and programmatic scrollIntoView land below the sticky nav

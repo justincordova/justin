@@ -40,8 +40,8 @@ function LatestCommit() {
 
   // Reserve vertical space even when the commit hasn't loaded yet so the
   // footer doesn't visibly shift on cold-start renders. 14px ≈ the rendered
-  // line height of the [11px] mono line below.
-  if (!latest) return <div aria-hidden="true" className="h-[14px]" />;
+  // line height of the mono line below.
+  if (!latest) return <div aria-hidden="true" className="h-[0.875rem]" />;
 
   const message = latest.message.split("\n")[0];
 
@@ -50,7 +50,7 @@ function LatestCommit() {
       href={latest.commitUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex max-w-full items-center gap-2 truncate font-mono text-[11px] text-muted transition-colors hover:text-content"
+      className="group inline-flex max-w-full items-center gap-2 truncate font-mono text-[0.6875rem] text-muted transition-colors hover:text-content"
     >
       <span
         aria-hidden="true"

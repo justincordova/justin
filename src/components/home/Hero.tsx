@@ -129,7 +129,7 @@ export default function Hero() {
                 </span>
                 {/* Mobile persistent label — visible by default below the
                     icon since there's no hover state to surface it. */}
-                <span className="font-mono text-[9px] tracking-wide text-faint/70 md:hidden">
+                <span className="font-mono text-[0.5625rem] tracking-wide text-faint/70 md:hidden">
                   {icon.name}
                 </span>
               </div>
