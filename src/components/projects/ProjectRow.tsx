@@ -3,6 +3,7 @@ import type { GitHubRepo } from "@/types/github";
 import ProjectGallery from "./ProjectGallery";
 
 const PROJECT_LOGOS: Record<string, string> = {
+  jobvr: "/logos/jobvr.png",
   seshr: "/logos/seshr.png",
   findu: "/logos/findu.png",
   rumi: "/logos/rumi.png",
