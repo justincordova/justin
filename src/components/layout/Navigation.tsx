@@ -86,6 +86,7 @@ export default function Navigation() {
   const pathDisplay = getPathDisplay(location.pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   // Only animate the menu icon after a click, not on first paint.
   const [menuToggled, setMenuToggled] = useState(false);
@@ -100,6 +101,7 @@ export default function Navigation() {
     setMobileOpen(false);
   }
 
+  // Escape or a tap anywhere outside the nav dismisses the open menu.
   useEffect(() => {
     if (!mobileOpen) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -107,8 +109,15 @@ export default function Navigation() {
       setMobileOpen(false);
       menuButtonRef.current?.focus();
     };
+    const handlePointerDown = (e: PointerEvent) => {
+      if (!navRef.current?.contains(e.target as Node)) setMobileOpen(false);
+    };
     window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
   }, [mobileOpen]);
 
   // Close the mobile menu when the viewport grows past the `sm` breakpoint.
@@ -137,7 +146,7 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 h-16 bg-bg/80 backdrop-blur-sm">
+      <nav ref={navRef} className="sticky top-0 z-50 h-16 bg-bg/80 backdrop-blur-sm">
         <div className="mx-auto flex h-full max-w-container items-center justify-between px-6">
           <div className="hidden items-center gap-6 sm:flex">
             {navLinks.map((link) => (
