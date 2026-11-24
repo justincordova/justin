@@ -127,6 +127,16 @@
     --color-faint: #71717a;
   }
 
+  /* Native surfaces (scrollbars, form controls, the resume PDF viewer) follow
+     the site toggle rather than the OS setting. */
+  :root {
+    color-scheme: dark;
+    accent-color: var(--color-primary);
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+
   html {
     scroll-behavior: smooth;
   }
