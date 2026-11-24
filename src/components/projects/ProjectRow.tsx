@@ -116,7 +116,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
           </a>
         </h3>
         <p
-          className="mt-0.5 truncate text-sm text-muted transition-colors duration-200 ease-out group-hover:text-content group-focus-visible:text-content"
+          className="mt-0.5 line-clamp-2 text-sm text-muted transition-colors sm:line-clamp-1 duration-200 ease-out group-hover:text-content group-focus-visible:text-content"
           style={{ transitionDelay: "60ms" }}
         >
           {repo.description || "No description available."}
