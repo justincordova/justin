@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router";
 import Footer from "@/components/layout/Footer";
 import Navigation from "@/components/layout/Navigation";
+import { cn } from "@/lib/utils";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 import Photos from "@/pages/Photos";
@@ -15,6 +16,9 @@ function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
   const [transitioning, setTransitioning] = useState(false);
+  // The first page paints immediately (the hero has its own entrance); only
+  // pages reached by navigating fade in.
+  const [navigated, setNavigated] = useState(false);
 
   useEffect(() => {
     if (location.pathname !== displayLocation.pathname) {
@@ -25,6 +29,7 @@ function PageTransition({ children }: { children: React.ReactNode }) {
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
         setDisplayLocation(location);
         setTransitioning(false);
+        setNavigated(true);
       }, PAGE_FADE_MS);
       return () => clearTimeout(timeout);
     }
@@ -33,7 +38,11 @@ function PageTransition({ children }: { children: React.ReactNode }) {
   return (
     <div
       key={displayLocation.pathname}
-      className={`transition-opacity duration-150 ${transitioning ? "opacity-0" : "opacity-100"}`}
+      className={cn(
+        "transition-opacity duration-150",
+        transitioning ? "opacity-0" : "opacity-100",
+        navigated && !transitioning && "animate-fade-in",
+      )}
     >
       <Routes location={displayLocation}>{children}</Routes>
     </div>
