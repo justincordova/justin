@@ -33,18 +33,20 @@ export function useSpaceScrollToHero() {
     const handler = (event: KeyboardEvent) => {
       if (event.key !== " " && event.code !== "Space") return;
       if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
+      // A focused control (e.g. a project row) already handled Space itself.
+      if (event.defaultPrevented) return;
 
+      // Space activates focused buttons and links, and modals own the
+      // keyboard while open, so only hijack it when nothing interactive
+      // has focus.
       const target = event.target as HTMLElement | null;
-      if (target) {
-        const tag = target.tagName;
-        if (
-          tag === "INPUT" ||
-          tag === "TEXTAREA" ||
-          target.isContentEditable ||
-          target.getAttribute("role") === "textbox"
-        ) {
-          return;
-        }
+      if (
+        target?.isContentEditable ||
+        target?.closest(
+          'input, textarea, select, button, a[href], summary, [contenteditable="true"], [role="textbox"], [role="button"], [role="dialog"]',
+        )
+      ) {
+        return;
       }
 
       const hero = document.getElementById("hero");
