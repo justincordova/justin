@@ -47,7 +47,11 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-center justify-center px-6 py-12"
+      // The section slides up under the sticky nav, so the top padding has
+      // to clear the nav and the bottom has to clear the scroll hint —
+      // otherwise short viewports tuck the photo under the nav and the hint
+      // overlaps the last line of content.
+      className="relative flex min-h-[100svh] items-center justify-center px-6 pt-[calc(var(--nav-h)+1.5rem)] pb-24"
       style={{ marginTop: "calc(var(--nav-h) * -1)" }}
     >
       <div

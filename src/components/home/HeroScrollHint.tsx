@@ -44,7 +44,9 @@ export default function HeroScrollHint() {
       type="button"
       onClick={handleClick}
       aria-label="Scroll to content"
-      style={{ opacity }}
+      // Fully faded = gone: hide it so it can't be tabbed to or clicked
+      // while invisible.
+      style={{ opacity, visibility: opacity === 0 ? "hidden" : undefined }}
       className="group absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 font-mono text-faint transition-colors duration-150 hover:text-muted motion-reduce:transition-none"
     >
       {/* "Press space" only renders on viewports that actually have a
