@@ -16,6 +16,11 @@ type Section = {
 
 const SWIPE_THRESHOLD_PX = 50;
 
+// `sizes` must be repeated on each <source>: the <img>'s attribute doesn't
+// apply to sources, which otherwise assume 100vw and over-fetch.
+const THUMB_SIZES = "(min-width: 1600px) 480px, (min-width: 1024px) 350px, 50vw";
+const FULL_SIZES = "90vw";
+
 export default function Photos() {
   useDocumentTitle("Photos");
   // Flatten albums into one ordered list of photos plus an index of sections.
@@ -88,7 +93,7 @@ export default function Photos() {
     for (const step of [1, -1]) {
       const photo = allPhotos[(selectedIndex + step + total) % total];
       const img = new Image();
-      img.sizes = "90vw";
+      img.sizes = FULL_SIZES;
       img.srcset = photo.full.sources.webp ?? photo.full.sources.jpg;
       img.src = photo.full.img.src;
     }
@@ -210,7 +215,11 @@ export default function Photos() {
                       >
                         <picture>
                           {photo.thumb.sources.webp && (
-                            <source srcSet={photo.thumb.sources.webp} type="image/webp" />
+                            <source
+                              srcSet={photo.thumb.sources.webp}
+                              sizes={THUMB_SIZES}
+                              type="image/webp"
+                            />
                           )}
                           <img
                             src={photo.thumb.img.src}
@@ -220,7 +229,7 @@ export default function Photos() {
                             alt={`${section.meta.title} - photo ${i + 1} of ${section.photos.length}`}
                             loading={aboveFold ? "eager" : "lazy"}
                             decoding="async"
-                            sizes="(min-width: 1600px) 480px, (min-width: 1024px) 350px, 50vw"
+                            sizes={THUMB_SIZES}
                             className="block w-full transition-transform duration-300 ease-out group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
                           />
                         </picture>
@@ -305,7 +314,11 @@ export default function Photos() {
               )}
               <picture key={selectedPhoto.full.img.src}>
                 {selectedPhoto.full.sources.webp && (
-                  <source srcSet={selectedPhoto.full.sources.webp} type="image/webp" />
+                  <source
+                    srcSet={selectedPhoto.full.sources.webp}
+                    sizes={FULL_SIZES}
+                    type="image/webp"
+                  />
                 )}
                 <img
                   ref={handleImageRef}
@@ -317,7 +330,7 @@ export default function Photos() {
                   onLoad={() => setImageLoading(false)}
                   onError={() => setImageLoading(false)}
                   onClick={(e) => e.stopPropagation()}
-                  sizes="90vw"
+                  sizes={FULL_SIZES}
                   // Opacity only: prev/next is a rapid, often keyboard-driven
                   // action, so it gets a quick fade rather than a zoom.
                   className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain transition-opacity duration-200 ease-out ${imageLoading ? "opacity-0" : "opacity-100"}`}
