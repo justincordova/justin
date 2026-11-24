@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Loader2, X } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import FocusLock from "react-focus-lock";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { type AlbumPhoto, getAlbumPhotos } from "@/lib/album-images";
@@ -11,6 +11,8 @@ type Section = {
   /** Index of the first photo in this section within the flat photo list. */
   offset: number;
 };
+
+const SWIPE_THRESHOLD_PX = 50;
 
 export default function Photos() {
   // Flatten albums into one ordered list of photos plus an index of sections.
@@ -74,6 +76,42 @@ export default function Photos() {
   }, [selectedIndex]);
 
   useBodyScrollLock(selectedIndex !== null);
+
+  // Warm the cache for the photos on either side so prev/next swaps in
+  // instantly instead of flashing the spinner. sizes is set before srcset so
+  // the browser picks the same candidate the lightbox <picture> will request.
+  useEffect(() => {
+    if (selectedIndex === null || total <= 1) return;
+    for (const step of [1, -1]) {
+      const photo = allPhotos[(selectedIndex + step + total) % total];
+      const img = new Image();
+      img.sizes = "90vw";
+      img.srcset = photo.full.sources.webp ?? photo.full.sources.jpg;
+      img.src = photo.full.img.src;
+    }
+  }, [selectedIndex, allPhotos, total]);
+
+  // Horizontal swipe steps through photos on touch screens, where the arrow
+  // buttons are the only other way to navigate. Mostly-vertical drags are
+  // ignored so they don't fight a scroll or pinch gesture.
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length !== 1) {
+      touchStart.current = null;
+      return;
+    }
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const dx = e.changedTouches[0].clientX - start.x;
+    const dy = e.changedTouches[0].clientY - start.y;
+    if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) goNext();
+    else goPrev();
+  };
 
   const open = (index: number) => {
     setImageLoading(true);
@@ -210,6 +248,8 @@ export default function Photos() {
             aria-label={`Photo ${selectedIndex + 1} of ${total}`}
             className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/85 p-4"
             onClick={close}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {/* Counter — top-left, mono, intentionally understated. Marked
                 aria-hidden because the dialog's own aria-label already
