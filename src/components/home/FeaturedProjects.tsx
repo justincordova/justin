@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { useMemo } from "react";
 import { Link } from "react-router";
 import ProjectRow from "@/components/projects/ProjectRow";
 import ErrorMessage from "@/components/shared/ErrorMessage";
@@ -19,12 +20,32 @@ export default function FeaturedProjects() {
   const { data: repos, isLoading, isError, error, refetch } = useGitHubProjects(FEATURED_PROJECTS);
   const rateLimited = error instanceof ApiError && error.isRateLimited;
 
+  const ordered = useMemo(
+    () => (repos ? [...repos].sort((a, b) => featuredOrder(a.name) - featuredOrder(b.name)) : []),
+    [repos],
+  );
+
   return (
-    <section className="px-6">
+    <section aria-labelledby="featured-heading" className="px-6">
       <div className="mx-auto max-w-container">
-        <p className="mb-6 font-mono text-[0.6875rem] uppercase tracking-[0.15em] text-faint/60">
-          Featured
-        </p>
+        <div className="mb-4 flex items-baseline justify-between gap-4">
+          <h2
+            id="featured-heading"
+            className="font-sans text-lg font-medium tracking-tight text-content"
+          >
+            Featured projects
+          </h2>
+          <Link
+            to="/projects"
+            className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-content"
+          >
+            View all projects
+            <ArrowRight
+              className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </Link>
+        </div>
 
         <div className="border-t border-edge/40">
           {isLoading && (
@@ -49,23 +70,11 @@ export default function FeaturedProjects() {
 
           {repos && (
             <div>
-              {[...repos]
-                .sort((a, b) => featuredOrder(a.name) - featuredOrder(b.name))
-                .map((repo, i) => (
-                  <ProjectRow key={repo.name} repo={repo} index={i} />
-                ))}
+              {ordered.map((repo, i) => (
+                <ProjectRow key={repo.name} repo={repo} index={i} />
+              ))}
             </div>
           )}
-        </div>
-
-        <div className="mt-6 text-center">
-          <Link
-            to="/projects"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-content"
-          >
-            View all projects
-            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
         </div>
       </div>
     </section>
