@@ -39,7 +39,14 @@ function getYearRange(repos: GitHubRepo[]): { min: number; max: number } | null 
 }
 
 export default function Projects() {
-  const { data: repos, isLoading, isError, error, refetch } = useGitHubProjects(CURATED_PROJECTS);
+  const {
+    data: repos,
+    isLoading,
+    isError,
+    isFetching,
+    error,
+    refetch,
+  } = useGitHubProjects(CURATED_PROJECTS);
   const rateLimited = error instanceof ApiError && error.isRateLimited;
 
   const grouped = useMemo(() => (repos ? groupByYear(repos) : []), [repos]);
@@ -86,6 +93,7 @@ export default function Projects() {
             tone={rateLimited ? "info" : "error"}
             message={rateLimited ? PROJECTS_ERROR_COPY.rateLimited : PROJECTS_ERROR_COPY.generic}
             onRetry={() => refetch()}
+            retrying={isFetching}
           />
         )}
 

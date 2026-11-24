@@ -17,7 +17,14 @@ function featuredOrder(name: string): number {
 }
 
 export default function FeaturedProjects() {
-  const { data: repos, isLoading, isError, error, refetch } = useGitHubProjects(FEATURED_PROJECTS);
+  const {
+    data: repos,
+    isLoading,
+    isError,
+    isFetching,
+    error,
+    refetch,
+  } = useGitHubProjects(FEATURED_PROJECTS);
   const rateLimited = error instanceof ApiError && error.isRateLimited;
 
   const ordered = useMemo(
@@ -64,6 +71,7 @@ export default function FeaturedProjects() {
                   rateLimited ? PROJECTS_ERROR_COPY.rateLimited : PROJECTS_ERROR_COPY.generic
                 }
                 onRetry={() => refetch()}
+                retrying={isFetching}
               />
             </div>
           )}

@@ -31,7 +31,7 @@ export const FEATURED_PROJECTS = ["jobvr", "arcadeai", "rumi", "seshr", "findu"]
  *  and projects views so the wording stays in sync). */
 export const PROJECTS_ERROR_COPY = {
   rateLimited: "GitHub is rate-limiting us right now. Try again in a minute.",
-  generic: "Failed to load projects.",
+  generic: "Couldn't load projects from GitHub. Check your connection and try again.",
 } as const;
 
 /**
