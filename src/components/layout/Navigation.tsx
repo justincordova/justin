@@ -164,7 +164,10 @@ export default function Navigation() {
             aria-label={`Current page: ${pathDisplay}. Go to next page.`}
             className="group absolute left-1/2 -translate-x-1/2 cursor-pointer px-6 py-2"
           >
-            <span className="block select-none font-mono text-sm tracking-wide opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0">
+            {/* Revealed on hover for pointer users. Touch screens can't
+                hover, so there it's always shown — otherwise the middle of
+                the nav is an invisible button. */}
+            <span className="block translate-y-2 select-none font-mono text-sm tracking-wide opacity-0 transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100">
               <span className="text-primary">~</span>
               <span className="text-muted">{pathDisplay.slice(1)}</span>
             </span>
@@ -178,7 +181,7 @@ export default function Navigation() {
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={link.label}
-                className={`group rounded-lg p-2 text-muted transition-all duration-200 hover:bg-surface ${link.color}`}
+                className={`group rounded-lg p-2 text-muted transition-colors duration-200 hover:bg-surface ${link.color}`}
               >
                 <link.icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
               </a>
@@ -186,8 +189,8 @@ export default function Navigation() {
             <button
               type="button"
               onClick={() => setResumeOpen(true)}
-              aria-label="Resume"
-              className="group rounded-lg p-2 text-muted transition-all duration-200 hover:bg-surface hover:text-secondary"
+              aria-label="Open resume"
+              className="group rounded-lg p-2 text-muted transition-colors duration-200 hover:bg-surface hover:text-secondary"
             >
               <FileText className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
             </button>
@@ -251,7 +254,7 @@ export default function Navigation() {
                     setMobileOpen(false);
                     setResumeOpen(true);
                   }}
-                  aria-label="Resume"
+                  aria-label="Open resume"
                   className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-secondary"
                 >
                   <FileText className="h-4 w-4" />
