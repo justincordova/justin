@@ -49,29 +49,29 @@ export default function Projects() {
   return (
     <div className="px-6 py-16 md:py-20">
       <div className="mx-auto max-w-container">
-        {/* Header */}
-        {repos && (
-          <header className="animate-fade-up stagger-1 mb-12 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-            <h1
-              className="font-sans tracking-tight text-content"
-              style={{
-                fontWeight: 500,
-                fontSize: "clamp(1.5rem, 3vw, 1.875rem)",
-              }}
-            >
-              Projects
-            </h1>
-            {yearRange && (
-              <p className="truncate font-mono text-xs text-faint">
-                {totalCount} project{totalCount === 1 ? "" : "s"}
-                {" · "}
-                {yearRange.min === yearRange.max
-                  ? yearRange.min
-                  : `${yearRange.min} – ${yearRange.max}`}
-              </p>
-            )}
-          </header>
-        )}
+        {/* Header renders immediately so the skeleton and error states have
+            a page title and the list doesn't jump down when data arrives.
+            Only the count/year meta waits on data. */}
+        <header className="animate-fade-up stagger-1 mb-12 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <h1
+            className="font-sans tracking-tight text-content"
+            style={{
+              fontWeight: 500,
+              fontSize: "clamp(1.5rem, 3vw, 1.875rem)",
+            }}
+          >
+            Projects
+          </h1>
+          {yearRange && (
+            <p className="animate-fade-in truncate font-mono text-xs text-faint">
+              {totalCount} project{totalCount === 1 ? "" : "s"}
+              {" · "}
+              {yearRange.min === yearRange.max
+                ? yearRange.min
+                : `${yearRange.min} – ${yearRange.max}`}
+            </p>
+          )}
+        </header>
 
         {isLoading && (
           <div>
