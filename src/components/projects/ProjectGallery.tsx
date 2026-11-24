@@ -93,17 +93,24 @@ export default function ProjectGallery({ name, images, open, onClose }: ProjectG
           </div>
 
           {images.length > 1 && (
-            <div className="flex gap-1.5">
+            <div className="flex">
               {images.map((_, i) => (
+                // The visible pill is 6px tall; the button around it supplies
+                // a 24px-tall hit area so the dots are tappable.
                 <button
                   key={i}
                   type="button"
                   onClick={() => setIndex(i)}
-                  className={`h-1.5 rounded-full transition-all duration-200 ${
-                    i === index ? "w-6 bg-primary" : "w-3 bg-surface-2 hover:bg-faint"
-                  }`}
                   aria-label={`Go to image ${i + 1}`}
-                />
+                  aria-current={i === index ? "true" : undefined}
+                  className="group flex h-6 items-center px-[3px]"
+                >
+                  <span
+                    className={`block h-1.5 rounded-full transition-[width,background-color] duration-200 ease-out ${
+                      i === index ? "w-6 bg-primary" : "w-3 bg-surface-2 group-hover:bg-faint"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           )}
