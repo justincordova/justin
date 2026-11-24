@@ -173,7 +173,7 @@ export default function Navigation() {
             type="button"
             onClick={handleToggle}
             aria-label={`Current page: ${pathDisplay}. Go to next page.`}
-            className="group absolute left-1/2 -translate-x-1/2 cursor-pointer px-6 py-2"
+            className="group absolute left-1/2 -translate-x-1/2 cursor-pointer px-3 py-2 sm:px-6"
           >
             {/* Revealed on hover for pointer users. Touch screens can't
                 hover, so there it's always shown — otherwise the middle of
