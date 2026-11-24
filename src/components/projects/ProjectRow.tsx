@@ -82,7 +82,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
       {/* Leading accent bar — slides in from the left edge */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-1/2 h-10 w-[2px] -translate-y-1/2 -translate-x-2 rounded-full bg-primary opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+        className="pointer-events-none absolute left-0 top-1/2 h-10 w-[2px] -translate-y-1/2 -translate-x-2 rounded-full bg-primary opacity-0 transition-[translate,opacity] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
         style={{
           transitionDuration: "300ms",
           transitionTimingFunction: EASE,

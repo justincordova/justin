@@ -169,7 +169,7 @@ export default function Navigation() {
             {/* Revealed on hover for pointer users. Touch screens can't
                 hover, so there it's always shown — otherwise the middle of
                 the nav is an invisible button. */}
-            <span className="block translate-y-2 select-none font-mono text-sm tracking-wide opacity-0 transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100">
+            <span className="block translate-y-2 select-none font-mono text-sm tracking-wide opacity-0 transition-[opacity,translate] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100">
               <span className="text-primary">~</span>
               <span className="text-muted">{pathDisplay.slice(1)}</span>
             </span>

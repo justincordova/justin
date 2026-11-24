@@ -206,7 +206,7 @@ export default function Photos() {
                         // makes the focused thumbnail obviously distinguishable
                         // from its neighbors (border shift alone isn't enough
                         // in dark mode).
-                        className="group block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-edge/80 hover:shadow-lg hover:shadow-black/20 focus-visible:border-edge/80 focus-visible:shadow-lg focus-visible:shadow-black/20 active:scale-[0.98]"
+                        className="group block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-[border-color,box-shadow,scale] duration-200 ease-out hover:border-edge/80 hover:shadow-lg hover:shadow-black/20 focus-visible:border-edge/80 focus-visible:shadow-lg focus-visible:shadow-black/20 active:scale-[0.98]"
                       >
                         <picture>
                           {photo.thumb.sources.webp && (

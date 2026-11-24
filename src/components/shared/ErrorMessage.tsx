@@ -34,7 +34,7 @@ export default function ErrorMessage({
           type="button"
           onClick={onRetry}
           disabled={retrying}
-          className="inline-flex items-center gap-2 rounded-lg border border-edge px-4 py-1.5 text-xs font-medium tracking-wide text-muted transition-[color,border-color,transform] duration-150 ease-out hover:border-primary/50 hover:text-primary active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-lg border border-edge px-4 py-1.5 text-xs font-medium tracking-wide text-muted transition-[color,border-color,scale] duration-150 ease-out hover:border-primary/50 hover:text-primary active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60"
         >
           {retrying && <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" />}
           {retrying ? "Retrying…" : "Try again"}
