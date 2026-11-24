@@ -22,6 +22,11 @@ let lockCount = 0;
 
 function acquire() {
   if (lockCount === 0) {
+    // On systems with classic (non-overlay) scrollbars, hiding the scrollbar
+    // widens the page and everything jumps sideways. Pad the body by the
+    // scrollbar's width so the layout stays put. Zero on overlay scrollbars.
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
     document.body.style.overflow = "hidden";
   }
   lockCount += 1;
@@ -31,6 +36,7 @@ function release() {
   lockCount = Math.max(0, lockCount - 1);
   if (lockCount === 0) {
     document.body.style.removeProperty("overflow");
+    document.body.style.removeProperty("padding-right");
   }
 }
 
