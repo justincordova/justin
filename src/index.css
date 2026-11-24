@@ -132,6 +132,9 @@
   :root {
     color-scheme: dark;
     accent-color: var(--color-primary);
+    /* Mobile browsers flash a grey box on tap; every control here has its own
+       pressed state, so the flash just doubles up. */
+    -webkit-tap-highlight-color: transparent;
   }
   :root[data-theme="light"] {
     color-scheme: light;
