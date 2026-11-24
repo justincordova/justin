@@ -1,13 +1,17 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { applyTheme, getStoredTheme, THEME_CHANGE_EVENT, type Theme } from "@/lib/theme";
+import {
+  applyTheme,
+  getExplicitTheme,
+  getStoredTheme,
+  THEME_CHANGE_EVENT,
+  type Theme,
+} from "@/lib/theme";
 
 export default function ThemeSelector() {
+  // The inline boot script in index.html has already applied the theme
+  // before paint, so mounting only needs to read it — not re-apply it.
   const [current, setCurrent] = useState<Theme>(getStoredTheme);
-
-  useEffect(() => {
-    applyTheme(getStoredTheme());
-  }, []);
 
   // Stay in sync with any other ThemeSelector instance (Navigation mounts a
   // desktop and a mobile one at the same time) so the hidden instance never
@@ -19,6 +23,18 @@ export default function ThemeSelector() {
     };
     window.addEventListener(THEME_CHANGE_EVENT, sync);
     return () => window.removeEventListener(THEME_CHANGE_EVENT, sync);
+  }, []);
+
+  // Until the user picks a theme, track the OS setting live.
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+    const mq = window.matchMedia("(prefers-color-scheme: light)");
+    const follow = () => {
+      if (getExplicitTheme()) return;
+      applyTheme(mq.matches ? "light" : "dark", { persist: false });
+    };
+    mq.addEventListener("change", follow);
+    return () => mq.removeEventListener("change", follow);
   }, []);
 
   function toggle() {

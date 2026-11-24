@@ -14,14 +14,25 @@ const THEME_COLORS: Record<Theme, string> = {
  */
 export const THEME_CHANGE_EVENT = "themechange";
 
-export function applyTheme(theme: Theme) {
+/**
+ * Apply a theme to the document. `persist` is false when following the OS
+ * preference so that following it never gets mistaken for an explicit
+ * choice (which would pin the theme and ignore later OS changes).
+ */
+export function applyTheme(theme: Theme, { persist = true }: { persist?: boolean } = {}) {
   document.documentElement.setAttribute("data-theme", theme);
-  localStorage.setItem("theme", theme);
+  if (persist) localStorage.setItem("theme", theme);
   // Keep the mobile browser chrome (Safari address bar, Chrome status bar) in
   // sync with the active theme so it doesn't flash the other color on toggle.
   const meta = document.getElementById("theme-color");
   if (meta) meta.setAttribute("content", THEME_COLORS[theme]);
   window.dispatchEvent(new CustomEvent<Theme>(THEME_CHANGE_EVENT, { detail: theme }));
+}
+
+/** The explicit choice saved by the toggle, or null if the user never made one. */
+export function getExplicitTheme(): Theme | null {
+  const stored = typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;
+  return stored === "light" || stored === "dark" ? stored : null;
 }
 
 /**
@@ -32,8 +43,8 @@ export function applyTheme(theme: Theme) {
  * the React tree will hydrate against a different theme than what painted.
  */
 export function getStoredTheme(): Theme {
-  const stored = typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;
-  if (stored === "light" || stored === "dark") return stored;
+  const explicit = getExplicitTheme();
+  if (explicit) return explicit;
   if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
     return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
   }
