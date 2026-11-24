@@ -1,0 +1,8 @@
+# Single-package repo. `packages` is listed explicitly because pnpm 9/10
+# (which Vercel may install with) reject a workspace file without it.
+packages:
+  - "."
+
+# pnpm 11+ blocks dependency install scripts unless approved here.
+allowBuilds:
+  esbuild: true
