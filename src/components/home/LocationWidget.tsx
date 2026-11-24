@@ -38,8 +38,19 @@ export default function LocationWidget() {
       setIsDaytime(h >= 6 && h < 18);
     };
 
-    const interval = setInterval(update, 60_000);
-    return () => clearInterval(interval);
+    // Tick on the minute boundary rather than 60s after mount, otherwise the
+    // clock can lag the real time by up to a minute.
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const msToNextMinute = 60_000 - (Date.now() % 60_000);
+    const timeout = setTimeout(() => {
+      update();
+      interval = setInterval(update, 60_000);
+    }, msToNextMinute);
+
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   const Icon = isDaytime ? Sun : Moon;
@@ -56,7 +67,7 @@ export default function LocationWidget() {
       </span>
       <span className="text-faint">·</span>
       <Icon className="h-3 w-3 text-muted md:h-3.5 md:w-3.5" aria-hidden="true" />
-      <span className="font-mono">{time} et</span>
+      <span className="font-mono tabular-nums">{time} et</span>
     </div>
   );
 }
