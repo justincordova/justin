@@ -29,6 +29,31 @@ export function applyTheme(theme: Theme, { persist = true }: { persist?: boolean
   window.dispatchEvent(new CustomEvent<Theme>(THEME_CHANGE_EVENT, { detail: theme }));
 }
 
+/**
+ * Apply a user-chosen theme as one crossfade. Without this, every element
+ * with its own `transition-colors` animates at its own speed and the page
+ * changes color in a staggered ripple. Per-element transitions are
+ * suppressed for the swap; where the View Transitions API exists the whole
+ * page crossfades instead.
+ */
+export function switchTheme(theme: Theme) {
+  const root = document.documentElement;
+  const swap = () => {
+    root.setAttribute("data-theme-switching", "");
+    applyTheme(theme);
+    // Force a style flush so the new colors land while transitions are off.
+    void getComputedStyle(root).color;
+    root.removeAttribute("data-theme-switching");
+  };
+
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  if (typeof document.startViewTransition !== "function" || reduceMotion) {
+    swap();
+    return;
+  }
+  document.startViewTransition(swap);
+}
+
 /** The explicit choice saved by the toggle, or null if the user never made one. */
 export function getExplicitTheme(): Theme | null {
   const stored = typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;

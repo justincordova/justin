@@ -4,6 +4,7 @@ import {
   applyTheme,
   getExplicitTheme,
   getStoredTheme,
+  switchTheme,
   THEME_CHANGE_EVENT,
   type Theme,
 } from "@/lib/theme";
@@ -39,7 +40,7 @@ export default function ThemeSelector() {
 
   function toggle() {
     const next: Theme = current === "dark" ? "light" : "dark";
-    applyTheme(next);
+    switchTheme(next);
   }
 
   return (

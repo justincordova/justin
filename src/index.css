@@ -149,11 +149,17 @@
     @apply outline-2 outline-offset-2 outline-primary;
   }
 
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 250ms;
+    animation-timing-function: var(--ease-out);
+  }
+
+  /* biome-ignore-start lint/complexity/noImportantStyles: must beat the utilities layer */
   /* !important is required: these rules live in the base layer, which loses
      to Tailwind's utilities layer (animate-*, duration-*) and to inline
      transition styles unless the declarations are important. Delays are
      zeroed too so staggered `both`-fill entrances don't sit invisible. */
-  /* biome-ignore-start lint/complexity/noImportantStyles: must beat the utilities layer */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -165,6 +171,14 @@
       transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  /* Set for a single frame by switchTheme() so the color swap is atomic. */
+  [data-theme-switching],
+  [data-theme-switching] *,
+  [data-theme-switching] *::before,
+  [data-theme-switching] *::after {
+    transition: none !important;
   }
   /* biome-ignore-end lint/complexity/noImportantStyles: must beat the utilities layer */
 }
