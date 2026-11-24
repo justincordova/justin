@@ -1,3 +1,4 @@
+import { Star } from "lucide-react";
 import { useState } from "react";
 import type { GitHubRepo } from "@/types/github";
 import ProjectGallery from "./ProjectGallery";
@@ -40,14 +41,7 @@ function ProjectLogo({ name }: { name: string }) {
   const logo = PROJECT_LOGOS[name.toLowerCase()];
 
   if (logo) {
-    return (
-      <img
-        src={logo}
-        alt={`${name} logo`}
-        className="h-7 w-7 shrink-0 object-contain"
-        loading="lazy"
-      />
-    );
+    return <img src={logo} alt="" className="h-7 w-7 shrink-0 object-contain" loading="lazy" />;
   }
 
   // Faint GitHub octocat fallback — keeps consistent visual weight when no logo is set
@@ -56,8 +50,7 @@ function ProjectLogo({ name }: { name: string }) {
       viewBox="0 0 24 24"
       className="h-7 w-7 shrink-0 text-faint/60"
       fill="currentColor"
-      role="img"
-      aria-label="GitHub repository"
+      aria-hidden="true"
     >
       <path d={OCTOCAT_PATH} />
     </svg>
@@ -89,7 +82,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
       {/* Leading accent bar — slides in from the left edge */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-1/2 h-10 w-[2px] -translate-y-1/2 -translate-x-2 rounded-full bg-primary opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
+        className="pointer-events-none absolute left-0 top-1/2 h-10 w-[2px] -translate-y-1/2 -translate-x-2 rounded-full bg-primary opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
         style={{
           transitionDuration: "300ms",
           transitionTimingFunction: EASE,
@@ -99,41 +92,38 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
       <ProjectLogo name={repo.name} />
 
       <div className="min-w-0 flex-1">
-        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-200 ease-out group-hover:text-primary">
+        <h3 className="flex items-center gap-2 font-sans text-base font-medium text-content transition-colors duration-200 ease-out group-hover:text-primary group-focus-visible:text-primary">
           <span className="truncate">{repo.name}</span>
           {featured && (
-            <span className="shrink-0 text-xs text-faint/60" title="Featured" aria-hidden="true">
-              ★
-            </span>
+            <>
+              <Star className="h-3 w-3 shrink-0 fill-current text-faint/60" aria-hidden="true" />
+              <span className="sr-only">(featured)</span>
+            </>
           )}
+          {/* Negative margin grows the tap target to 24px without shifting
+              the icon's visual position. */}
           <a
             href={repo.html_url}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            aria-label={`${repo.name} on GitHub`}
-            className="shrink-0 text-faint/70 transition-colors duration-200 hover:text-content"
+            className="-m-1 shrink-0 rounded p-1 text-faint/70 transition-colors duration-200 hover:text-content"
           >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-4 w-4"
-              fill="currentColor"
-              role="img"
-              aria-label="GitHub"
-            >
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
               <path d={OCTOCAT_PATH} />
             </svg>
+            <span className="sr-only">{repo.name} on GitHub</span>
           </a>
         </h3>
         <p
-          className="mt-0.5 truncate text-sm text-muted transition-colors duration-200 ease-out group-hover:text-content"
+          className="mt-0.5 truncate text-sm text-muted transition-colors duration-200 ease-out group-hover:text-content group-focus-visible:text-content"
           style={{ transitionDelay: "60ms" }}
         >
           {repo.description || "No description available."}
         </p>
         {topics.length > 0 && (
           <p
-            className="mt-1.5 truncate font-mono text-xs text-faint transition-colors duration-200 ease-out group-hover:text-muted"
+            className="mt-1.5 truncate font-mono text-xs text-faint transition-colors duration-200 ease-out group-hover:text-muted group-focus-visible:text-muted"
             style={{ transitionDelay: "80ms" }}
           >
             {topics.join(" · ")}
@@ -144,7 +134,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
   );
 
   const baseClass =
-    "animate-fade-up group relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left last:border-b-0";
+    "animate-fade-up relative flex w-full items-center gap-5 border-b border-edge/40 px-2 py-5 text-left last:border-b-0";
 
   if (isInteractive) {
     // The row content includes a nested GitHub <a href>. A <button> may not
@@ -175,7 +165,7 @@ export default function ProjectRow({ repo, featured, index = 0 }: ProjectRowProp
             transitionDuration: "250ms",
             transitionTimingFunction: "ease-out",
           }}
-          className={`${baseClass} cursor-pointer hover:bg-surface/30`}
+          className={`${baseClass} group cursor-pointer hover:bg-surface/30 focus-visible:bg-surface/30 active:bg-surface/50`}
         >
           {content}
         </div>
