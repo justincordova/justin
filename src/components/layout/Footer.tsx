@@ -39,9 +39,9 @@ function LatestCommit() {
   }, [timestamp]);
 
   // Reserve vertical space even when the commit hasn't loaded yet so the
-  // footer doesn't visibly shift on cold-start renders. 14px ≈ the rendered
-  // line height of the mono line below.
-  if (!latest) return <div aria-hidden="true" className="h-[0.875rem]" />;
+  // footer doesn't visibly shift on cold-start renders. The link below pins
+  // its line height to the same h-4 so the two always match.
+  if (!latest) return <div aria-hidden="true" className="h-4" />;
 
   const message = latest.message.split("\n")[0];
 
@@ -50,7 +50,7 @@ function LatestCommit() {
       href={latest.commitUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex max-w-full items-center gap-2 truncate font-mono text-[0.6875rem] text-muted transition-colors hover:text-content"
+      className="group inline-flex h-4 max-w-full items-center gap-2 truncate font-mono text-[0.6875rem] leading-4 text-muted transition-colors hover:text-content"
     >
       <span
         aria-hidden="true"
@@ -62,7 +62,7 @@ function LatestCommit() {
       <span className="text-faint/60">·</span>
       <span className="text-faint">{latest.repoName}</span>
       <span className="text-faint/60">·</span>
-      <span className="text-faint">{timeAgo(latest.timestamp)}</span>
+      <span className="shrink-0 text-faint tabular-nums">{timeAgo(latest.timestamp)}</span>
     </a>
   );
 }
