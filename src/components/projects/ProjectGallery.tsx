@@ -25,6 +25,16 @@ export default function ProjectGallery({ name, images, open, onClose }: ProjectG
     if (open) setIndex(0);
   }, [open]);
 
+  // Galleries are only a handful of screenshots — fetch them all on open so
+  // stepping through never shows a half-loaded image.
+  useEffect(() => {
+    if (!open) return;
+    for (const src of images) {
+      const img = new Image();
+      img.src = src;
+    }
+  }, [open, images]);
+
   useEffect(() => {
     if (!open) return;
     function handleKey(e: KeyboardEvent) {
