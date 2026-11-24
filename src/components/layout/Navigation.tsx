@@ -1,6 +1,6 @@
 import type { LucideProps } from "lucide-react";
 import { FileText, Mail, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 
 import ThemeSelector from "@/components/layout/ThemeSelector";
@@ -86,6 +86,28 @@ export default function Navigation() {
   const pathDisplay = getPathDisplay(location.pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Close the mobile menu whenever the route changes — including navigation
+  // that doesn't go through the menu links (the center path button, back/
+  // forward). Adjusting state during render avoids a flash of the open menu
+  // on the new page.
+  const [menuPath, setMenuPath] = useState(location.pathname);
+  if (menuPath !== location.pathname) {
+    setMenuPath(location.pathname);
+    setMobileOpen(false);
+  }
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMobileOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [mobileOpen]);
 
   // Close the mobile menu when the viewport grows past the `sm` breakpoint.
   // The menu is hidden by `sm:hidden` at that width, so leaving it "open"
@@ -175,6 +197,7 @@ export default function Navigation() {
           <div className="ml-auto flex items-center gap-2 sm:hidden">
             <ThemeSelector />
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-content"
