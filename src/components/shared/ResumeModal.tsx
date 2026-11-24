@@ -1,4 +1,4 @@
-import { Download, X } from "lucide-react";
+import { Download, ExternalLink, X } from "lucide-react";
 import { useEffect } from "react";
 import FocusLock from "react-focus-lock";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
@@ -39,21 +39,32 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
           <div className="flex items-center justify-between border-b border-edge px-5 py-3">
             <span className="text-sm font-medium text-muted">Resume</span>
             <div className="flex items-center gap-2">
+              {/* Mobile browsers render inline PDFs poorly (often just the
+                  first page), so offer the browser's own viewer too. */}
+              <a
+                href="/justincordova.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md p-1.5 text-muted transition-colors hover:bg-surface hover:text-primary"
+                aria-label="Open resume in a new tab"
+              >
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              </a>
               <a
                 href="/justincordova.pdf"
                 download
                 className="rounded-md p-1.5 text-muted transition-colors hover:bg-surface hover:text-primary"
                 aria-label="Download resume"
               >
-                <Download className="h-4 w-4" />
+                <Download className="h-4 w-4" aria-hidden="true" />
               </a>
               <button
                 type="button"
                 onClick={onClose}
                 className="rounded-md p-1.5 text-muted transition-colors hover:bg-surface hover:text-content"
-                aria-label="Close"
+                aria-label="Close resume"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
           </div>
