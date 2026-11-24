@@ -41,8 +41,10 @@ export function switchTheme(theme: Theme) {
   const swap = () => {
     root.setAttribute("data-theme-switching", "");
     applyTheme(theme);
-    // Force a style flush so the new colors land while transitions are off.
-    void getComputedStyle(root).color;
+    // Force a full-document style flush so every element picks up the new
+    // colors while transitions are off. (getComputedStyle on the root alone
+    // would only resolve the root, leaving descendants to transition.)
+    void document.body.offsetHeight;
     root.removeAttribute("data-theme-switching");
   };
 
