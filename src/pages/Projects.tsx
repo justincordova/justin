@@ -110,7 +110,9 @@ export default function Projects() {
                     className="sticky z-10 mb-2 flex items-center gap-4 bg-bg/95 py-2 backdrop-blur-sm"
                     style={{ top: "var(--nav-h)" }}
                   >
-                    <span className="font-mono text-xs tracking-[0.15em] text-muted">{year}</span>
+                    <h2 className="font-mono text-xs font-normal tracking-[0.15em] text-muted tabular-nums">
+                      {year}
+                    </h2>
                     <div className="h-px flex-1 bg-edge/40" />
                   </div>
                   <div>
