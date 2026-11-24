@@ -63,10 +63,11 @@ export default function Hero() {
         }}
       >
         <img
-          src="/about.png"
+          src="/about.webp"
           alt="Justin Cordova"
-          width={256}
-          height={256}
+          width={384}
+          height={384}
+          fetchPriority="high"
           className="h-40 w-40 shrink-0 rounded-xl border border-edge object-cover transition-transform duration-300 ease-out hover:scale-[1.02] md:h-48 md:w-48"
         />
         <div className="text-center md:text-left">

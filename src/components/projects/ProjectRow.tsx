@@ -4,12 +4,12 @@ import type { GitHubRepo } from "@/types/github";
 import ProjectGallery from "./ProjectGallery";
 
 const PROJECT_LOGOS: Record<string, string> = {
-  jobvr: "/logos/jobvr.png",
-  seshr: "/logos/seshr.png",
-  findu: "/logos/findu.png",
-  rumi: "/logos/rumi.png",
-  arcadeai: "/logos/arcadeai.png",
-  dotcor: "/logos/dotcor.png",
+  jobvr: "/logos/jobvr.webp",
+  seshr: "/logos/seshr.webp",
+  findu: "/logos/findu.webp",
+  rumi: "/logos/rumi.webp",
+  arcadeai: "/logos/arcadeai.webp",
+  dotcor: "/logos/dotcor.webp",
 };
 
 const PROJECT_URLS: Record<string, string> = {
@@ -17,10 +17,10 @@ const PROJECT_URLS: Record<string, string> = {
 };
 
 const PROJECT_GALLERY: Record<string, string[]> = {
-  seshr: ["/demo/seshr1.png", "/demo/seshr2.png", "/demo/seshr3.png"],
-  findu: ["/demo/findu1.jpeg", "/demo/findu2.jpeg", "/demo/findu3.png", "/demo/findu4.png"],
-  rumi: ["/demo/rumi1.png", "/demo/rumi2.png", "/demo/rumi3.png", "/demo/rumi4.png"],
-  dotcor: ["/demo/dotcor1.png", "/demo/dotcor2.png", "/demo/dotcor3.png"],
+  seshr: ["/demo/seshr1.webp", "/demo/seshr2.webp", "/demo/seshr3.webp"],
+  findu: ["/demo/findu1.webp", "/demo/findu2.webp", "/demo/findu3.webp", "/demo/findu4.webp"],
+  rumi: ["/demo/rumi1.webp", "/demo/rumi2.webp", "/demo/rumi3.webp", "/demo/rumi4.webp"],
+  dotcor: ["/demo/dotcor1.webp", "/demo/dotcor2.webp", "/demo/dotcor3.webp"],
 };
 
 interface ProjectRowProps {
