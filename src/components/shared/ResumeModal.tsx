@@ -29,11 +29,11 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Resume"
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-bg/80 backdrop-blur-sm"
+        className="fixed inset-0 z-[100] flex animate-fade-in items-center justify-center bg-bg/80 backdrop-blur-sm"
         onClick={onClose}
       >
         <div
-          className="animate-fade-in relative mx-4 flex h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-edge bg-bg shadow-2xl"
+          className="animate-modal-in relative mx-4 flex h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-edge bg-bg shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between border-b border-edge px-5 py-3">

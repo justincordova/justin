@@ -44,11 +44,11 @@ export default function ProjectGallery({ name, images, open, onClose }: ProjectG
         role="dialog"
         aria-modal="true"
         aria-label={`${name} screenshots`}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-bg/80 backdrop-blur-sm"
+        className="fixed inset-0 z-[100] flex animate-fade-in items-center justify-center bg-bg/80 backdrop-blur-sm"
         onClick={onClose}
       >
         <div
-          className="animate-fade-in relative mx-4 flex w-full max-w-3xl flex-col items-center gap-4 rounded-xl border border-edge bg-surface p-4 shadow-2xl"
+          className="animate-modal-in relative mx-4 flex w-full max-w-3xl flex-col items-center gap-4 rounded-xl border border-edge bg-surface p-4 shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex w-full items-center justify-between">
