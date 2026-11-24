@@ -1,8 +1,10 @@
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import Hero from "@/components/home/Hero";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useSpaceScrollToHero } from "@/hooks/useSpaceScrollToHero";
 
 export default function Home() {
+  useDocumentTitle();
   useSpaceScrollToHero();
 
   return (

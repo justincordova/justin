@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import FocusLock from "react-focus-lock";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { type AlbumPhoto, getAlbumPhotos } from "@/lib/album-images";
 import { ALBUMS, type AlbumMeta } from "@/lib/albums";
 
@@ -16,6 +17,7 @@ type Section = {
 const SWIPE_THRESHOLD_PX = 50;
 
 export default function Photos() {
+  useDocumentTitle("Photos");
   // Flatten albums into one ordered list of photos plus an index of sections.
   // The lightbox steps through the flat list so prev/next traverses sections
   // naturally; sections themselves are just visual groupings.

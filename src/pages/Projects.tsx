@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import ProjectRow from "@/components/projects/ProjectRow";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import { ProjectRowSkeleton } from "@/components/shared/SkeletonLoader";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useGitHubProjects } from "@/hooks/useGitHubProjects";
 import { ApiError, CURATED_PROJECTS, FEATURED_PROJECTS, PROJECTS_ERROR_COPY } from "@/lib/github";
 import type { GitHubRepo } from "@/types/github";
@@ -39,6 +40,7 @@ function getYearRange(repos: GitHubRepo[]): { min: number; max: number } | null 
 }
 
 export default function Projects() {
+  useDocumentTitle("Projects");
   const {
     data: repos,
     isLoading,

@@ -1,7 +1,9 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 export default function NotFound() {
+  useDocumentTitle("Page not found");
   return (
     <div className="flex min-h-[60svh] flex-col items-center justify-center gap-4 px-6 text-center">
       <p className="font-sans text-6xl font-light text-faint">404</p>
