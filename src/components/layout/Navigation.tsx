@@ -183,7 +183,7 @@ export default function Navigation() {
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={link.label}
-                className={`group rounded-lg p-2 text-muted transition-colors duration-200 hover:bg-surface ${link.color}`}
+                className={`group rounded-lg p-2 text-muted transition-[color,background-color,scale] duration-150 ease-out active:scale-[0.94] hover:bg-surface ${link.color}`}
               >
                 <link.icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
               </a>
@@ -192,7 +192,7 @@ export default function Navigation() {
               type="button"
               onClick={() => setResumeOpen(true)}
               aria-label="Open resume"
-              className="group rounded-lg p-2 text-muted transition-colors duration-200 hover:bg-surface hover:text-secondary"
+              className="group rounded-lg p-2 text-muted transition-[color,background-color,scale] duration-150 ease-out active:scale-[0.94] hover:bg-surface hover:text-secondary"
             >
               <FileText className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
             </button>
@@ -208,7 +208,7 @@ export default function Navigation() {
                 setMenuToggled(true);
                 setMobileOpen(!mobileOpen);
               }}
-              className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-content"
+              className="rounded-md p-2 text-muted transition-[color,background-color,scale] duration-150 ease-out active:scale-[0.94] hover:bg-surface hover:text-content"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -260,7 +260,7 @@ export default function Navigation() {
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={link.label}
-                    className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-content"
+                    className="rounded-lg p-2 text-muted transition-[color,background-color,scale] duration-150 ease-out active:scale-[0.94] hover:bg-surface hover:text-content"
                   >
                     <link.icon className="h-4 w-4" />
                   </a>
@@ -272,7 +272,7 @@ export default function Navigation() {
                     setResumeOpen(true);
                   }}
                   aria-label="Open resume"
-                  className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-secondary"
+                  className="rounded-lg p-2 text-muted transition-[color,background-color,scale] duration-150 ease-out active:scale-[0.94] hover:bg-surface hover:text-secondary"
                 >
                   <FileText className="h-4 w-4" />
                 </button>

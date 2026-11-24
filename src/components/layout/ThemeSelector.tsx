@@ -52,7 +52,7 @@ export default function ThemeSelector() {
     <button
       type="button"
       onClick={toggle}
-      className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-content"
+      className="rounded-md p-2 text-muted transition-[color,background-color,scale] duration-150 ease-out active:scale-[0.94] hover:bg-surface hover:text-content"
       aria-label={`Switch to ${current === "dark" ? "light" : "dark"} theme`}
     >
       {current === "dark" ? (
