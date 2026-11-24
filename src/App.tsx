@@ -33,6 +33,9 @@ function PageTransition({ children }: { children: React.ReactNode }) {
       }, PAGE_FADE_MS);
       return () => clearTimeout(timeout);
     }
+    // Navigated away and straight back before the fade finished: the pending
+    // swap was cancelled above, so un-hide the page that's still mounted.
+    setTransitioning(false);
   }, [location, displayLocation]);
 
   return (
