@@ -142,16 +142,24 @@
     @apply outline-2 outline-offset-2 outline-primary;
   }
 
+  /* !important is required: these rules live in the base layer, which loses
+     to Tailwind's utilities layer (animate-*, duration-*) and to inline
+     transition styles unless the declarations are important. Delays are
+     zeroed too so staggered `both`-fill entrances don't sit invisible. */
+  /* biome-ignore-start lint/complexity/noImportantStyles: must beat the utilities layer */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-      animation-duration: 0.01ms;
-      animation-iteration-count: 1;
-      transition-duration: 0.01ms;
-      scroll-behavior: auto;
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+      scroll-behavior: auto !important;
     }
   }
+  /* biome-ignore-end lint/complexity/noImportantStyles: must beat the utilities layer */
 }
 
 @layer components {
