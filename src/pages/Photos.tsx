@@ -1,9 +1,10 @@
 import { ChevronLeft, ChevronRight, Loader2, X } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import FocusLock from "react-focus-lock";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { useSwipe } from "@/hooks/useSwipe";
 import { type AlbumPhoto, getAlbumPhotos } from "@/lib/album-images";
 import { ALBUMS, type AlbumMeta } from "@/lib/albums";
 
@@ -13,8 +14,6 @@ type Section = {
   /** Index of the first photo in this section within the flat photo list. */
   offset: number;
 };
-
-const SWIPE_THRESHOLD_PX = 50;
 
 // `sizes` must be repeated on each <source>: the <img>'s attribute doesn't
 // apply to sources, which otherwise assume 100vw and over-fetch.
@@ -99,27 +98,8 @@ export default function Photos() {
     }
   }, [selectedIndex, allPhotos, total]);
 
-  // Horizontal swipe steps through photos on touch screens, where the arrow
-  // buttons are the only other way to navigate. Mostly-vertical drags are
-  // ignored so they don't fight a scroll or pinch gesture.
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length !== 1) {
-      touchStart.current = null;
-      return;
-    }
-    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const start = touchStart.current;
-    touchStart.current = null;
-    if (!start) return;
-    const dx = e.changedTouches[0].clientX - start.x;
-    const dy = e.changedTouches[0].clientY - start.y;
-    if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) < Math.abs(dy)) return;
-    if (dx < 0) goNext();
-    else goPrev();
-  };
+  // Swipe is the touch-screen alternative to the arrow keys.
+  const swipeHandlers = useSwipe(goPrev, goNext);
 
   const open = (index: number) => {
     setImageLoading(true);
@@ -253,8 +233,7 @@ export default function Photos() {
               aria-label={`Photo ${selectedIndex + 1} of ${total}`}
               className="fixed inset-0 z-[100] flex animate-fade-in items-center justify-center bg-black/85 p-4"
               onClick={close}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
+              {...swipeHandlers}
             >
               {/* Counter — top-left, mono, intentionally understated. Marked
                 aria-hidden because the dialog's own aria-label already

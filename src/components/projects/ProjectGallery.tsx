@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import FocusLock from "react-focus-lock";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useSwipe } from "@/hooks/useSwipe";
 
 interface ProjectGalleryProps {
   name: string;
@@ -20,6 +21,7 @@ export default function ProjectGallery({ name, images, open, onClose }: ProjectG
     [images.length],
   );
   const next = useCallback(() => setIndex((i) => (i + 1) % images.length), [images.length]);
+  const swipeHandlers = useSwipe(prev, next);
 
   useEffect(() => {
     if (open) setIndex(0);
@@ -58,6 +60,7 @@ export default function ProjectGallery({ name, images, open, onClose }: ProjectG
         onClick={onClose}
       >
         <div
+          {...swipeHandlers}
           className="animate-modal-in relative mx-4 flex w-full max-w-3xl flex-col items-center gap-4 rounded-xl border border-edge bg-surface p-4 shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
