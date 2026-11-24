@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Loader2, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import FocusLock from "react-focus-lock";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { type AlbumPhoto, getAlbumPhotos } from "@/lib/album-images";
@@ -240,90 +241,99 @@ export default function Photos() {
         )}
       </div>
 
-      {selectedPhoto !== null && selectedIndex !== null && (
-        <FocusLock returnFocus>
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Photo ${selectedIndex + 1} of ${total}`}
-            className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/85 p-4"
-            onClick={close}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          >
-            {/* Counter — top-left, mono, intentionally understated. Marked
+      {selectedPhoto !== null &&
+        selectedIndex !== null &&
+        createPortal(
+          <FocusLock returnFocus>
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Photo ${selectedIndex + 1} of ${total}`}
+              className="fixed inset-0 z-[100] flex animate-fade-in items-center justify-center bg-black/85 p-4"
+              onClick={close}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              {/* Counter — top-left, mono, intentionally understated. Marked
                 aria-hidden because the dialog's own aria-label already
                 announces the position; a live region here would spam SR
                 users on every prev/next press. */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute left-4 top-4 z-10 font-mono text-xs tracking-[0.2em] text-white/70"
-            >
-              {String(selectedIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-            </span>
-
-            {/* All lightbox controls share these classes: large enough
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-4 top-4 z-10 font-mono text-xs tracking-[0.2em] text-white/70 tabular-nums"
+              >
+                {String(selectedIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+              </span>
+              {/* All lightbox controls share these classes: large enough
                 touch targets (44x44), white focus ring that stays visible
                 over any photo, custom outline override since the global
                 purple outline disappears against dark images. */}
-            <button
-              type="button"
-              onClick={close}
-              aria-label="Close lightbox"
-              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80"
-            >
-              <X className="h-5 w-5" aria-hidden="true" />
-            </button>
-
-            {total > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    goPrev();
-                  }}
-                  aria-label="Previous photo"
-                  className="absolute left-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80 sm:left-6"
-                >
-                  <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    goNext();
-                  }}
-                  aria-label="Next photo"
-                  className="absolute right-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80 sm:right-6"
-                >
-                  <ChevronRight className="h-5 w-5" aria-hidden="true" />
-                </button>
-              </>
-            )}
-
-            {imageLoading && <Loader2 className="absolute h-12 w-12 animate-spin text-primary" />}
-            <picture key={selectedPhoto.full.img.src}>
-              {selectedPhoto.full.sources.webp && (
-                <source srcSet={selectedPhoto.full.sources.webp} type="image/webp" />
+              <button
+                type="button"
+                onClick={close}
+                aria-label="Close lightbox"
+                className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80"
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+              {total > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      goPrev();
+                    }}
+                    aria-label="Previous photo"
+                    className="absolute left-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80 sm:left-6"
+                  >
+                    <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      goNext();
+                    }}
+                    aria-label="Next photo"
+                    className="absolute right-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-content outline-none transition-colors hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-white/80 sm:right-6"
+                  >
+                    <ChevronRight className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                </>
               )}
-              <img
-                ref={handleImageRef}
-                src={selectedPhoto.full.img.src}
-                srcSet={selectedPhoto.full.sources.jpg}
-                width={selectedPhoto.full.img.w}
-                height={selectedPhoto.full.img.h}
-                alt={`Enlarged view - photo ${selectedIndex + 1} of ${total}`}
-                onLoad={() => setImageLoading(false)}
-                onError={() => setImageLoading(false)}
-                onClick={(e) => e.stopPropagation()}
-                sizes="90vw"
-                className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${imageLoading ? "opacity-0" : "animate-zoom-in"}`}
-              />
-            </picture>
-          </div>
-        </FocusLock>
-      )}
+              {/* The spinner waits before fading in so fast (or preloaded)
+                photos never flash it. Fade and spin live on separate
+                elements because each owns the `animation` property. */}
+              {imageLoading && (
+                <span className="absolute animate-fade-in [animation-delay:300ms]">
+                  <Loader2 className="h-10 w-10 animate-spin text-white/70" aria-hidden="true" />
+                </span>
+              )}
+              <picture key={selectedPhoto.full.img.src}>
+                {selectedPhoto.full.sources.webp && (
+                  <source srcSet={selectedPhoto.full.sources.webp} type="image/webp" />
+                )}
+                <img
+                  ref={handleImageRef}
+                  src={selectedPhoto.full.img.src}
+                  srcSet={selectedPhoto.full.sources.jpg}
+                  width={selectedPhoto.full.img.w}
+                  height={selectedPhoto.full.img.h}
+                  alt={`Enlarged view - photo ${selectedIndex + 1} of ${total}`}
+                  onLoad={() => setImageLoading(false)}
+                  onError={() => setImageLoading(false)}
+                  onClick={(e) => e.stopPropagation()}
+                  sizes="90vw"
+                  // Opacity only: prev/next is a rapid, often keyboard-driven
+                  // action, so it gets a quick fade rather than a zoom.
+                  className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain transition-opacity duration-200 ease-out ${imageLoading ? "opacity-0" : "opacity-100"}`}
+                />
+              </picture>
+            </div>
+          </FocusLock>,
+          document.body,
+        )}
     </div>
   );
 }
