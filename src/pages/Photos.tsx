@@ -195,7 +195,7 @@ export default function Photos() {
                   // lazy.
                   const aboveFold = sectionIndex === 0 && i < 6;
                   return (
-                    <figure key={photo.path} className="group break-inside-avoid">
+                    <figure key={photo.path} className="break-inside-avoid">
                       <button
                         type="button"
                         onClick={() => open(flatIndex)}
@@ -204,7 +204,7 @@ export default function Photos() {
                         // makes the focused thumbnail obviously distinguishable
                         // from its neighbors (border shift alone isn't enough
                         // in dark mode).
-                        className="block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-all duration-300 hover:border-edge/80 hover:shadow-lg hover:shadow-black/20 focus-visible:border-edge/80 focus-visible:shadow-lg focus-visible:shadow-black/20"
+                        className="group block w-full overflow-hidden rounded-lg border border-edge bg-surface/40 transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-edge/80 hover:shadow-lg hover:shadow-black/20 focus-visible:border-edge/80 focus-visible:shadow-lg focus-visible:shadow-black/20 active:scale-[0.98]"
                       >
                         <picture>
                           {photo.thumb.sources.webp && (
@@ -219,19 +219,10 @@ export default function Photos() {
                             loading={aboveFold ? "eager" : "lazy"}
                             decoding="async"
                             sizes="(min-width: 1600px) 480px, (min-width: 1024px) 350px, 50vw"
-                            className="block w-full transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                            className="block w-full transition-transform duration-300 ease-out group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
                           />
                         </picture>
                       </button>
-                      <figcaption
-                        // Visible but understated on touch (no hover state to
-                        // discover) and keyboard focus. On pointer devices it
-                        // brightens to full opacity on hover/focus.
-                        className="mt-1.5 px-0.5 font-mono text-[0.625rem] tracking-[0.15em] text-faint/60 transition-opacity duration-300 sm:opacity-40 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
-                      >
-                        {String(i + 1).padStart(2, "0")} /{" "}
-                        {String(section.photos.length).padStart(2, "0")}
-                      </figcaption>
                     </figure>
                   );
                 })}
