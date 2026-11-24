@@ -1,5 +1,6 @@
 import {
   siC,
+  siCplusplus,
   siDotnet,
   siGo,
   siJavascript,
@@ -22,6 +23,7 @@ const icons = [
   { name: "Go", path: siGo.path, color: `#${siGo.hex}` },
   { name: "Python", path: siPython.path, color: `#${siPython.hex}` },
   { name: "C", path: siC.path, color: `#${siC.hex}` },
+  { name: "C++", path: siCplusplus.path, color: `#${siCplusplus.hex}` },
   { name: "React", path: siReact.path, color: `#${siReact.hex}` },
   { name: "Node.js", path: siNodedotjs.path, color: `#${siNodedotjs.hex}` },
   { name: ".NET", path: siDotnet.path, color: `#${siDotnet.hex}` },
