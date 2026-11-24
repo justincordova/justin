@@ -2,7 +2,7 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { imagetools } from "vite-imagetools";
 import path from "path";
-import apiDevPlugin from "./api/dev";
+import apiDevPlugin from "./api/dev.ts";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
+        "@": path.resolve(import.meta.dirname, "./src"),
       },
     },
   };
