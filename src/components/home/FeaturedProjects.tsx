@@ -56,7 +56,7 @@ export default function FeaturedProjects() {
 
         <div className="border-t border-edge/40">
           {isLoading && (
-            <div>
+            <div role="status" aria-label="Loading projects">
               {Array.from({ length: FEATURED_PROJECTS.length }).map((_, i) => (
                 <ProjectRowSkeleton key={i} />
               ))}

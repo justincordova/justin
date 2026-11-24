@@ -83,7 +83,7 @@ export default function Projects() {
         </header>
 
         {isLoading && (
-          <div>
+          <div role="status" aria-label="Loading projects">
             {Array.from({ length: 6 }).map((_, i) => (
               <ProjectRowSkeleton key={i} />
             ))}
