@@ -163,6 +163,14 @@
     min-height: 100vh;
   }
 
+  /* Even out ragged headings and avoid one-word last lines in prose. */
+  :where(h1, h2, h3) {
+    text-wrap: balance;
+  }
+  :where(p) {
+    text-wrap: pretty;
+  }
+
   ::selection {
     background-color: color-mix(in srgb, var(--color-primary, #977ed4) 30%, transparent);
     color: var(--color-content, #e4e4e7);
