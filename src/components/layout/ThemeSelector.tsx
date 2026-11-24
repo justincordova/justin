@@ -13,6 +13,8 @@ export default function ThemeSelector() {
   // The inline boot script in index.html has already applied the theme
   // before paint, so mounting only needs to read it — not re-apply it.
   const [current, setCurrent] = useState<Theme>(getStoredTheme);
+  // Only animate the icon after a click, not on first paint.
+  const [toggled, setToggled] = useState(false);
 
   // Stay in sync with any other ThemeSelector instance (Navigation mounts a
   // desktop and a mobile one at the same time) so the hidden instance never
@@ -40,8 +42,11 @@ export default function ThemeSelector() {
 
   function toggle() {
     const next: Theme = current === "dark" ? "light" : "dark";
+    setToggled(true);
     switchTheme(next);
   }
+
+  const iconClass = `h-5 w-5 ${toggled ? "animate-icon-swap" : ""}`;
 
   return (
     <button
@@ -50,7 +55,11 @@ export default function ThemeSelector() {
       className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-content"
       aria-label={`Switch to ${current === "dark" ? "light" : "dark"} theme`}
     >
-      {current === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      {current === "dark" ? (
+        <Sun key="sun" className={iconClass} aria-hidden="true" />
+      ) : (
+        <Moon key="moon" className={iconClass} aria-hidden="true" />
+      )}
     </button>
   );
 }

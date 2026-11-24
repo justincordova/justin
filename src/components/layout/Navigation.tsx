@@ -87,6 +87,8 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  // Only animate the menu icon after a click, not on first paint.
+  const [menuToggled, setMenuToggled] = useState(false);
 
   // Close the mobile menu whenever the route changes — including navigation
   // that doesn't go through the menu links (the center path button, back/
@@ -202,13 +204,28 @@ export default function Navigation() {
             <button
               ref={menuButtonRef}
               type="button"
-              onClick={() => setMobileOpen(!mobileOpen)}
+              onClick={() => {
+                setMenuToggled(true);
+                setMobileOpen(!mobileOpen);
+              }}
               className="rounded-md p-2 text-muted transition-colors hover:bg-surface hover:text-content"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
             >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileOpen ? (
+                <X
+                  key="close"
+                  className={cn("h-5 w-5", menuToggled && "animate-icon-swap")}
+                  aria-hidden="true"
+                />
+              ) : (
+                <Menu
+                  key="open"
+                  className={cn("h-5 w-5", menuToggled && "animate-icon-swap")}
+                  aria-hidden="true"
+                />
+              )}
             </button>
           </div>
         </div>
